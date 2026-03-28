@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QuanLyTiemGiaoHoa.Data;
 
@@ -11,9 +12,11 @@ using QuanLyTiemGiaoHoa.Data;
 namespace QuanLyTiemGiaoHoa.Migrations
 {
     [DbContext(typeof(QLTGHDbContext))]
-    partial class QLTGHDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260326191002_BoSung")]
+    partial class BoSung
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

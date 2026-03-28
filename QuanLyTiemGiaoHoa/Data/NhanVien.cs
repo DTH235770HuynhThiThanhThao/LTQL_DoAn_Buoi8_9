@@ -15,9 +15,13 @@ namespace QuanLyTiemGiaoHoa.Data
         public string TenDangNhap { get; set; }
         public string MatKhau { get; set; }
         public bool QuyenHan { get; set; }
-        //public int QuyenHan { get; set; }
 
         // Navigation
         public ICollection<HoaDon> HoaDon { get; set; } = new List<HoaDon>();
+
+        // Bổ sung: Danh sách các đơn hàng nhân viên này đi giao
+        public ICollection<GiaoHang> GiaoHangs { get; set; } = new List<GiaoHang>();   // thêm
+
+
     }
 }

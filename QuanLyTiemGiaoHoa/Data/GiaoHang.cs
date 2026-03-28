@@ -13,18 +13,40 @@ namespace QuanLyTiemGiaoHoa.Data
         public int HoaDonID { get; set; }
         public int NhanVienID { get; set; } // nhân viên giao
 
+        public string TenNguoiNhan { get; set; }
+        public string DienThoaiNhan { get; set; }
+
         public string DiaChiGiao { get; set; }
         public DateTime NgayGiao { get; set; }
 
-        //public string TrangThai { get; set; }
-        // VD: "Chờ giao", "Đang giao", "Đã giao", "Hủy"
-        // DÙNG ENUM (thay cho string)
+
+        // Sử dụng Enum từ file TrangThaiGiaoHang.cs bạn vừa tạo
         public TrangThaiGiaoHang TrangThai { get; set; } = TrangThaiGiaoHang.ChoGiao;
 
         public string? GhiChu { get; set; }
 
-        // Navigation
+        // Navigation properties để Entity Framework hiểu mối quan hệ
         public HoaDon HoaDon { get; set; }
         public NhanVien NhanVien { get; set; }
+    }
+
+
+    public class DanhSachGiaoHang
+    {
+        public int ID { get; set; }
+        public int HoaDonID { get; set; }
+
+        public int NhanVienID { get; set; }
+        public string HoVaTenNhanVien { get; set; } // Hiển thị tên shipper thay vì ID
+
+        public string TenNguoiNhan { get; set; }
+        public string DienThoaiNhan { get; set; }
+        public string DiaChiGiao { get; set; }
+        public DateTime NgayGiao { get; set; }
+
+        public TrangThaiGiaoHang TrangThai { get; set; }
+
+        public decimal? TongTienHoaDon { get; set; } // Tiền cần thu hộ (lấy từ HoaDon)
+        public string? GhiChu { get; set; }
     }
 }

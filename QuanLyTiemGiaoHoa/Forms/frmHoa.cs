@@ -24,6 +24,8 @@ namespace QuanLyTiemGiaoHoa.Forms
         int gocXoay = 0;
         string imagesFolder = Application.StartupPath.Replace("bin\\Debug\\net5.0-windows", "Images");
         Dictionary<int, int> gocXoayTheoID = new Dictionary<int, int>();
+       
+
         public frmHoa()
         {
             InitializeComponent();
@@ -72,17 +74,30 @@ namespace QuanLyTiemGiaoHoa.Forms
             LayLoaiSanPhamVaoComboBox();
             LayHangSanXuatVaoComboBox();
 
+            // chỉnh ảnh cho nó bự
             dataGridView.RowTemplate.Height = 100; // chỉnh độ cao dòng
             dataGridView.Columns["HinhAnh"].Width = 120;// cột ảnh
+
+            if (dataGridView.Columns["HinhAnh"] is DataGridViewImageColumn imgCol)
+            {
+                imgCol.ImageLayout = DataGridViewImageCellLayout.Zoom;
+
+                // 🔥 QUAN TRỌNG: nói cho nó biết dữ liệu là string
+                imgCol.ValueType = typeof(object);
+            }
+
+
             dataGridView.CellDoubleClick += dataGridView_CellDoubleClick;
 
             dataGridView.AutoGenerateColumns = false;
 
-            // ⭐ FIX: đảm bảo cột ảnh là Image
-            if (dataGridView.Columns["HinhAnh"] is DataGridViewImageColumn imgCol)
+            // 🔥 CHẶN LỖI DataGridView (rất quan trọng)
+            dataGridView.DataError += (s, e2) =>
             {
-                imgCol.ImageLayout = DataGridViewImageCellLayout.Zoom;
-            }
+                e2.ThrowException = false;
+            };
+
+
 
             // tránh add nhiều lần
             dataGridView.CellFormatting -= dataGridView_CellFormatting;
@@ -142,9 +157,10 @@ namespace QuanLyTiemGiaoHoa.Forms
 
         private void dataGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            // ===== HIỂN THỊ ẢNH =====
             if (dataGridView.Columns[e.ColumnIndex].Name == "HinhAnh")
             {
+                if (e.RowIndex < 0) return;
+
                 if (e.Value != null && !string.IsNullOrEmpty(e.Value.ToString()))
                 {
                     try
@@ -153,35 +169,42 @@ namespace QuanLyTiemGiaoHoa.Forms
 
                         if (File.Exists(filePath))
                         {
-                            using (Image img = Image.FromFile(filePath))
+                            Image img = Image.FromFile(filePath);
+                            Bitmap bmp = new Bitmap(img);
+                            img.Dispose();
+
+                            int id = Convert.ToInt32(dataGridView.Rows[e.RowIndex].Cells["ID"].Value);
+
+                            // 👉 LẤY GÓC XOAY
+                            int soLanXoay = gocXoayTheoID.ContainsKey(id) ? gocXoayTheoID[id] : 0;
+
+                            // 👉 XOAY ĐÚNG SỐ LẦN
+                            for (int i = 0; i < soLanXoay; i++)
                             {
-                                Bitmap bmp = new Bitmap(img);
-
-                                int id = Convert.ToInt32(dataGridView.Rows[e.RowIndex].Cells["ID"].Value);
-                                int soLanXoay = gocXoayTheoID.ContainsKey(id) ? gocXoayTheoID[id] : 0;
-
-                                // 👉 xoay
-                                for (int i = 0; i < soLanXoay; i++)
-                                {
-                                    bmp.RotateFlip(RotateFlipType.Rotate90FlipNone);
-                                }
-
-                                // 👉 GIỮ TỶ LỆ (QUAN TRỌNG)
-                                int maxSize = 120;
-                                int w = bmp.Width;
-                                int h = bmp.Height;
-
-                                float scale = Math.Min((float)maxSize / w, (float)maxSize / h);
-
-                                int newW = (int)(w * scale);
-                                int newH = (int)(h * scale);
-
-                                e.Value = new Bitmap(bmp, newW, newH);
+                                bmp.RotateFlip(RotateFlipType.Rotate90FlipNone);
                             }
-                        }
-                        else
-                        {
-                            e.Value = null;
+
+                            // 👉 GIỮ TỶ LỆ + KHUNG VUÔNG
+                            int boxSize = 120;
+                            Bitmap finalImg = new Bitmap(boxSize, boxSize);
+
+                            using (Graphics g = Graphics.FromImage(finalImg))
+                            {
+                                g.Clear(Color.White);
+
+                                float scale = Math.Min((float)boxSize / bmp.Width, (float)boxSize / bmp.Height);
+
+                                int newW = (int)(bmp.Width * scale);
+                                int newH = (int)(bmp.Height * scale);
+
+                                int posX = (boxSize - newW) / 2;
+                                int posY = (boxSize - newH) / 2;
+
+                                g.DrawImage(bmp, posX, posY, newW, newH);
+                            }
+
+                            e.Value = finalImg;
+                            e.FormattingApplied = true;
                         }
                     }
                     catch
@@ -191,7 +214,7 @@ namespace QuanLyTiemGiaoHoa.Forms
                 }
             }
 
-            // ===== FORMAT ĐƠN GIÁ =====
+            // format giá
             if (dataGridView.Columns[e.ColumnIndex].Name == "DonGia")
             {
                 if (e.Value != null)
@@ -556,16 +579,14 @@ namespace QuanLyTiemGiaoHoa.Forms
         {
             if (e.RowIndex < 0) return;
 
-            // chỉ xử lý khi double click vào cột ảnh
             if (dataGridView.Columns[e.ColumnIndex].Name == "HinhAnh")
             {
                 int id = Convert.ToInt32(dataGridView.Rows[e.RowIndex].Cells["ID"].Value);
 
-                // ⭐ DÁN ĐOẠN CỦA BẠN Ở ĐÂY
                 if (!gocXoayTheoID.ContainsKey(id))
                     gocXoayTheoID[id] = 0;
 
-                gocXoayTheoID[id]++; // mỗi lần +1 = 90°
+                gocXoayTheoID[id]++;
 
                 if (gocXoayTheoID[id] >= 4)
                     gocXoayTheoID[id] = 0;
@@ -573,5 +594,7 @@ namespace QuanLyTiemGiaoHoa.Forms
                 dataGridView.Refresh();
             }
         }
+
+       
     }
 }
