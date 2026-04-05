@@ -11,6 +11,8 @@ using BC = BCrypt.Net.BCrypt;
 using ClosedXML.Excel;
 using QuanLyTiemGiaoHoa.Data;
 
+using System.Text.RegularExpressions;
+
 namespace QuanLyTiemGiaoHoa.Forms
 {
 
@@ -98,6 +100,13 @@ namespace QuanLyTiemGiaoHoa.Forms
 
         private void btnLuu_Click(object sender, EventArgs e)
         {
+            // RÀNG BUỘC SỐ ĐIỆN THOẠI (10 chữ số)
+            if (!Regex.IsMatch(txtDienThoai.Text.Trim(), @"^\d{10}$"))
+            {
+                MessageBox.Show("Số điện thoại nhân viên không hợp lệ (phải nhập đúng 10 chữ số)!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtDienThoai.Focus();
+                return;
+            }
             if (string.IsNullOrWhiteSpace(txtHoVaTen.Text))
                 MessageBox.Show("Vui lòng nhập họ và tên nhân viên?", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else if (string.IsNullOrWhiteSpace(txtTenDangNhap.Text))

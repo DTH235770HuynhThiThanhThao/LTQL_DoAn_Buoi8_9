@@ -18,6 +18,7 @@ namespace QuanLyTiemGiaoHoa.Forms
     {
         QLTGHDbContext context = new QLTGHDbContext();
         int id;
+        bool isOpening = false; //chặn trùng form
         public frmHoaDon()
         {
             InitializeComponent();
@@ -96,7 +97,7 @@ namespace QuanLyTiemGiaoHoa.Forms
 
             // Đăng ký sự kiện đổi màu ô (Quan trọng)
             dataGridView.CellFormatting += dataGridView_CellFormatting;
-            dataGridView.CellClick += dataGridView_CellClick;
+            //dataGridView.CellClick += dataGridView_CellClick;
 
             LoadData();
         }
@@ -135,16 +136,46 @@ namespace QuanLyTiemGiaoHoa.Forms
         private void btnXoa_Click(object sender, EventArgs e)
         {
             if (dataGridView.CurrentRow == null) return;
+
+            // 1. Lấy ID từ dòng đang chọn
             int idXoa = Convert.ToInt32(dataGridView.CurrentRow.Cells["ID"].Value);
 
-            if (MessageBox.Show("Bạn có muốn xóa hóa đơn này?", "Xác nhận", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show("Bạn có muốn xóa hóa đơn này và tất cả các thông tin liên quan không?", "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
             {
-                var hd = context.HoaDon.Find(idXoa);
-                if (hd != null)
+                try
                 {
-                    context.HoaDon.Remove(hd);
-                    context.SaveChanges();
-                    LoadData(); // Gọi lại LoadData thay vì frmHoaDon_Load
+                    // 2. Tìm hóa đơn cùng các bảng liên quan
+                    var hoaDon = context.HoaDon
+                        .Include(h => h.HoaDon_ChiTiet)
+                        .Include(h => h.GiaoHang)
+                        .FirstOrDefault(h => h.ID == idXoa);
+
+                    if (hoaDon != null)
+                    {
+                        // 3. Xóa các bảng "con" trước để tránh lỗi ràng buộc (Foreign Key)
+                        if (hoaDon.HoaDon_ChiTiet != null && hoaDon.HoaDon_ChiTiet.Any())
+                        {
+                            context.HoaDon_ChiTiet.RemoveRange(hoaDon.HoaDon_ChiTiet);
+                        }
+
+                        if (hoaDon.GiaoHang != null)
+                        {
+                            context.GiaoHang.Remove(hoaDon.GiaoHang);
+                        }
+
+                        // 4. Xóa bảng "cha" (Hóa đơn)
+                        context.HoaDon.Remove(hoaDon);
+
+                        // 5. Lưu thay đổi xuống Database
+                        context.SaveChanges();
+
+                        MessageBox.Show("Xóa hóa đơn thành công!", "Thông báo");
+                        LoadData();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Không thể xóa hóa đơn này. Lỗi: " + ex.Message, "Lỗi hệ thống", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -231,132 +262,113 @@ namespace QuanLyTiemGiaoHoa.Forms
         private void btnNhap_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Title = "Nhập dữ liệu Hóa Đơn từ Excel";
-            openFileDialog.Filter = "Excel|*.xls;*.xlsx";
+            openFileDialog.Filter = "Excel|*.xlsx";
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 try
                 {
-                    DataTable table = new DataTable();
-
                     using (XLWorkbook workbook = new XLWorkbook(openFileDialog.FileName))
                     {
-                        IXLWorksheet worksheet = workbook.Worksheet(1);
-                        bool firstRow = true;
-                        string readRange = "";
+                        var worksheet = workbook.Worksheet(1);
+                        var rows = worksheet.RowsUsed().Skip(1); // Bỏ qua dòng tiêu đề
 
-                        foreach (IXLRow row in worksheet.RowsUsed())
+                        foreach (var row in rows)
                         {
-                            if (firstRow)
+                            // 1. Tạo Hóa Đơn
+                            HoaDon hd = new HoaDon
                             {
-                                readRange = "1:" + row.LastCellUsed().Address.ColumnNumber;
+                                NhanVienID = int.Parse(row.Cell(1).Value.ToString()),
+                                KhachHangID = int.Parse(row.Cell(2).Value.ToString()),
+                                NgayLap = DateTime.Parse(row.Cell(3).Value.ToString()),
+                                GhiChuHoaDon = row.Cell(4).Value.ToString(),
+                                PhiGiaoHang = decimal.Parse(row.Cell(5).Value.ToString())
+                            };
+                            context.HoaDon.Add(hd);
+                            context.SaveChanges(); // Lưu để lấy ID
 
-                                foreach (IXLCell cell in row.Cells(readRange))
-                                {
-                                    table.Columns.Add(cell.Value.ToString());
-                                }
-
-                                firstRow = false;
-                            }
-                            else
+                            // 2. Tạo Chi Tiết (Số lượng)
+                            HoaDon_ChiTiet ct = new HoaDon_ChiTiet
                             {
-                                table.Rows.Add();
-                                int cellIndex = 0;
+                                HoaDonID = hd.ID,
+                                HoaID = int.Parse(row.Cell(6).Value.ToString()),
+                                SoLuongBan = short.Parse(row.Cell(7).Value.ToString()),
+                                DonGiaBan = decimal.Parse(row.Cell(8).Value.ToString())
+                            };
+                            context.HoaDon_ChiTiet.Add(ct);
 
-                                foreach (IXLCell cell in row.Cells(readRange))
-                                {
-                                    table.Rows[table.Rows.Count - 1][cellIndex] = cell.Value.ToString();
-                                    cellIndex++;
-                                }
-                            }
-                        }
-
-                        if (table.Rows.Count > 0)
-                        {
-                            foreach (DataRow r in table.Rows)
+                            // 3. Tạo Giao Hàng
+                            GiaoHang gh = new GiaoHang
                             {
-                                HoaDon hd = new HoaDon();
-
-                                hd.NhanVienID = int.Parse(r["NhanVienID"].ToString());
-                                hd.KhachHangID = int.Parse(r["KhachHangID"].ToString());
-                                hd.NgayLap = DateTime.Parse(r["NgayLap"].ToString());
-                                hd.GhiChuHoaDon = r["GhiChuHoaDon"].ToString();
-
-                                context.HoaDon.Add(hd);
-                            }
-
-                            context.SaveChanges();
-
-                            MessageBox.Show("Đã nhập " + table.Rows.Count + " hóa đơn.",
-                                "Thành công",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Information);
-
-                            frmHoaDon_Load(sender, e);
+                                HoaDonID = hd.ID,
+                                NhanVienID = hd.NhanVienID,
+                                TenNguoiNhan = row.Cell(9).Value.ToString(),
+                                DienThoaiNhan = row.Cell(10).Value.ToString(),
+                                DiaChiGiao = row.Cell(11).Value.ToString(),
+                                NgayGiao = hd.NgayLap,
+                                TrangThai = TrangThaiGiaoHang.ChoGiao
+                            };
+                            context.GiaoHang.Add(gh);
                         }
-                        else
-                        {
-                            MessageBox.Show("File Excel rỗng!");
-                        }
+                        context.SaveChanges();
+                        MessageBox.Show("Nhập dữ liệu thành công!");
+                        LoadData();
                     }
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
+                catch (Exception ex) { MessageBox.Show("Lỗi nhập: " + ex.Message); }
             }
         }
 
         private void btnXuat_Click(object sender, EventArgs e)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Title = "Xuất danh sách Hóa Đơn";
-            saveFileDialog.Filter = "Excel|*.xls;*.xlsx";
-            saveFileDialog.FileName = "HoaDon_" + DateTime.Now.ToShortDateString().Replace("/", "_") + ".xlsx";
+            saveFileDialog.Filter = "Excel|*.xlsx";
+            saveFileDialog.FileName = "DuLieuHoaDon_" + DateTime.Now.ToString("ddMMyyyy") + ".xlsx";
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
                 try
                 {
                     DataTable table = new DataTable();
-
-                    table.Columns.Add("ID", typeof(int));
+                    // Cột Hóa Đơn
                     table.Columns.Add("NhanVienID", typeof(int));
                     table.Columns.Add("KhachHangID", typeof(int));
                     table.Columns.Add("NgayLap", typeof(DateTime));
                     table.Columns.Add("GhiChuHoaDon", typeof(string));
+                    table.Columns.Add("PhiGiaoHang", typeof(decimal));
+                    // Cột Chi Tiết (Món hàng)
+                    table.Columns.Add("HoaID", typeof(int));
+                    table.Columns.Add("SoLuongBan", typeof(int));
+                    table.Columns.Add("DonGiaBan", typeof(decimal));
+                    // Cột Giao Hàng
+                    table.Columns.Add("TenNguoiNhan", typeof(string));
+                    table.Columns.Add("SDTNhan", typeof(string));
+                    table.Columns.Add("DiaChiGiao", typeof(string));
 
+                    var ds = context.HoaDon.Include(h => h.HoaDon_ChiTiet).Include(h => h.GiaoHang).ToList();
 
-                    var ds = context.HoaDon.ToList();
-
-                    foreach (var p in ds)
+                    foreach (var hd in ds)
                     {
-                        table.Rows.Add(
-                            p.ID,
-                            p.NhanVienID,
-                            p.KhachHangID,
-                            p.NgayLap,
-                            p.GhiChuHoaDon
-                        );
+                        foreach (var ct in hd.HoaDon_ChiTiet)
+                        {
+                            table.Rows.Add(
+                                hd.NhanVienID, hd.KhachHangID, hd.NgayLap, hd.GhiChuHoaDon, hd.PhiGiaoHang,
+                                ct.HoaID, ct.SoLuongBan, ct.DonGiaBan,
+                                hd.GiaoHang?.TenNguoiNhan ?? "",
+                                hd.GiaoHang?.DienThoaiNhan ?? "",
+                                hd.GiaoHang?.DiaChiGiao ?? ""
+                            );
+                        }
                     }
 
                     using (XLWorkbook wb = new XLWorkbook())
                     {
-                        var sheet = wb.Worksheets.Add(table, "HoaDon");
-                        sheet.Columns().AdjustToContents();
+                        wb.Worksheets.Add(table, "Data");
                         wb.SaveAs(saveFileDialog.FileName);
                     }
-
-                    MessageBox.Show("Đã xuất Excel thành công!",
-                        "Thành công",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information);
+                    MessageBox.Show("Xuất file thành công!");
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
+                catch (Exception ex) { MessageBox.Show("Lỗi xuất: " + ex.Message); }
             }
         }
 
@@ -393,19 +405,25 @@ namespace QuanLyTiemGiaoHoa.Forms
 
         private void dataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (isOpening) return; // chặn mở trùng
+
             if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
 
             if (dataGridView.Columns[e.ColumnIndex].Name == "XemChiTiet")
             {
-                var cell = dataGridView.Rows[e.RowIndex].Cells["ID"].Value;
-                if (cell == null) return;
+                var cellValue = dataGridView.Rows[e.RowIndex].Cells["ID"].Value;
+                if (cellValue == null) return;
 
-                int id = Convert.ToInt32(cell);
+                int maID = Convert.ToInt32(cellValue);
 
-                using (frmHoaDon_ChiTiet f = new frmHoaDon_ChiTiet(id))
+                isOpening = true;
+
+                using (frmHoaDon_ChiTiet f = new frmHoaDon_ChiTiet(maID))
                 {
                     f.ShowDialog();
                 }
+
+                isOpening = false;
 
                 LoadData();
             }

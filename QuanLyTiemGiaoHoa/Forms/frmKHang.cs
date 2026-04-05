@@ -100,35 +100,53 @@ namespace QuanLyTiemGiaoHoa.Forms
 
         private void btnLuu_Click(object sender, EventArgs e)
         {
+            // 1. Kiểm tra Họ và Tên (Phải có return để dừng hàm nếu lỗi)
             if (string.IsNullOrWhiteSpace(txtHoVaTen.Text))
-                MessageBox.Show("Vui lòng nhập họ và tên khách hàng?", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            else
             {
+                MessageBox.Show("Vui lòng nhập họ và tên khách hàng?", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtHoVaTen.Focus();
+                return; // Quan trọng: Dừng không cho chạy xuống dưới
+            }
 
+            // 2. RÀNG BUỘC SỐ ĐIỆN THOẠI
+            // Kiểm tra đúng 10 chữ số
+            if (!System.Text.RegularExpressions.Regex.IsMatch(txtDienThoai.Text.Trim(), @"^\d{10}$"))
+            {
+                MessageBox.Show("Số điện thoại khách hàng không hợp lệ (phải nhập đúng 10 chữ số)!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtDienThoai.Focus();
+                return; // Dừng không cho chạy xuống dưới
+            }
+
+            // 3. Nếu vượt qua các bước kiểm tra trên thì mới thực hiện lưu
+            try
+            {
                 if (xuLyThem)
                 {
                     KhachHang kh = new KhachHang();
-                    kh.HoVaTen = txtHoVaTen.Text;
-                    kh.DienThoai = txtDienThoai.Text;
-                    kh.DiaChi = txtDiaChi.Text;
+                    kh.HoVaTen = txtHoVaTen.Text.Trim();
+                    kh.DienThoai = txtDienThoai.Text.Trim();
+                    kh.DiaChi = txtDiaChi.Text.Trim();
                     context.KhachHang.Add(kh);
-
-                    context.SaveChanges();
                 }
                 else
                 {
                     KhachHang kh = context.KhachHang.Find(id);
                     if (kh != null)
                     {
-                        kh.HoVaTen = txtHoVaTen.Text;
-                        kh.DienThoai = txtDienThoai.Text;
-                        kh.DiaChi = txtDiaChi.Text;
+                        kh.HoVaTen = txtHoVaTen.Text.Trim();
+                        kh.DienThoai = txtDienThoai.Text.Trim();
+                        kh.DiaChi = txtDiaChi.Text.Trim();
                         context.KhachHang.Update(kh);
-                        context.SaveChanges();
                     }
-
                 }
+
+                context.SaveChanges();
+                MessageBox.Show("Lưu thông tin khách hàng thành công!", "Thông báo");
                 frmKHang_Load(sender, e);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi lưu dữ liệu: " + ex.Message);
             }
         }
 

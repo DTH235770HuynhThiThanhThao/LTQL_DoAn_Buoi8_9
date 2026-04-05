@@ -128,7 +128,7 @@
             // groupBox1
             // 
             groupBox1.Controls.Add(dataGridView);
-            groupBox1.Location = new Point(12, 72);
+            groupBox1.Location = new Point(12, 73);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(1384, 369);
             groupBox1.TabIndex = 5;

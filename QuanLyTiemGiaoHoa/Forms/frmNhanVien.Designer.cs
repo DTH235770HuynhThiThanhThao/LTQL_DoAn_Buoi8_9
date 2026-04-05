@@ -315,6 +315,7 @@
             // 
             txtDienThoai.Location = new Point(119, 82);
             txtDienThoai.Margin = new Padding(3, 4, 3, 4);
+            txtDienThoai.MaxLength = 10;
             txtDienThoai.Name = "txtDienThoai";
             txtDienThoai.Size = new Size(268, 28);
             txtDienThoai.TabIndex = 1;

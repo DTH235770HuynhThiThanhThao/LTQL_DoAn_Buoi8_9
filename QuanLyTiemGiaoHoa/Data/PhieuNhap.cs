@@ -30,8 +30,9 @@ namespace QuanLyTiemGiaoHoa.Data
         public int NhanVienID { get; set; }
         public string HoVaTenNhanVien { get; set; } // Bổ sung
         public int NhaCungCapID { get; set; }
-        public string TenNhaCungCap { get; set; }
+        public string TenNhaCungCap { get; set; }// thêm
         public DateTime NgayNhap { get; set; }
+        public string? XemChiTiet { get; set; }   // thêm
         public decimal? TongTienPhieuNhap { get; set; }// thêm
         public string? GhiChu { get; set; }
 

@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using ClosedXML.Excel;
 using Microsoft.EntityFrameworkCore;
 using QuanLyTiemGiaoHoa.Data;
+using System.Text.RegularExpressions;
+
 
 namespace QuanLyTiemGiaoHoa.Forms
 {
@@ -82,117 +84,118 @@ namespace QuanLyTiemGiaoHoa.Forms
             LaySanPhamVaoComboBox();
             LayTrangThaiVaoComboBox();
 
-
-
             dataGridView.AutoGenerateColumns = false;
+            dtpNgayLap.Enabled = false; // Ngày lập hóa đơn không nên cho sửa
 
-
-
-            // Cách an toàn nhất để đổ dữ liệu: Kiểm tra cột có tồn tại không rồi mới gán
-            void BindCol(string colName, string propertyName)
-            {
-                if (dataGridView.Columns.Contains(colName))
-                {
-                    dataGridView.Columns[colName].DataPropertyName = propertyName;
-                }
-            }
-
-            // Map đầy đủ các cột
-            BindCol("ID", "ID");
-            BindCol("HoaID", "HoaID");
-            BindCol("TenHoa", "TenHoa");
-            BindCol("SoLuongBan", "SoLuongBan");
-            BindCol("DonGiaBan", "DonGiaBan");
-            BindCol("ThanhTien", "ThanhTien");
-
-            // Định dạng tiền tệ cho đẹp
-            if (dataGridView.Columns.Contains("DonGiaBan"))
-                dataGridView.Columns["DonGiaBan"].DefaultCellStyle.Format = "N0";
-            if (dataGridView.Columns.Contains("ThanhTien"))
-                dataGridView.Columns["ThanhTien"].DefaultCellStyle.Format = "N0";
-
-            numPhiGiaoHang.ThousandsSeparator = true;
-
-            if (id != 0) // Đã tồn tại chi tiết 
+            if (id != 0) // Chế độ Sửa
             {
                 var hoaDon = context.HoaDon
-     .Include(h => h.GiaoHang) // Thêm dòng này
-     .FirstOrDefault(r => r.ID == id);
-                cboNhanVien.SelectedValue = hoaDon.NhanVienID;
-                cboKhachHang.SelectedValue = hoaDon.KhachHangID;
-                txtGhiChuHoaDon.Text = hoaDon.GhiChuHoaDon;
-                numPhiGiaoHang.Value = hoaDon.PhiGiaoHang;
-                // Lấy trạng thái từ bảng GiaoHang nếu có
-                if (hoaDon.GiaoHang != null)
-                    cboTrangThaiGiao.SelectedValue = hoaDon.GiaoHang.TrangThai;
+                    .Include(h => h.GiaoHang)
+                    .FirstOrDefault(r => r.ID == id);
 
-                var ct = context.HoaDon_ChiTiet.Where(r => r.HoaDonID == id).Select(r => new DanhSachHoaDon_ChiTiet
+                if (hoaDon != null)
                 {
-                    ID = r.ID,
-                    HoaDonID = r.HoaDonID,
-                    HoaID = r.HoaID,
-                    TenHoa = r.Hoa.TenHoa,
-                    SoLuongBan = r.SoLuongBan,
-                    DonGiaBan = r.DonGiaBan,
-                    ThanhTien = Convert.ToInt32(r.SoLuongBan * r.DonGiaBan)
-                }).ToList();
+                    cboNhanVien.SelectedValue = hoaDon.NhanVienID;
+                    cboKhachHang.SelectedValue = hoaDon.KhachHangID;
+                    txtGhiChuHoaDon.Text = hoaDon.GhiChuHoaDon;
+                    numPhiGiaoHang.Value = hoaDon.PhiGiaoHang;
 
-                hoaDonChiTiet = new BindingList<DanhSachHoaDon_ChiTiet>(ct);
+                    // Gán ngày lập hóa đơn
+                    dtpNgayLap.Value = hoaDon.NgayLap;
+
+                    if (hoaDon.GiaoHang != null)
+                    {
+                        txtTenNguoiNhan.Text = hoaDon.GiaoHang.TenNguoiNhan;
+                        txtSDTNhan.Text = hoaDon.GiaoHang.DienThoaiNhan;
+                        txtDiaChiGiao.Text = hoaDon.GiaoHang.DiaChiGiao;
+                        cboTrangThaiGiao.SelectedValue = hoaDon.GiaoHang.TrangThai;
+
+                        if (hoaDon.GiaoHang.NgayGiao != default(DateTime))
+                        {
+                            dtpNgayGiao.Value = hoaDon.GiaoHang.NgayGiao;
+                        }
+                        else
+                        {
+                            dtpNgayGiao.Value = DateTime.Now; // Nếu chưa có ngày hợp lệ thì lấy ngày hiện tại
+                        }
+                    }
+
+                    var ct = context.HoaDon_ChiTiet
+                        .Where(r => r.HoaDonID == id)
+                        .Select(r => new DanhSachHoaDon_ChiTiet
+                        {
+                            ID = r.ID,
+                            HoaDonID = r.HoaDonID,
+                            HoaID = r.HoaID,
+                            TenHoa = r.Hoa.TenHoa,
+                            SoLuongBan = r.SoLuongBan,
+                            DonGiaBan = r.DonGiaBan,
+                            ThanhTien = Convert.ToInt32(r.SoLuongBan * r.DonGiaBan)
+                        }).ToList();
+
+                    hoaDonChiTiet = new BindingList<DanhSachHoaDon_ChiTiet>(ct);
+                }
+            }
+            else // Chế độ Thêm mới
+            {
+                dtpNgayLap.Value = DateTime.Now;
+                dtpNgayGiao.Value = DateTime.Now;
+                cboTrangThaiGiao.SelectedValue = TrangThaiGiaoHang.ChoGiao;
             }
 
             dataGridView.DataSource = hoaDonChiTiet;
             BatTatChucNang();
-
-
         }
 
         private void btnXacNhanBan_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(cboHoa.Text))
-                MessageBox.Show("Vui lòng chọn hoa.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            else if (numSoLuongBan.Value <= 0)
-                MessageBox.Show("Số lượng bán phải lớn hơn 0.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            else if (numDonGiaBan.Value <= 0)
-                MessageBox.Show("Đơn giá bán sản phẩm hoa phải lớn hơn 0.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             {
-                int maHoa = Convert.ToInt32(cboHoa.SelectedValue.ToString());
-                var chiTiet = hoaDonChiTiet.FirstOrDefault(x => x.HoaID == maHoa);
-
-                // Nếu đã tồn tại sản phẩm thì cập nhật thông tin  
-                if (chiTiet != null)
-                {
-
-                    // Cộng dồn thay vì ghi đè
-                    chiTiet.SoLuongBan += Convert.ToInt16(numSoLuongBan.Value);
-                    chiTiet.ThanhTien = chiTiet.SoLuongBan * chiTiet.DonGiaBan;
-                    dataGridView.Refresh();
-
-
-                }
-                else // Nếu chưa có sản phẩm thì thêm vào 
-                {
-                    // Nếu chưa có sản phẩm nào 
-                    DanhSachHoaDon_ChiTiet ct = new DanhSachHoaDon_ChiTiet
-                    {
-                        ID = 0,
-                        HoaDonID = id,
-                        HoaID = maHoa,
-                        TenHoa = cboHoa.Text,
-                        SoLuongBan = Convert.ToInt16(numSoLuongBan.Value),
-                        DonGiaBan = Convert.ToInt32(numDonGiaBan.Value),
-                        ThanhTien = Convert.ToInt32(numSoLuongBan.Value * numDonGiaBan.Value)
-                    };
-                    hoaDonChiTiet.Add(ct);
-                }
-
-                // SAU KHI THÊM XONG, TIẾN HÀNH XÓA TRẮNG ĐỂ NHẬP TIẾP:
-                cboHoa.SelectedIndex = -1;      // Xóa chọn hoa
-                cboHoa.Text = "-- Chọn loại hoa --";   // Hiển thị dòng hướng dẫn
-                numSoLuongBan.Value = 1;        // Reset số lượng về 1
-                numDonGiaBan.Value = 0;         // Reset đơn giá về 0
-
-                BatTatChucNang();
+                MessageBox.Show("Vui lòng chọn hoa.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
+            else if (numSoLuongBan.Value <= 0)
+            {
+                MessageBox.Show("Số lượng bán phải lớn hơn 0.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            else if (numDonGiaBan.Value <= 0)
+            {
+                MessageBox.Show("Đơn giá phải > 0");
+                return;
+            }
+
+            // 👇 CHỈ chạy khi hợp lệ
+            int maHoa = Convert.ToInt32(cboHoa.SelectedValue.ToString());
+            var chiTiet = hoaDonChiTiet.FirstOrDefault(x => x.HoaID == maHoa);
+
+            if (chiTiet != null)
+            {
+                chiTiet.SoLuongBan += Convert.ToInt16(numSoLuongBan.Value);
+                chiTiet.ThanhTien = chiTiet.SoLuongBan * chiTiet.DonGiaBan;
+                dataGridView.Refresh();
+            }
+            else
+            {
+                DanhSachHoaDon_ChiTiet ct = new DanhSachHoaDon_ChiTiet
+                {
+                    ID = 0,
+                    HoaDonID = id,
+                    HoaID = maHoa,
+                    TenHoa = cboHoa.Text,
+                    SoLuongBan = Convert.ToInt16(numSoLuongBan.Value),
+                    DonGiaBan = Convert.ToInt32(numDonGiaBan.Value),
+                    ThanhTien = Convert.ToInt32(numSoLuongBan.Value * numDonGiaBan.Value)
+                };
+                hoaDonChiTiet.Add(ct);
+            }
+
+            cboHoa.SelectedIndex = -1;
+            cboHoa.Text = "-- Chọn loại hoa --";
+            numSoLuongBan.Value = 1;
+            numDonGiaBan.Value = 0;
+
+            BatTatChucNang();
         }
 
         private void btnXoa_Click(object sender, EventArgs e)
@@ -208,111 +211,81 @@ namespace QuanLyTiemGiaoHoa.Forms
 
         private void btnLuuHoaDon_Click(object sender, EventArgs e)
         {
-            // 1. Kiểm tra đầu vào cơ bản
-            if (cboNhanVien.SelectedValue == null)
+            if (cboNhanVien.SelectedValue == null || cboKhachHang.SelectedValue == null || hoaDonChiTiet.Count == 0)
             {
-                MessageBox.Show("Vui lòng chọn nhân viên lập hóa đơn.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            if (cboKhachHang.SelectedValue == null)
-            {
-                MessageBox.Show("Vui lòng chọn khách hàng.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            if (hoaDonChiTiet.Count == 0)
-            {
-                MessageBox.Show("Hóa đơn phải có ít nhất một mặt hàng.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Vui lòng kiểm tra lại thông tin!", "Lỗi");
                 return;
             }
 
-            // Sử dụng Transaction để đảm bảo an toàn dữ liệu (Lưu HĐ, CTHĐ và GiaoHang cùng lúc)
+            // 2. CHÈN RÀNG BUỘC SỐ ĐIỆN THOẠI TẠI ĐÂY
+            // Lưu ý: Thêm "using System.Text.RegularExpressions;" ở trên cùng file code
+            if (!System.Text.RegularExpressions.Regex.IsMatch(txtSDTNhan.Text.Trim(), @"^\d{10}$"))
+            {
+                MessageBox.Show("Số điện thoại người nhận không hợp lệ (phải nhập đúng 10 chữ số)!", "Thông báo");
+                txtSDTNhan.Focus(); // Đưa con trỏ chuột vào ô SDT để người dùng sửa ngay
+                return; // Dừng hàm, không chạy xuống phần lưu bên dưới
+            }
+
             using (var dbTransaction = context.Database.BeginTransaction())
             {
                 try
                 {
                     HoaDon hd;
-                    if (id != 0) // CHẾ ĐỘ SỬA
+                    if (id != 0)
                     {
                         hd = context.HoaDon.Include(h => h.GiaoHang).FirstOrDefault(h => h.ID == id);
-                        if (hd == null) return;
-
-                        // Cập nhật thông tin Hóa đơn
-                        hd.NhanVienID = Convert.ToInt32(cboNhanVien.SelectedValue);
-                        hd.KhachHangID = Convert.ToInt32(cboKhachHang.SelectedValue);
-                        hd.GhiChuHoaDon = txtGhiChuHoaDon.Text;
-                        hd.PhiGiaoHang = numPhiGiaoHang.Value; // Bổ sung phí giao
-
-                        // Xóa chi tiết cũ để nạp lại chi tiết mới
                         var oldDetails = context.HoaDon_ChiTiet.Where(r => r.HoaDonID == id).ToList();
                         context.HoaDon_ChiTiet.RemoveRange(oldDetails);
                     }
-                    else // CHẾ ĐỘ THÊM MỚI
+                    else
                     {
-                        hd = new HoaDon();
-                        hd.NgayLap = DateTime.Now;
-                        hd.NhanVienID = Convert.ToInt32(cboNhanVien.SelectedValue);
-                        hd.KhachHangID = Convert.ToInt32(cboKhachHang.SelectedValue);
-                        hd.GhiChuHoaDon = txtGhiChuHoaDon.Text;
-                        hd.PhiGiaoHang = numPhiGiaoHang.Value; // Bổ sung phí giao
-
+                        hd = new HoaDon() { NgayLap = dtpNgayLap.Value };
                         context.HoaDon.Add(hd);
                     }
 
-                    // Lưu bước 1 để có ID (nếu thêm mới)
+                    hd.NhanVienID = Convert.ToInt32(cboNhanVien.SelectedValue);
+                    hd.KhachHangID = Convert.ToInt32(cboKhachHang.SelectedValue);
+                    hd.GhiChuHoaDon = txtGhiChuHoaDon.Text;
+                    hd.PhiGiaoHang = numPhiGiaoHang.Value;
+
                     context.SaveChanges();
                     id = hd.ID;
 
-                    // 2. Thêm Chi tiết hóa đơn
                     foreach (var item in hoaDonChiTiet)
                     {
-                        HoaDon_ChiTiet ct = new HoaDon_ChiTiet
+                        context.HoaDon_ChiTiet.Add(new HoaDon_ChiTiet
                         {
                             HoaDonID = id,
                             HoaID = item.HoaID,
                             SoLuongBan = item.SoLuongBan,
                             DonGiaBan = item.DonGiaBan
-                        };
-                        context.HoaDon_ChiTiet.Add(ct);
+                        });
                     }
 
-                    // 3. Xử lý Trạng thái Giao hàng (Bảng GiaoHang)
                     var gh = context.GiaoHang.FirstOrDefault(x => x.HoaDonID == id);
-                    TrangThaiGiaoHang trangThaiChon = (TrangThaiGiaoHang)cboTrangThaiGiao.SelectedValue;
-
-                    if (gh == null) // Nếu chưa có đơn giao hàng thì tạo mới
+                    if (gh == null)
                     {
-                        gh = new GiaoHang
-                        {
-                            HoaDonID = id,
-                            NhanVienID = hd.NhanVienID, // Mặc định NV lập đơn là người giao
-                            TenNguoiNhan = cboKhachHang.Text,
-                            DiaChiGiao = "Cập nhật sau...",
-                            DienThoaiNhan = "0000000000",
-                            NgayGiao = DateTime.Now.AddDays(1),
-                            TrangThai = trangThaiChon
-                        };
+                        gh = new GiaoHang { HoaDonID = id };
                         context.GiaoHang.Add(gh);
                     }
-                    else // Nếu có rồi thì cập nhật trạng thái
-                    {
-                        gh.TrangThai = trangThaiChon;
-                        context.GiaoHang.Update(gh);
-                    }
 
-                    // Lưu toàn bộ vào Database
+                    gh.NhanVienID = hd.NhanVienID;
+                    gh.TenNguoiNhan = txtTenNguoiNhan.Text.Trim();
+                    gh.DienThoaiNhan = txtSDTNhan.Text.Trim();
+                    gh.DiaChiGiao = txtDiaChiGiao.Text.Trim();
+                    gh.NgayGiao = dtpNgayGiao.Value; // Lấy từ dtpNgayGiao riêng biệt
+                    gh.TrangThai = (TrangThaiGiaoHang)cboTrangThaiGiao.SelectedValue;
+
                     context.SaveChanges();
-
-                    // Xác nhận hoàn tất giao dịch
                     dbTransaction.Commit();
 
-                    MessageBox.Show("Đã lưu hóa đơn và cập nhật trạng thái giao hàng thành công!", "Hoàn tất", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Lưu thành công!", "Thông báo");
                     this.Close();
                 }
                 catch (Exception ex)
                 {
-                    // Nếu có lỗi, hủy bỏ mọi thay đổi đã thực hiện trong khối try
                     dbTransaction.Rollback();
-                    MessageBox.Show("Lỗi khi lưu dữ liệu: " + ex.Message, "Lỗi hệ thống", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Lỗi: " + ex.Message);
                 }
             }
 
@@ -390,11 +363,8 @@ namespace QuanLyTiemGiaoHoa.Forms
 
         private void btnThoat_Click(object sender, EventArgs e)
         {
-            DialogResult r = MessageBox.Show("Bạn có muốn thoát không?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (r == DialogResult.Yes)
-            {
-                this.Close();
-            }
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
         }
 
         private void btnXuat_Click(object sender, EventArgs e)
