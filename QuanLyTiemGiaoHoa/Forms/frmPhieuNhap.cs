@@ -95,7 +95,7 @@ namespace QuanLyTiemGiaoHoa.Forms
 
         private void btnXoa_Click(object sender, EventArgs e)
         {
-            if (dataGridView.CurrentRow == null) return;
+            /*if (dataGridView.CurrentRow == null) return;
 
             int idXoa = Convert.ToInt32(dataGridView.CurrentRow.Cells["ID"].Value);
 
@@ -124,6 +124,67 @@ namespace QuanLyTiemGiaoHoa.Forms
                     MessageBox.Show("Lỗi khi xóa: " + ex.Message);
                 }
             }
+            */
+
+
+            if (dataGridView.CurrentRow == null) return;
+
+            int idXoa = Convert.ToInt32(dataGridView.CurrentRow.Cells["ID"].Value);
+
+            if (MessageBox.Show("Xác nhận xóa phiếu nhập này?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            {
+                using (var transaction = context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var phieuNhap = context.PhieuNhap
+                            .Include(p => p.ChiTiet_PhieuNhap)
+                            .ThenInclude(ct => ct.Hoa) // Load thêm bảng Hoa để kiểm tra số lượng
+                            .FirstOrDefault(p => p.ID == idXoa);
+
+                        if (phieuNhap != null)
+                        {
+                            // 1. KIỂM TRA TRƯỚC: Xem có món nào bị âm kho nếu xóa không
+                            foreach (var ct in phieuNhap.ChiTiet_PhieuNhap)
+                            {
+                                if (ct.Hoa.SoLuong < ct.SoLuongNhap)
+                                {
+                                    // Nếu kho hiện tại nhỏ hơn số lượng sắp bị trừ đi
+                                    MessageBox.Show($"Không thể xóa! Hoa '{ct.Hoa.TenHoa}' hiện chỉ còn {ct.Hoa.SoLuong} trong kho, " +
+                                                    $"không đủ để trừ lại {ct.SoLuongNhap} đơn vị đã nhập.",
+                                                    "Cảnh báo kho", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                                    transaction.Rollback(); // Hủy lệnh xóa ngay lập tức
+                                    return;
+                                }
+                            }
+
+                            // 2. THỰC HIỆN TRỪ KHO: Nếu tất cả món đều đủ điều kiện
+                            foreach (var ct in phieuNhap.ChiTiet_PhieuNhap)
+                            {
+                                ct.Hoa.SoLuong = (int)(ct.Hoa.SoLuong - ct.SoLuongNhap);
+                            }
+
+                            // 3. XÓA DỮ LIỆU
+                            context.ChiTiet_PhieuNhap.RemoveRange(phieuNhap.ChiTiet_PhieuNhap);
+                            context.PhieuNhap.Remove(phieuNhap);
+
+                            context.SaveChanges();
+                            transaction.Commit();
+
+                            MessageBox.Show("Đã hoàn trả kho và xóa phiếu thành công!");
+                            LoadData();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        MessageBox.Show("Lỗi hệ thống: " + ex.Message);
+                    }
+                }
+            }
+
+
         }
 
         private void btnTimKiem_Click(object sender, EventArgs e)
@@ -203,7 +264,6 @@ namespace QuanLyTiemGiaoHoa.Forms
             {
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {
-                    // Sử dụng Transaction để đảm bảo an toàn dữ liệu
                     using (var transaction = context.Database.BeginTransaction())
                     {
                         try
@@ -212,13 +272,15 @@ namespace QuanLyTiemGiaoHoa.Forms
                             {
                                 var wsPhieu = wb.Worksheet("PhieuNhap");
                                 var wsCT = wb.Worksheet("ChiTiet");
+
+                                // Dictionary để khớp nối ID cũ trong Excel với ID mới sinh ra trong Database
                                 Dictionary<int, int> mapID = new Dictionary<int, int>();
 
                                 // 1. Đọc Phiếu Nhập
                                 var rowsPhieu = wsPhieu.RowsUsed().Skip(1);
                                 foreach (var r in rowsPhieu)
                                 {
-                                    int idCu = r.Cell(1).GetValue<int>();
+                                    int idCuInExcel = r.Cell(1).GetValue<int>();
                                     string tenNV = r.Cell(2).GetValue<string>();
                                     string tenNCC = r.Cell(3).GetValue<string>();
 
@@ -227,48 +289,59 @@ namespace QuanLyTiemGiaoHoa.Forms
 
                                     var pn = new PhieuNhap
                                     {
-                                        NhanVienID = nv?.ID ?? context.NhanVien.First().ID, // Mặc định NV đầu tiên nếu ko tìm thấy
+                                        // Nếu không tìm thấy tên NV/NCC thì lấy đại diện cái đầu tiên để tránh crash
+                                        NhanVienID = nv?.ID ?? context.NhanVien.First().ID,
                                         NhaCungCapID = ncc?.ID ?? context.NhaCungCap.First().ID,
                                         NgayNhap = r.Cell(4).GetDateTime(),
                                         GhiChu = r.Cell(5).GetValue<string>()
                                     };
 
                                     context.PhieuNhap.Add(pn);
-                                    context.SaveChanges(); // Lưu để lấy ID mới tự tăng
+                                    context.SaveChanges(); // Lưu để lấy ID mới tự tăng từ SQL
 
-                                    mapID[idCu] = pn.ID;
+                                    mapID[idCuInExcel] = pn.ID; // Lưu lại: "ID số 1 trong Excel giờ là ID số 10 trong DB"
                                 }
 
-                                // 2. Đọc Chi Tiết
+                                // 2. Đọc Chi Tiết và Cộng Kho
                                 var rowsCT = wsCT.RowsUsed().Skip(1);
                                 foreach (var r in rowsCT)
                                 {
-                                    int idCuInSheet = r.Cell(1).GetValue<int>();
-                                    if (!mapID.ContainsKey(idCuInSheet)) continue;
+                                    int idPhieuTrongExcel = r.Cell(1).GetValue<int>();
+                                    if (!mapID.ContainsKey(idPhieuTrongExcel)) continue;
 
                                     string tenHoa = r.Cell(2).GetValue<string>();
                                     var hoa = context.Hoa.FirstOrDefault(x => x.TenHoa == tenHoa);
-                                    if (hoa == null) continue;
 
-                                    context.ChiTiet_PhieuNhap.Add(new ChiTiet_PhieuNhap
+                                    if (hoa != null)
                                     {
-                                        PhieuNhapID = mapID[idCuInSheet],
-                                        HoaID = hoa.ID,
-                                        SoLuongNhap = r.Cell(3).GetValue<short>(),
-                                        DonGiaNhap = r.Cell(4).GetValue<decimal>()
-                                    });
+                                        // Sửa lỗi CS0103: Khai báo biến ở đây
+                                        short soLuongNhapExcel = r.Cell(3).GetValue<short>();
+
+                                        context.ChiTiet_PhieuNhap.Add(new ChiTiet_PhieuNhap
+                                        {
+                                            PhieuNhapID = mapID[idPhieuTrongExcel], // Dùng ID mới đã map
+                                            HoaID = hoa.ID,
+                                            SoLuongNhap = soLuongNhapExcel,
+                                            DonGiaNhap = r.Cell(4).GetValue<decimal>()
+                                        });
+
+                                        // Cộng dồn vào kho (Ép kiểu về int để an toàn)
+                                        hoa.SoLuong = (int)(hoa.SoLuong + soLuongNhapExcel);
+                                    }
                                 }
                                 context.SaveChanges();
                             }
 
-                            transaction.Commit(); // Xác nhận lưu vĩnh viễn vào DB
+                            transaction.Commit();
                             LoadData();
                             MessageBox.Show("Nhập dữ liệu từ Excel thành công!", "Thông báo");
                         }
                         catch (Exception ex)
                         {
-                            transaction.Rollback(); // Có lỗi thì hủy hết những gì đã làm ở trên
-                            MessageBox.Show("Lỗi nhập dữ liệu: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            transaction.Rollback();
+                            // Hiển thị chi tiết lỗi để dễ debug
+                            string errorMsg = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                            MessageBox.Show("Lỗi nhập dữ liệu: " + errorMsg, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                 }

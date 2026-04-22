@@ -40,6 +40,7 @@ namespace QuanLyTiemGiaoHoa.Forms
 
         private void LoadData()
         {
+            /*
             // Bước 1: Lấy dữ liệu thô từ SQL (Chưa gọi hàm HienThiTrangThai)
             var query = context.HoaDon
                 .Include(x => x.GiaoHang)
@@ -75,6 +76,46 @@ namespace QuanLyTiemGiaoHoa.Forms
                 GhiChuHoaDon = r.GhiChuHoaDon,
                 TongTienHoaDon = r.TongTien,
                 // Bây giờ gọi hàm này sẽ không bị lỗi nữa
+                TrangThaiGiao = HienThiTrangThai(r.TrangThaiEnum),
+                XemChiTiet = "Xem chi tiết"
+            }).ToList();
+
+            dataGridView.DataSource = hd;
+            */
+
+            var query = context.HoaDon
+        .Include(x => x.GiaoHang)
+        .Include(x => x.NhanVien)
+        .Include(x => x.KhachHang)
+        .Include(x => x.HoaDon_ChiTiet) // Phải Include chi tiết để tính Sum
+        .Select(r => new
+        {
+            r.ID,
+            r.NhanVienID,
+            HoVaTenNhanVien = r.NhanVien.HoVaTen,
+            r.KhachHangID,
+            HoVaTenKhachHang = r.KhachHang.HoVaTen,
+            r.NgayLap,
+            PhiGiaoHang = r.PhiGiaoHang,
+            r.GhiChuHoaDon,
+            // Sử dụng tính toán an toàn hơn
+            TongTien = r.HoaDon_ChiTiet.Sum(ct => (decimal?)ct.SoLuongBan * ct.DonGiaBan) ?? 0,
+            TrangThaiEnum = r.GiaoHang != null ? (TrangThaiGiaoHang?)r.GiaoHang.TrangThai : null
+        })
+        .ToList();
+
+            var hd = query.Select(r => new DanhSachHoaDon
+            {
+                ID = r.ID,
+                NhanVienID = r.NhanVienID,
+                HoVaTenNhanVien = r.HoVaTenNhanVien,
+                KhachHangID = r.KhachHangID,
+                HoVaTenKhachHang = r.HoVaTenKhachHang,
+                NgayLap = r.NgayLap,
+                PhiGiaoHang = r.PhiGiaoHang,
+                GhiChuHoaDon = r.GhiChuHoaDon,
+                // Tổng tiền cuối cùng = Tiền hàng + Phí giao
+                TongTienHoaDon = r.TongTien + r.PhiGiaoHang,
                 TrangThaiGiao = HienThiTrangThai(r.TrangThaiEnum),
                 XemChiTiet = "Xem chi tiết"
             }).ToList();
@@ -211,6 +252,7 @@ namespace QuanLyTiemGiaoHoa.Forms
 
         private void btnTimKiem_Click(object sender, EventArgs e)
         {
+            /*
             string tuKhoa = txtTimKiem.Text.Trim().ToLower();
 
             // Nếu không nhập gì mà nhấn Tìm kiếm -> Hiển thị lại toàn bộ
@@ -257,11 +299,61 @@ namespace QuanLyTiemGiaoHoa.Forms
             }).ToList();
 
             dataGridView.DataSource = ketQua;
+            */
+
+            // 1. Lấy từ khóa và xóa khoảng trắng 2 đầu
+            string tuKhoa = txtTimKiem.Text.Trim().ToLower();
+
+            // 2. Kiểm tra: Nếu ô tìm kiếm trống, hiển thị lại toàn bộ và dừng hàm luôn
+            if (string.IsNullOrEmpty(tuKhoa))
+            {
+                // Thảo gọi lại hàm LoadData() mà bạn đã viết ở trên 
+                // để nó nạp lại danh sách gốc vào Grid
+                LoadData();
+                return;
+            }
+
+            // 3. Nếu có từ khóa, thực hiện truy vấn như cũ
+            var query = context.HoaDon
+                .Where(x => x.NhanVien.HoVaTen.ToLower().Contains(tuKhoa) ||
+                            x.KhachHang.HoVaTen.ToLower().Contains(tuKhoa) ||
+                            x.ID.ToString().Contains(tuKhoa))
+                .Select(r => new
+                {
+                    r.ID,
+                    r.NhanVienID,
+                    HoVaTenNhanVien = r.NhanVien.HoVaTen,
+                    r.KhachHangID,
+                    HoVaTenKhachHang = r.KhachHang.HoVaTen,
+                    r.NgayLap,
+                    r.PhiGiaoHang,
+                    r.GhiChuHoaDon,
+                    TongTien = (r.HoaDon_ChiTiet.Sum(ct => (decimal?)ct.SoLuongBan * ct.DonGiaBan) ?? 0) + r.PhiGiaoHang,
+                    TrangThaiEnum = r.GiaoHang != null ? (TrangThaiGiaoHang?)r.GiaoHang.TrangThai : null
+                })
+                .ToList();
+
+            var ketQua = query.Select(r => new DanhSachHoaDon
+            {
+                ID = r.ID,
+                NhanVienID = r.NhanVienID,
+                HoVaTenNhanVien = r.HoVaTenNhanVien,
+                KhachHangID = r.KhachHangID,
+                HoVaTenKhachHang = r.HoVaTenKhachHang,
+                NgayLap = r.NgayLap,
+                PhiGiaoHang = r.PhiGiaoHang,
+                GhiChuHoaDon = r.GhiChuHoaDon,
+                TongTienHoaDon = r.TongTien,
+                TrangThaiGiao = HienThiTrangThai(r.TrangThaiEnum),
+                XemChiTiet = "Xem chi tiết"
+            }).ToList();
+
+            dataGridView.DataSource = ketQua;
         }
 
         private void btnNhap_Click(object sender, EventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
+            /*OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Excel|*.xlsx";
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
@@ -317,10 +409,75 @@ namespace QuanLyTiemGiaoHoa.Forms
                 }
                 catch (Exception ex) { MessageBox.Show("Lỗi nhập: " + ex.Message); }
             }
+            */
+
+            OpenFileDialog openFileDialog = new OpenFileDialog() { Filter = "Excel|*.xlsx" };
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                using (var transaction = context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        using (XLWorkbook workbook = new XLWorkbook(openFileDialog.FileName))
+                        {
+                            var worksheet = workbook.Worksheet(1);
+                            var rows = worksheet.RowsUsed().Skip(1);
+
+                            foreach (var row in rows)
+                            {
+                                // 1. Tạo Hóa Đơn
+                                HoaDon hd = new HoaDon
+                                {
+                                    NhanVienID = row.Cell(1).GetValue<int>(),
+                                    KhachHangID = row.Cell(2).GetValue<int>(),
+                                    NgayLap = row.Cell(3).GetDateTime(),
+                                    GhiChuHoaDon = row.Cell(4).GetValue<string>(),
+                                    PhiGiaoHang = row.Cell(5).GetValue<decimal>()
+                                };
+                                context.HoaDon.Add(hd);
+                                context.SaveChanges();
+
+                                // 2. Tạo Chi Tiết
+                                HoaDon_ChiTiet ct = new HoaDon_ChiTiet
+                                {
+                                    HoaDonID = hd.ID,
+                                    HoaID = row.Cell(6).GetValue<int>(),
+                                    SoLuongBan = row.Cell(7).GetValue<short>(),
+                                    DonGiaBan = row.Cell(8).GetValue<decimal>()
+                                };
+                                context.HoaDon_ChiTiet.Add(ct);
+
+                                // 3. Tạo Giao Hàng
+                                GiaoHang gh = new GiaoHang
+                                {
+                                    HoaDonID = hd.ID,
+                                    NhanVienID = hd.NhanVienID, // Mặc định NV lập là NV giao, có thể sửa sau
+                                    TenNguoiNhan = row.Cell(9).GetValue<string>(),
+                                    DienThoaiNhan = row.Cell(10).GetValue<string>(),
+                                    DiaChiGiao = row.Cell(11).GetValue<string>(),
+                                    NgayGiao = hd.NgayLap,
+                                    TrangThai = TrangThaiGiaoHang.ChoGiao
+                                };
+                                context.GiaoHang.Add(gh);
+                            }
+                            context.SaveChanges();
+                            transaction.Commit(); // Chỉ xác nhận khi tất cả OK
+                            MessageBox.Show("Nhập dữ liệu thành công!");
+                            LoadData();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        MessageBox.Show("Lỗi nhập: " + ex.Message);
+                    }
+                }
+            }
         }
 
         private void btnXuat_Click(object sender, EventArgs e)
         {
+            /*
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "Excel|*.xlsx";
             saveFileDialog.FileName = "DuLieuHoaDon_" + DateTime.Now.ToString("ddMMyyyy") + ".xlsx";
@@ -364,6 +521,53 @@ namespace QuanLyTiemGiaoHoa.Forms
                     using (XLWorkbook wb = new XLWorkbook())
                     {
                         wb.Worksheets.Add(table, "Data");
+                        wb.SaveAs(saveFileDialog.FileName);
+                    }
+                    MessageBox.Show("Xuất file thành công!");
+                }
+                catch (Exception ex) { MessageBox.Show("Lỗi xuất: " + ex.Message); }
+            }
+            */
+            SaveFileDialog saveFileDialog = new SaveFileDialog()
+            {
+                Filter = "Excel|*.xlsx",
+                FileName = "BaoCaoHoaDon_" + DateTime.Now.ToString("yyyyMMdd")
+            };
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    var ds = context.HoaDon
+                        .Include(h => h.NhanVien)
+                        .Include(h => h.KhachHang)
+                        .Include(h => h.HoaDon_ChiTiet)
+                        .ThenInclude(ct => ct.Hoa) // Lấy thêm tên hoa nếu cần
+                        .Include(h => h.GiaoHang)
+                        .ToList();
+
+                    using (XLWorkbook wb = new XLWorkbook())
+                    {
+                        var ws = wb.Worksheets.Add("HoaDon");
+                        // Tự viết tiêu đề cho đẹp
+                        ws.Cell(1, 1).Value = "Mã HD";
+                        ws.Cell(1, 2).Value = "Nhân viên";
+                        ws.Cell(1, 3).Value = "Khách hàng";
+                        ws.Cell(1, 4).Value = "Ngày lập";
+                        ws.Cell(1, 5).Value = "Tổng tiền hàng";
+                        ws.Cell(1, 6).Value = "Phí giao";
+
+                        int row = 2;
+                        foreach (var hd in ds)
+                        {
+                            ws.Cell(row, 1).Value = hd.ID;
+                            ws.Cell(row, 2).Value = hd.NhanVien?.HoVaTen;
+                            ws.Cell(row, 3).Value = hd.KhachHang?.HoVaTen;
+                            ws.Cell(row, 4).Value = hd.NgayLap;
+                            ws.Cell(row, 5).Value = hd.HoaDon_ChiTiet.Sum(ct => ct.SoLuongBan * ct.DonGiaBan);
+                            ws.Cell(row, 6).Value = hd.PhiGiaoHang;
+                            row++;
+                        }
                         wb.SaveAs(saveFileDialog.FileName);
                     }
                     MessageBox.Show("Xuất file thành công!");

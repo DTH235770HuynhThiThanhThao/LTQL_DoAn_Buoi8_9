@@ -28,13 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             groupBox2 = new GroupBox();
             dataGridView = new DataGridView();
-            HoaID = new DataGridViewTextBoxColumn();
-            TenHoa = new DataGridViewTextBoxColumn();
-            DonGiaBan = new DataGridViewTextBoxColumn();
-            SoLuongBan = new DataGridViewTextBoxColumn();
-            ThanhTien = new DataGridViewTextBoxColumn();
             btnXoa = new Button();
             btnXacNhanBan = new Button();
             numSoLuongBan = new NumericUpDown();
@@ -70,6 +67,11 @@
             txtSDTNhan = new TextBox();
             label15 = new Label();
             label13 = new Label();
+            HoaID = new DataGridViewTextBoxColumn();
+            TenHoa = new DataGridViewTextBoxColumn();
+            DonGiaBan = new DataGridViewTextBoxColumn();
+            SoLuongBan = new DataGridViewTextBoxColumn();
+            ThanhTien = new DataGridViewTextBoxColumn();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numSoLuongBan).BeginInit();
@@ -111,46 +113,6 @@
             dataGridView.Size = new Size(1114, 310);
             dataGridView.TabIndex = 5;
             dataGridView.CellClick += dataGridView_CellClick;
-            // 
-            // HoaID
-            // 
-            HoaID.DataPropertyName = "HoaID";
-            HoaID.FillWeight = 65.8070755F;
-            HoaID.HeaderText = "ID";
-            HoaID.MinimumWidth = 6;
-            HoaID.Name = "HoaID";
-            // 
-            // TenHoa
-            // 
-            TenHoa.DataPropertyName = "TenHoa";
-            TenHoa.FillWeight = 188.646927F;
-            TenHoa.HeaderText = "Tên hoa";
-            TenHoa.MinimumWidth = 6;
-            TenHoa.Name = "TenHoa";
-            // 
-            // DonGiaBan
-            // 
-            DonGiaBan.DataPropertyName = "DonGiaBan";
-            DonGiaBan.FillWeight = 80.2139053F;
-            DonGiaBan.HeaderText = "Đơn giá bán";
-            DonGiaBan.MinimumWidth = 6;
-            DonGiaBan.Name = "DonGiaBan";
-            // 
-            // SoLuongBan
-            // 
-            SoLuongBan.DataPropertyName = "SoLuongBan";
-            SoLuongBan.FillWeight = 70.4085F;
-            SoLuongBan.HeaderText = "Số lượng bán";
-            SoLuongBan.MinimumWidth = 6;
-            SoLuongBan.Name = "SoLuongBan";
-            // 
-            // ThanhTien
-            // 
-            ThanhTien.DataPropertyName = "ThanhTien";
-            ThanhTien.FillWeight = 94.92357F;
-            ThanhTien.HeaderText = "Thành tiền";
-            ThanhTien.MinimumWidth = 6;
-            ThanhTien.Name = "ThanhTien";
             // 
             // btnXoa
             // 
@@ -483,6 +445,50 @@
             label13.TabIndex = 0;
             label13.Text = "Người nhận(*):";
             // 
+            // HoaID
+            // 
+            HoaID.DataPropertyName = "HoaID";
+            HoaID.FillWeight = 65.8070755F;
+            HoaID.HeaderText = "ID";
+            HoaID.MinimumWidth = 6;
+            HoaID.Name = "HoaID";
+            // 
+            // TenHoa
+            // 
+            TenHoa.DataPropertyName = "TenHoa";
+            TenHoa.FillWeight = 188.646927F;
+            TenHoa.HeaderText = "Tên hoa";
+            TenHoa.MinimumWidth = 6;
+            TenHoa.Name = "TenHoa";
+            // 
+            // DonGiaBan
+            // 
+            DonGiaBan.DataPropertyName = "DonGiaBan";
+            dataGridViewCellStyle1.Format = "N0";
+            DonGiaBan.DefaultCellStyle = dataGridViewCellStyle1;
+            DonGiaBan.FillWeight = 80.2139053F;
+            DonGiaBan.HeaderText = "Đơn giá bán";
+            DonGiaBan.MinimumWidth = 6;
+            DonGiaBan.Name = "DonGiaBan";
+            // 
+            // SoLuongBan
+            // 
+            SoLuongBan.DataPropertyName = "SoLuongBan";
+            SoLuongBan.FillWeight = 70.4085F;
+            SoLuongBan.HeaderText = "Số lượng bán";
+            SoLuongBan.MinimumWidth = 6;
+            SoLuongBan.Name = "SoLuongBan";
+            // 
+            // ThanhTien
+            // 
+            ThanhTien.DataPropertyName = "ThanhTien";
+            dataGridViewCellStyle2.Format = "N0";
+            ThanhTien.DefaultCellStyle = dataGridViewCellStyle2;
+            ThanhTien.FillWeight = 94.92357F;
+            ThanhTien.HeaderText = "Thành tiền";
+            ThanhTien.MinimumWidth = 6;
+            ThanhTien.Name = "ThanhTien";
+            // 
             // frmHoaDon_ChiTiet
             // 
             AutoScaleDimensions = new SizeF(10F, 20F);
@@ -543,11 +549,6 @@
         private Button btnThoat;
         private Button btnInHoaDon;
         private Button btnLuuHoaDon;
-        private DataGridViewTextBoxColumn HoaID;
-        private DataGridViewTextBoxColumn TenHoa;
-        private DataGridViewTextBoxColumn DonGiaBan;
-        private DataGridViewTextBoxColumn SoLuongBan;
-        private DataGridViewTextBoxColumn ThanhTien;
         private TextBox txtDiaChiGiao;
         private Label label11;
         private DateTimePicker dtpNgayLap;
@@ -559,5 +560,10 @@
         private Label label13;
         private DateTimePicker dtpNgayGiao;
         private Label label9;
+        private DataGridViewTextBoxColumn HoaID;
+        private DataGridViewTextBoxColumn TenHoa;
+        private DataGridViewTextBoxColumn DonGiaBan;
+        private DataGridViewTextBoxColumn SoLuongBan;
+        private DataGridViewTextBoxColumn ThanhTien;
     }
 }

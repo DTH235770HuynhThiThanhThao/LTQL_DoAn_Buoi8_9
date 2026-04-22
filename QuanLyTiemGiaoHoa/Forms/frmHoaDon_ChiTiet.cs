@@ -200,6 +200,7 @@ namespace QuanLyTiemGiaoHoa.Forms
 
         private void btnXoa_Click(object sender, EventArgs e)
         {
+            /*
             int maHoa = Convert.ToInt32(dataGridView.CurrentRow.Cells["HoaID"].Value.ToString());
             var chiTiet = hoaDonChiTiet.FirstOrDefault(x => x.HoaID == maHoa);
             if (chiTiet != null)
@@ -207,6 +208,27 @@ namespace QuanLyTiemGiaoHoa.Forms
                 hoaDonChiTiet.Remove(chiTiet);
             }
             BatTatChucNang();
+            */
+
+            try
+            {
+                if (dataGridView.CurrentRow == null) return;
+
+                int maHoa = Convert.ToInt32(dataGridView.CurrentRow.Cells["HoaID"].Value);
+                var chiTiet = hoaDonChiTiet.FirstOrDefault(x => x.HoaID == maHoa);
+
+                if (chiTiet != null)
+                {
+                    // Nếu là hóa đơn đang tạo mới (chưa lưu vào DB) thì chỉ xóa khỏi danh sách hiển thị
+                    hoaDonChiTiet.Remove(chiTiet);
+                }
+
+                BatTatChucNang();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Không thể xóa mặt hàng này vì nó đã có trong dữ liệu hệ thống!", "Thông báo");
+            }
         }
 
         private void btnLuuHoaDon_Click(object sender, EventArgs e)
@@ -233,8 +255,26 @@ namespace QuanLyTiemGiaoHoa.Forms
                     HoaDon hd;
                     if (id != 0)
                     {
+                        /*
                         hd = context.HoaDon.Include(h => h.GiaoHang).FirstOrDefault(h => h.ID == id);
                         var oldDetails = context.HoaDon_ChiTiet.Where(r => r.HoaDonID == id).ToList();
+                        context.HoaDon_ChiTiet.RemoveRange(oldDetails);
+                        */
+
+                        hd = context.HoaDon.Include(h => h.GiaoHang).FirstOrDefault(h => h.ID == id);
+                        var oldDetails = context.HoaDon_ChiTiet.Where(r => r.HoaDonID == id).ToList();
+
+                        // --- BỔ SUNG: CỘNG LẠI KHO TRƯỚC KHI XÓA CHI TIẾT CŨ ---
+                        foreach (var oldItem in oldDetails)
+                        {
+                            var hoa = context.Hoa.Find(oldItem.HoaID);
+                            if (hoa != null)
+                            {
+                                hoa.SoLuong = (short)(hoa.SoLuong + oldItem.SoLuongBan); // Trả lại hàng vào kho
+                            }
+                        }
+                        // ------------------------------------------------------
+
                         context.HoaDon_ChiTiet.RemoveRange(oldDetails);
                     }
                     else
@@ -253,11 +293,38 @@ namespace QuanLyTiemGiaoHoa.Forms
 
                     foreach (var item in hoaDonChiTiet)
                     {
+                        /*
                         context.HoaDon_ChiTiet.Add(new HoaDon_ChiTiet
                         {
                             HoaDonID = id,
                             HoaID = item.HoaID,
                             SoLuongBan = item.SoLuongBan,
+                            DonGiaBan = item.DonGiaBan
+                        });
+                        */
+
+                        // 1. Tìm bông hoa trong bảng Hoa để trừ kho
+                        var hoaTrongKho = context.Hoa.Find(item.HoaID);
+
+                        if (hoaTrongKho != null)
+                        {
+                            // 👉 NÊN THÊM ĐOẠN NÀY: Kiểm tra đủ hàng không
+                            if (hoaTrongKho.SoLuong < item.SoLuongBan)
+                            {
+                                // Báo lỗi và dừng toàn bộ quá trình lưu (Rollback sẽ tự kích hoạt nhờ dbTransaction)
+                                throw new Exception($"Hoa '{hoaTrongKho.TenHoa}' không đủ hàng (Kho còn: {hoaTrongKho.SoLuong})");
+                            }
+
+                            // 2. Trừ số lượng tồn kho (Thảo đã có - giữ nguyên)
+                            hoaTrongKho.SoLuong = (short)(hoaTrongKho.SoLuong - item.SoLuongBan);
+                        }
+
+                        // 3. Lưu vào bảng Chi tiết hóa đơn (Thảo đã có - giữ nguyên)
+                        context.HoaDon_ChiTiet.Add(new HoaDon_ChiTiet
+                        {
+                            HoaDonID = id,
+                            HoaID = item.HoaID,
+                            SoLuongBan = (short)item.SoLuongBan,
                             DonGiaBan = item.DonGiaBan
                         });
                     }
@@ -461,12 +528,37 @@ namespace QuanLyTiemGiaoHoa.Forms
 
                         foreach (DataRow r in table.Rows)
                         {
+                            /*
                             HoaDon_ChiTiet ct = new HoaDon_ChiTiet();
 
                             ct.HoaDonID = int.Parse(r["HoaDonID"].ToString());
                             ct.HoaID = int.Parse(r["HoaID"].ToString());
                             ct.SoLuongBan = short.Parse(r["SoLuong"].ToString());
                             ct.DonGiaBan = decimal.Parse(r["DonGia"].ToString());
+
+                            context.HoaDon_ChiTiet.Add(ct);
+                            */
+
+                            HoaDon_ChiTiet ct = new HoaDon_ChiTiet();
+
+                            ct.HoaDonID = int.Parse(r["HoaDonID"].ToString());
+                            ct.HoaID = int.Parse(r["HoaID"].ToString());
+                            ct.SoLuongBan = short.Parse(r["SoLuong"].ToString());
+                            ct.DonGiaBan = decimal.Parse(r["DonGia"].ToString());
+
+                            // --- BỔ SUNG: TRỪ KHO KHI NHẬP TỪ EXCEL ---
+                            var hoaTrongKho = context.Hoa.Find(ct.HoaID);
+                            if (hoaTrongKho != null)
+                            {
+                                // Kiểm tra tồn kho trước khi trừ
+                                if (hoaTrongKho.SoLuong < ct.SoLuongBan)
+                                {
+                                    MessageBox.Show($"Hoa ID {ct.HoaID} không đủ tồn kho để nhập!");
+                                    continue; // Hoặc dùng return nếu muốn dừng hẳn
+                                }
+                                hoaTrongKho.SoLuong = (short)(hoaTrongKho.SoLuong - ct.SoLuongBan);
+                            }
+                            // -----------------------------------------
 
                             context.HoaDon_ChiTiet.Add(ct);
                         }

@@ -151,58 +151,141 @@ namespace QuanLyTiemGiaoHoa.Forms
 
         private void btnLuuPhieuNhap_Click(object sender, EventArgs e)
         {
+            /* if (dsChiTiet.Count == 0)
+             {
+                 MessageBox.Show("Vui lòng thêm ít nhất một sản phẩm!");
+                 return;
+             }
+
+             try
+             {
+                 PhieuNhap pn;
+                 if (id == 0)
+                 {
+                     pn = new PhieuNhap();
+                     context.PhieuNhap.Add(pn);
+                 }
+                 else
+                 {
+                     pn = context.PhieuNhap.Include(x => x.ChiTiet_PhieuNhap).FirstOrDefault(x => x.ID == id);
+                     if (pn != null)
+                     {
+                         // Xóa chi tiết cũ
+                         context.ChiTiet_PhieuNhap.RemoveRange(pn.ChiTiet_PhieuNhap);
+                     }
+                 }
+
+                 pn.NhanVienID = (int)cboNhanVien.SelectedValue;
+                 pn.NhaCungCapID = (int)cboNhaCungCap.SelectedValue;
+                 pn.NgayNhap = dtpNgayNhap.Value;
+                 pn.GhiChu = txtGhiChuPhieuNhap.Text;
+
+                 // Ép buộc lưu Header trước để lấy ID nếu là thêm mới
+                 if (id == 0) context.SaveChanges();
+
+                 foreach (var item in dsChiTiet)
+                 {
+                     context.ChiTiet_PhieuNhap.Add(new ChiTiet_PhieuNhap
+                     {
+                         PhieuNhapID = pn.ID, // Đảm bảo ID luôn đúng
+                         HoaID = item.HoaID,
+                         SoLuongNhap = (short)item.SoLuongNhap,
+                         DonGiaNhap = item.DonGiaNhap
+                     });
+                 }
+
+                 context.SaveChanges();
+                 MessageBox.Show("Lưu phiếu nhập thành công!", "Thông báo");
+                 this.DialogResult = DialogResult.OK; // Trả về OK để form cha load lại data
+                 this.Close();
+             }
+             catch (Exception ex)
+             {
+                 MessageBox.Show("Lỗi: " + ex.InnerException?.Message ?? ex.Message);
+             }
+            */
+
             if (dsChiTiet.Count == 0)
             {
                 MessageBox.Show("Vui lòng thêm ít nhất một sản phẩm!");
                 return;
             }
 
-            try
+            // Sử dụng Transaction để đảm bảo: Hoặc lưu tất cả thành công, hoặc không lưu gì cả (nếu lỗi)
+            using (var transaction = context.Database.BeginTransaction())
             {
-                PhieuNhap pn;
-                if (id == 0)
+                try
                 {
-                    pn = new PhieuNhap();
-                    context.PhieuNhap.Add(pn);
-                }
-                else
-                {
-                    pn = context.PhieuNhap.Include(x => x.ChiTiet_PhieuNhap).FirstOrDefault(x => x.ID == id);
-                    if (pn != null)
+                    PhieuNhap pn;
+                    if (id == 0)
                     {
-                        // Xóa chi tiết cũ
-                        context.ChiTiet_PhieuNhap.RemoveRange(pn.ChiTiet_PhieuNhap);
+                        pn = new PhieuNhap();
+                        context.PhieuNhap.Add(pn);
                     }
-                }
-
-                pn.NhanVienID = (int)cboNhanVien.SelectedValue;
-                pn.NhaCungCapID = (int)cboNhaCungCap.SelectedValue;
-                pn.NgayNhap = dtpNgayNhap.Value;
-                pn.GhiChu = txtGhiChuPhieuNhap.Text;
-
-                // Ép buộc lưu Header trước để lấy ID nếu là thêm mới
-                if (id == 0) context.SaveChanges();
-
-                foreach (var item in dsChiTiet)
-                {
-                    context.ChiTiet_PhieuNhap.Add(new ChiTiet_PhieuNhap
+                    else
                     {
-                        PhieuNhapID = pn.ID, // Đảm bảo ID luôn đúng
-                        HoaID = item.HoaID,
-                        SoLuongNhap = (short)item.SoLuongNhap,
-                        DonGiaNhap = item.DonGiaNhap
-                    });
-                }
+                        pn = context.PhieuNhap.Include(x => x.ChiTiet_PhieuNhap).FirstOrDefault(x => x.ID == id);
+                        if (pn != null)
+                        {
+                            // Nếu là sửa, ta cần hoàn trả số lượng cũ về kho trước khi xóa chi tiết cũ
+                            foreach (var ctOld in pn.ChiTiet_PhieuNhap)
+                            {
+                                var hoaKho = context.Hoa.Find(ctOld.HoaID);
+                                if (hoaKho != null) hoaKho.SoLuong -= ctOld.SoLuongNhap;
+                            }
+                            context.ChiTiet_PhieuNhap.RemoveRange(pn.ChiTiet_PhieuNhap);
+                        }
+                    }
 
-                context.SaveChanges();
-                MessageBox.Show("Lưu phiếu nhập thành công!", "Thông báo");
-                this.DialogResult = DialogResult.OK; // Trả về OK để form cha load lại data
-                this.Close();
+                    // Cập nhật thông tin Header
+                    pn.NhanVienID = (int)cboNhanVien.SelectedValue;
+                    pn.NhaCungCapID = (int)cboNhaCungCap.SelectedValue;
+                    pn.NgayNhap = dtpNgayNhap.Value;
+                    pn.GhiChu = txtGhiChuPhieuNhap.Text;
+
+                    // Lưu Header trước để có ID
+                    context.SaveChanges();
+
+                    // Duyệt danh sách đang hiển thị trên Grid để lưu chi tiết và CẬP NHẬT KHO
+                    foreach (var item in dsChiTiet)
+                    {
+                        // 1. Thêm chi tiết phiếu nhập
+                        context.ChiTiet_PhieuNhap.Add(new ChiTiet_PhieuNhap
+                        {
+                            PhieuNhapID = pn.ID,
+                            HoaID = item.HoaID,
+                            SoLuongNhap = (short)item.SoLuongNhap,
+                            DonGiaNhap = item.DonGiaNhap
+                        });
+
+                        // 2. LOGIC QUAN TRỌNG: Cộng thêm số lượng vào bảng Hoa
+                        var hoa = context.Hoa.Find(item.HoaID);
+                        if (hoa != null)
+                        {
+                            // Cộng dồn số lượng vừa nhập vào cột SoLuong của bảng Hoa
+                            // Dòng đã sửa
+                            hoa.SoLuong = (int)(hoa.SoLuong + item.SoLuongNhap);
+                        }
+                    }
+
+                    context.SaveChanges();
+                    transaction.Commit(); // Chốt giao dịch thành công
+
+                    MessageBox.Show("Lưu phiếu nhập và cập nhật kho thành công!", "Thông báo");
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback(); // Nếu có lỗi, hủy bỏ toàn bộ thay đổi để tránh sai lệch số lượng kho
+                    MessageBox.Show("Lỗi: " + (ex.InnerException?.Message ?? ex.Message));
+                }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi: " + ex.InnerException?.Message ?? ex.Message);
-            }
+
+
+
+
+
         }
 
         private void btnThoat_Click(object sender, EventArgs e)

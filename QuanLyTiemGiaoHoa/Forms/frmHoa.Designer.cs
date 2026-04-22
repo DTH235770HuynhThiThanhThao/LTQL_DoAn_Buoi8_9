@@ -98,16 +98,16 @@
             groupBox1.Controls.Add(label1);
             groupBox1.Location = new Point(10, 10);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(1202, 297);
+            groupBox1.Size = new Size(1202, 348);
             groupBox1.TabIndex = 3;
             groupBox1.TabStop = false;
             groupBox1.Text = "Sản phẩm";
             // 
             // picHinhAnh
             // 
-            picHinhAnh.Location = new Point(813, 22);
+            picHinhAnh.Location = new Point(804, 22);
             picHinhAnh.Name = "picHinhAnh";
-            picHinhAnh.Size = new Size(189, 207);
+            picHinhAnh.Size = new Size(216, 252);
             picHinhAnh.SizeMode = PictureBoxSizeMode.StretchImage;
             picHinhAnh.TabIndex = 5;
             picHinhAnh.TabStop = false;
@@ -157,7 +157,7 @@
             // 
             // btnXuat
             // 
-            btnXuat.Location = new Point(1074, 247);
+            btnXuat.Location = new Point(1072, 293);
             btnXuat.Name = "btnXuat";
             btnXuat.Size = new Size(112, 35);
             btnXuat.TabIndex = 2;
@@ -167,7 +167,7 @@
             // 
             // btnNhap
             // 
-            btnNhap.Location = new Point(946, 247);
+            btnNhap.Location = new Point(944, 293);
             btnNhap.Name = "btnNhap";
             btnNhap.Size = new Size(112, 35);
             btnNhap.TabIndex = 2;
@@ -177,7 +177,7 @@
             // 
             // btnThoat
             // 
-            btnThoat.Location = new Point(818, 247);
+            btnThoat.Location = new Point(816, 293);
             btnThoat.Name = "btnThoat";
             btnThoat.Size = new Size(112, 35);
             btnThoat.TabIndex = 2;
@@ -187,7 +187,7 @@
             // 
             // btnHuyBo
             // 
-            btnHuyBo.Location = new Point(691, 247);
+            btnHuyBo.Location = new Point(689, 293);
             btnHuyBo.Name = "btnHuyBo";
             btnHuyBo.Size = new Size(112, 35);
             btnHuyBo.TabIndex = 2;
@@ -197,7 +197,7 @@
             // 
             // btnLuu
             // 
-            btnLuu.Location = new Point(559, 247);
+            btnLuu.Location = new Point(557, 293);
             btnLuu.Name = "btnLuu";
             btnLuu.Size = new Size(112, 35);
             btnLuu.TabIndex = 2;
@@ -207,7 +207,7 @@
             // 
             // btnXoa
             // 
-            btnXoa.Location = new Point(429, 247);
+            btnXoa.Location = new Point(427, 293);
             btnXoa.Name = "btnXoa";
             btnXoa.Size = new Size(112, 35);
             btnXoa.TabIndex = 2;
@@ -217,7 +217,7 @@
             // 
             // btnSua
             // 
-            btnSua.Location = new Point(301, 247);
+            btnSua.Location = new Point(299, 293);
             btnSua.Name = "btnSua";
             btnSua.Size = new Size(112, 35);
             btnSua.TabIndex = 2;
@@ -227,7 +227,7 @@
             // 
             // btnThem
             // 
-            btnThem.Location = new Point(173, 247);
+            btnThem.Location = new Point(171, 293);
             btnThem.Name = "btnThem";
             btnThem.Size = new Size(112, 35);
             btnThem.TabIndex = 2;
@@ -254,9 +254,9 @@
             label3.AutoSize = true;
             label3.Location = new Point(35, 81);
             label3.Name = "label3";
-            label3.Size = new Size(136, 20);
+            label3.Size = new Size(133, 20);
             label3.TabIndex = 0;
-            label3.Text = "Hãng sản xuất(*):";
+            label3.Text = "Nhà cung cấp(*):";
             // 
             // label4
             // 
@@ -307,7 +307,7 @@
             // 
             groupBox3.Controls.Add(btnTimKiem);
             groupBox3.Controls.Add(txtTimKiem);
-            groupBox3.Location = new Point(10, 313);
+            groupBox3.Location = new Point(10, 364);
             groupBox3.Name = "groupBox3";
             groupBox3.Size = new Size(528, 68);
             groupBox3.TabIndex = 6;
@@ -334,7 +334,7 @@
             // groupBox2
             // 
             groupBox2.Controls.Add(dataGridView);
-            groupBox2.Location = new Point(12, 397);
+            groupBox2.Location = new Point(16, 438);
             groupBox2.Name = "groupBox2";
             groupBox2.Size = new Size(1200, 350);
             groupBox2.TabIndex = 7;
@@ -418,7 +418,7 @@
             // 
             AutoScaleDimensions = new SizeF(10F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1238, 774);
+            ClientSize = new Size(1238, 800);
             Controls.Add(groupBox2);
             Controls.Add(groupBox3);
             Controls.Add(groupBox1);

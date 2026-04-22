@@ -74,6 +74,18 @@ namespace QuanLyTiemGiaoHoa.Forms
             LayLoaiSanPhamVaoComboBox();
             LayHangSanXuatVaoComboBox();
 
+
+            // --- ĐOẠN CODE KIỂM TRA SỐ ÂM (Dán chuẩn ở đây) ---
+            var danhSachAm = context.Hoa.Where(h => h.SoLuong < 0).ToList();
+            if (danhSachAm.Count > 0)
+            {
+                foreach (var h in danhSachAm)
+                {
+                    h.SoLuong = 0;
+                }
+                context.SaveChanges();
+            }
+
             // chỉnh ảnh cho nó bự
             dataGridView.RowTemplate.Height = 100; // chỉnh độ cao dòng
             dataGridView.Columns["HinhAnh"].Width = 120;// cột ảnh
@@ -97,10 +109,10 @@ namespace QuanLyTiemGiaoHoa.Forms
                 e2.ThrowException = false;
             };
 
+           
 
-
-            // tránh add nhiều lần
-            dataGridView.CellFormatting -= dataGridView_CellFormatting;
+                // tránh add nhiều lần
+                dataGridView.CellFormatting -= dataGridView_CellFormatting;
             dataGridView.CellFormatting += dataGridView_CellFormatting;
 
             var sp = context.Hoa.Select(r => new DanhSachHoa
@@ -157,6 +169,26 @@ namespace QuanLyTiemGiaoHoa.Forms
 
         private void dataGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
+            
+            // --- PHẦN 1: TÔ MÀU CẢNH BÁO HẾT HÀNG (MỚI THÊM) ---
+            // Kiểm tra nếu đang ở cột Số lượng
+            if (dataGridView.Columns[e.ColumnIndex].Name == "SoLuong")
+            {
+                if (e.Value != null)
+                {
+                    int tonKho = Convert.ToInt32(e.Value);
+                    if (tonKho <= 5) // Nếu còn từ 5 bông trở xuống
+                    {
+                        e.CellStyle.ForeColor = Color.Red; // Chữ đỏ
+                        e.CellStyle.Font = new Font(dataGridView.Font, FontStyle.Bold); // In đậm
+                    }
+                }
+            }
+            
+
+
+
+
             if (dataGridView.Columns[e.ColumnIndex].Name == "HinhAnh")
             {
                 if (e.RowIndex < 0) return;
