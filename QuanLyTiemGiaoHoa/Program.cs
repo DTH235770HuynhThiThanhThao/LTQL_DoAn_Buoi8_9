@@ -1,4 +1,5 @@
 using QuanLyTiemGiaoHoa.Forms;
+using QuanLyTiemGiaoHoa.Reports;
 
 namespace QuanLyTiemGiaoHoa
 {
@@ -13,7 +14,7 @@ namespace QuanLyTiemGiaoHoa
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new frmHoa());
+            Application.Run(new frmThongKeHoa());
         }
     }
 }

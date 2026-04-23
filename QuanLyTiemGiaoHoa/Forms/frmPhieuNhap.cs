@@ -68,12 +68,30 @@ namespace QuanLyTiemGiaoHoa.Forms
 
         private void btnLapPhieuNhap_Click(object sender, EventArgs e)
         {
+            /*
             // Mở form chi tiết ở chế độ thêm mới
             using (frmChiTiet_PhieuNhap f = new frmChiTiet_PhieuNhap())
             {
                 f.ShowDialog();
                 LoadData();
             }
+            */
+
+
+            // 1. Khởi tạo form mới
+            frmChiTiet_PhieuNhap f = new frmChiTiet_PhieuNhap();
+
+            // 2. Gán cha MDI
+            f.MdiParent = this.MdiParent;
+
+            // 3. Xử lý hiển thị để không bị lệch
+            f.StartPosition = FormStartPosition.CenterParent;
+            f.WindowState = FormWindowState.Normal; // Để Normal trước khi Maximize giúp WinForms tính toán lại tọa độ
+            f.Show();
+            f.WindowState = FormWindowState.Maximized; // Sau khi Show mới cho phóng to
+
+            // 4. Đóng form hiện tại
+            this.Close();
         }
 
         private void btnSua_Click(object sender, EventArgs e)

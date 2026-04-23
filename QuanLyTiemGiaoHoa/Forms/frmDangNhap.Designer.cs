@@ -99,7 +99,6 @@
             txtTenDangNhap.Location = new Point(596, 171);
             txtTenDangNhap.Margin = new Padding(4, 3, 4, 3);
             txtTenDangNhap.Name = "txtTenDangNhap";
-            txtTenDangNhap.PasswordChar = '*';
             txtTenDangNhap.Size = new Size(420, 28);
             txtTenDangNhap.TabIndex = 8;
             // 

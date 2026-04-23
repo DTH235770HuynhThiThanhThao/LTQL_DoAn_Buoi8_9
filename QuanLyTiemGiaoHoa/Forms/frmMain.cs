@@ -43,6 +43,8 @@ namespace QuanLyTiemGiaoHoa.Forms
             }
             else
                 loaiHoa.Activate();
+
+            MoFormCon(new frmLoaiHoa());
         }
 
         private void mnuNhaCungCap_Click(object sender, EventArgs e)
@@ -55,6 +57,7 @@ namespace QuanLyTiemGiaoHoa.Forms
             }
             else
                 nhaCungCap.Activate();
+            MoFormCon(new frmNhaCungCap());
         }
 
         private void mnuHoa_Click(object sender, EventArgs e)
@@ -67,6 +70,7 @@ namespace QuanLyTiemGiaoHoa.Forms
             }
             else
                 Hoa.Activate();
+            MoFormCon(new frmHoa());
         }
 
         private void mnuNhapHang_Click(object sender, EventArgs e)
@@ -79,6 +83,7 @@ namespace QuanLyTiemGiaoHoa.Forms
             }
             else
                 nhaCungCap.Activate();
+            MoFormCon(new frmPhieuNhap());
         }
 
         private void mnuGiaoHang_Click(object sender, EventArgs e)
@@ -91,6 +96,7 @@ namespace QuanLyTiemGiaoHoa.Forms
             }
             else
                 nhaCungCap.Activate();
+            MoFormCon(new frmGiaoHang());
         }
 
         private void mnuKhachHang_Click(object sender, EventArgs e)
@@ -103,6 +109,7 @@ namespace QuanLyTiemGiaoHoa.Forms
             }
             else
                 khachHang.Activate();
+            MoFormCon(new frmKHang());
         }
 
         private void mnuNhanVien_Click(object sender, EventArgs e)
@@ -115,6 +122,7 @@ namespace QuanLyTiemGiaoHoa.Forms
             }
             else
                 nhanVien.Activate();
+            MoFormCon(new frmNhanVien());
         }
 
         private void mnuHoaDon_Click(object sender, EventArgs e)
@@ -127,6 +135,7 @@ namespace QuanLyTiemGiaoHoa.Forms
             }
             else
                 hoaDon.Activate();
+            MoFormCon(new frmHoaDon());
         }
 
         private void lblLienKet_Click(object sender, EventArgs e)
@@ -135,6 +144,7 @@ namespace QuanLyTiemGiaoHoa.Forms
             info.FileName = "explorer.exe";
             info.Arguments = "https://fit.agu.edu.vn";
             Process.Start(info);
+
         }
 
 
@@ -238,8 +248,8 @@ namespace QuanLyTiemGiaoHoa.Forms
             mnuNhaCungCap.Enabled = true;
             mnuHoa.Enabled = true;
 
-            mnuNhapHang.Enabled = false;
-            mnuGiaoHang.Enabled = false;
+            mnuNhapHang.Enabled = true;
+            mnuGiaoHang.Enabled = true;
 
             mnuKhachHang.Enabled = true;
             mnuNhanVien.Enabled = true;
@@ -299,6 +309,20 @@ namespace QuanLyTiemGiaoHoa.Forms
                 child.Close();
             }
             ChuaDangNhap();
+        }
+
+        private void MoFormCon(Form formMoi)
+        {
+            // 1. Đóng tất cả các Form con đang mở (trừ cái đang chuẩn bị mở)
+            foreach (Form child in this.MdiChildren)
+            {
+                child.Close();
+            }
+
+            // 2. Thiết lập và hiển thị Form mới
+            formMoi.MdiParent = this;
+            formMoi.WindowState = FormWindowState.Maximized; // Cho hiển thị tràn màn hình cho đẹp
+            formMoi.Show();
         }
     }
 }

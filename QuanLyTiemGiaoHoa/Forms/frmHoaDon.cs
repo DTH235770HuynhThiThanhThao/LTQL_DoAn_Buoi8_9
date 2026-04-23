@@ -145,11 +145,29 @@ namespace QuanLyTiemGiaoHoa.Forms
 
         private void btnLapHoaDon_Click(object sender, EventArgs e)
         {
+            /*
             using (frmHoaDon_ChiTiet chiTiet = new frmHoaDon_ChiTiet())
             {
                 chiTiet.ShowDialog();
                 LoadData();
             }
+            */
+
+            // 1. Tạo form chi tiết mới
+            frmHoaDon_ChiTiet chiTiet = new frmHoaDon_ChiTiet();
+
+            // 2. Gán cha cho nó là Form chính (MdiParent) 
+            // Vì frmHoaDon cũng là con của frmMain, nên ta lấy cha của form hiện tại gán cho form mới
+            chiTiet.MdiParent = this.MdiParent;
+
+            // 3. Hiển thị full màn hình cho đẹp
+            chiTiet.WindowState = FormWindowState.Maximized;
+
+            // 4. Hiện form chi tiết lên
+            chiTiet.Show();
+
+            // 5. Đóng hoặc ẩn form danh sách (frmHoaDon) hiện tại
+            this.Close();
         }
 
         private void btnSua_Click(object sender, EventArgs e)
