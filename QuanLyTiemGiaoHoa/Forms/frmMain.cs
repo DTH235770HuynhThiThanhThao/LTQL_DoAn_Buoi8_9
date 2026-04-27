@@ -18,7 +18,7 @@ namespace QuanLyTiemGiaoHoa.Forms
 
     public partial class frmMain : Form
     {
-        QLTGHDbContext context = new QLTGHDbContext(); // Khởi tạo biến ngữ cảnh CSDL 
+        //QLTGHDbContext context = new QLTGHDbContext(); // Khởi tạo biến ngữ cảnh CSDL 
         frmLoaiHoa loaiHoa = null;
         frmNhaCungCap nhaCungCap = null;
         frmHoa Hoa = null;
@@ -31,6 +31,10 @@ namespace QuanLyTiemGiaoHoa.Forms
         frmThongKeHoa thongKeHoa = null;
         frmThongKeDoanhThu thongKeDoanhThu = null;
         string hoVaTenNhanVien = ""; // Lấy tên người dùng hiển thị vào thanh Status.
+
+        // Lưu ID hoặc đối tượng nhân viên đang đăng nhập
+        int maNhanVienDangNhap = 0;
+
         public frmMain()
         {
             InitializeComponent();
@@ -192,6 +196,7 @@ namespace QuanLyTiemGiaoHoa.Forms
                 }
                 else
                 {
+                    /*
                     //var nhanVien = context.NhanViens.Where(r => r.TenDangNhap == tenDangNhap).SingleOrDefault();
                     var nhanVien = context.NhanVien.FirstOrDefault(r => r.TenDangNhap == tenDangNhap);
                     if (nhanVien == null)
@@ -206,6 +211,8 @@ namespace QuanLyTiemGiaoHoa.Forms
                         {
                             hoVaTenNhanVien = nhanVien.HoVaTen;
 
+                            maNhanVienDangNhap = nhanVien.ID; // Gán ID ở đây
+
                             // THÊM DÒNG NÀY: Thông báo chào mừng
                             MessageBox.Show($"Đăng nhập thành công! Chào mừng {hoVaTenNhanVien}.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -219,6 +226,41 @@ namespace QuanLyTiemGiaoHoa.Forms
                         else
                         {
                             MessageBox.Show("Mật khẩu không chính xác!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            dangNhap.txtMatKhau.Focus();
+                            goto LamLai;
+                        }
+                    }
+                    */
+
+                    using (var db = new QLTGHDbContext())
+                    {
+                        var nhanVien = db.NhanVien.FirstOrDefault(r => r.TenDangNhap == tenDangNhap);
+
+                        if (nhanVien == null)
+                        {
+                            MessageBox.Show("Tên đăng nhập không chính xác!", "Lỗi",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            dangNhap.txtTenDangNhap.Focus();
+                            goto LamLai;
+                        }
+
+                        if (BC.Verify(matKhau, nhanVien.MatKhau))
+                        {
+                            hoVaTenNhanVien = nhanVien.HoVaTen;
+                            maNhanVienDangNhap = nhanVien.ID;
+
+                            MessageBox.Show($"Đăng nhập thành công! Chào mừng {hoVaTenNhanVien}.",
+                                "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                            if (nhanVien.QuyenHan == true)
+                                QuyenQuanLy();
+                            else
+                                QuyenNhanVien();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Mật khẩu không chính xác!", "Lỗi",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
                             dangNhap.txtMatKhau.Focus();
                             goto LamLai;
                         }
@@ -331,8 +373,8 @@ namespace QuanLyTiemGiaoHoa.Forms
             btnHeThong.Enabled = true;
             btnQuanLy.Enabled = true;
             btnNhanVien.Enabled = false;
-            btnNhapHang.Enabled= false;
-            
+            btnNhapHang.Enabled = false;
+
             btnBaoCaoThongKe.Enabled = false;
 
 
@@ -352,7 +394,7 @@ namespace QuanLyTiemGiaoHoa.Forms
             DangNhap();
             */
 
-            
+
             // 1. Ẩn tất cả các panel con ngay khi load
             pnlSubHeThong.Visible = false;
             pnlSubQuanLy.Visible = false;
@@ -362,7 +404,8 @@ namespace QuanLyTiemGiaoHoa.Forms
             ChuaDangNhap();
 
             // Hiển thị đăng nhập
-            this.BeginInvoke(new Action(() => {
+            this.BeginInvoke(new Action(() =>
+            {
                 DangNhap();
             }));
 
@@ -376,7 +419,7 @@ namespace QuanLyTiemGiaoHoa.Forms
                     break;
                 }
             }
-            
+
 
 
 
@@ -392,12 +435,12 @@ namespace QuanLyTiemGiaoHoa.Forms
             ChuaDangNhap();
         }
 
-        
+
 
         private void MoFormCon<T>() where T : Form, new()
         {
 
-            
+
             // 1. Tìm xem Form này đã mở chưa
             T frm = this.MdiChildren.OfType<T>().FirstOrDefault();
 
@@ -417,7 +460,7 @@ namespace QuanLyTiemGiaoHoa.Forms
                 // 4. Nếu mở rồi thì mang nó lên trước mặt
                 frm.Activate();
             }
-            
+
 
 
             /*
@@ -547,7 +590,12 @@ namespace QuanLyTiemGiaoHoa.Forms
 
         private void btnDoiMatKhau_Click(object sender, EventArgs e)
         {
+            // Truyền maNhanVienDangNhap vào Form
+            frmDoiMatKhau frm = new frmDoiMatKhau(maNhanVienDangNhap);
 
+            // Hiển thị dạng hộp thoại (ShowDialog) để bắt buộc xử lý xong mới quay lại Main
+            frm.StartPosition = FormStartPosition.CenterParent;
+            frm.ShowDialog();
         }
 
         private void btnLoaiHoa_Click(object sender, EventArgs e)
@@ -603,6 +651,16 @@ namespace QuanLyTiemGiaoHoa.Forms
         private void btnThongKeHoaBanChay_Click(object sender, EventArgs e)
         {
             MoFormCon<frmThongKeHoaBanChay>();
+        }
+
+        private void mnuDoiMatKhau_Click(object sender, EventArgs e)
+        {
+            // Truyền maNhanVienDangNhap vào Form
+            frmDoiMatKhau frm = new frmDoiMatKhau(maNhanVienDangNhap);
+
+            // Hiển thị dạng hộp thoại (ShowDialog) để bắt buộc xử lý xong mới quay lại Main
+            frm.StartPosition = FormStartPosition.CenterParent;
+            frm.ShowDialog();
         }
     }
 }

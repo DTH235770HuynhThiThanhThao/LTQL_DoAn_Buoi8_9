@@ -269,27 +269,28 @@
             mnuThoat.BackColor = Color.OldLace;
             mnuThoat.Name = "mnuThoat";
             mnuThoat.ShortcutKeys = Keys.Alt | Keys.F4;
-            mnuThoat.Size = new Size(213, 26);
+            mnuThoat.Size = new Size(224, 26);
             mnuThoat.Text = "Thoát";
             mnuThoat.Click += mnuThoat_Click;
             // 
             // toolStripSeparator2
             // 
             toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new Size(210, 6);
+            toolStripSeparator2.Size = new Size(221, 6);
             // 
             // mnuDoiMatKhau
             // 
             mnuDoiMatKhau.BackColor = Color.PapayaWhip;
             mnuDoiMatKhau.Name = "mnuDoiMatKhau";
-            mnuDoiMatKhau.Size = new Size(213, 26);
+            mnuDoiMatKhau.Size = new Size(224, 26);
             mnuDoiMatKhau.Text = "Đổi mật khẩu...";
+            mnuDoiMatKhau.Click += mnuDoiMatKhau_Click;
             // 
             // mnuDangXuat
             // 
             mnuDangXuat.BackColor = Color.OldLace;
             mnuDangXuat.Name = "mnuDangXuat";
-            mnuDangXuat.Size = new Size(213, 26);
+            mnuDangXuat.Size = new Size(224, 26);
             mnuDangXuat.Text = "Đăng xuất";
             mnuDangXuat.Click += mnuDangXuat_Click;
             // 
@@ -297,7 +298,7 @@
             // 
             mnuDangNhap.BackColor = Color.PapayaWhip;
             mnuDangNhap.Name = "mnuDangNhap";
-            mnuDangNhap.Size = new Size(213, 26);
+            mnuDangNhap.Size = new Size(224, 26);
             mnuDangNhap.Text = "Đăng nhập...";
             mnuDangNhap.Click += mnuDangNhap_Click;
             // 
