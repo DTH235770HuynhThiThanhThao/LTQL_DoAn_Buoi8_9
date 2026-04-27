@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmHoa));
             groupBox1 = new GroupBox();
             picHinhAnh = new PictureBox();
             numDonGia = new NumericUpDown();
@@ -35,6 +37,7 @@
             cboNhaCungCap = new ComboBox();
             cboLoaiHoa = new ComboBox();
             btnDoiAnh = new Button();
+            imageList1 = new ImageList(components);
             btnXuat = new Button();
             btnNhap = new Button();
             btnThoat = new Button();
@@ -74,7 +77,9 @@
             // 
             // groupBox1
             // 
+            groupBox1.BackColor = Color.LavenderBlush;
             groupBox1.Controls.Add(picHinhAnh);
+            groupBox1.Controls.Add(groupBox3);
             groupBox1.Controls.Add(numDonGia);
             groupBox1.Controls.Add(numSoLuong);
             groupBox1.Controls.Add(cboNhaCungCap);
@@ -98,7 +103,7 @@
             groupBox1.Controls.Add(label1);
             groupBox1.Location = new Point(11, 11);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(1322, 383);
+            groupBox1.Size = new Size(1322, 401);
             groupBox1.TabIndex = 3;
             groupBox1.TabStop = false;
             groupBox1.Text = "Sản phẩm";
@@ -107,7 +112,7 @@
             // 
             picHinhAnh.Location = new Point(884, 24);
             picHinhAnh.Name = "picHinhAnh";
-            picHinhAnh.Size = new Size(238, 277);
+            picHinhAnh.Size = new Size(214, 226);
             picHinhAnh.SizeMode = PictureBoxSizeMode.StretchImage;
             picHinhAnh.TabIndex = 5;
             picHinhAnh.TabStop = false;
@@ -147,92 +152,157 @@
             // 
             // btnDoiAnh
             // 
-            btnDoiAnh.Location = new Point(1138, 24);
+            btnDoiAnh.BackColor = Color.FromArgb(255, 255, 192);
+            btnDoiAnh.ImageIndex = 11;
+            btnDoiAnh.ImageList = imageList1;
+            btnDoiAnh.Location = new Point(1132, 29);
             btnDoiAnh.Name = "btnDoiAnh";
-            btnDoiAnh.Size = new Size(103, 38);
+            btnDoiAnh.Size = new Size(122, 38);
             btnDoiAnh.TabIndex = 2;
-            btnDoiAnh.Text = "Đổi ảnh...";
-            btnDoiAnh.UseVisualStyleBackColor = true;
+            btnDoiAnh.Text = "Đổi ảnh";
+            btnDoiAnh.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnDoiAnh.UseVisualStyleBackColor = false;
             btnDoiAnh.Click += btnDoiAnh_Click;
+            // 
+            // imageList1
+            // 
+            imageList1.ColorDepth = ColorDepth.Depth32Bit;
+            imageList1.ImageStream = (ImageListStreamer)resources.GetObject("imageList1.ImageStream");
+            imageList1.TransparentColor = Color.Transparent;
+            imageList1.Images.SetKeyName(0, "info.png");
+            imageList1.Images.SetKeyName(1, "edit (1).png");
+            imageList1.Images.SetKeyName(2, "chart-histogram.png");
+            imageList1.Images.SetKeyName(3, "stats.png");
+            imageList1.Images.SetKeyName(4, "home (1).png");
+            imageList1.Images.SetKeyName(5, "home.png");
+            imageList1.Images.SetKeyName(6, "home_1946436.png");
+            imageList1.Images.SetKeyName(7, "add.png");
+            imageList1.Images.SetKeyName(8, "delete.png");
+            imageList1.Images.SetKeyName(9, "edit.png");
+            imageList1.Images.SetKeyName(10, "exit.png");
+            imageList1.Images.SetKeyName(11, "refresh.png");
+            imageList1.Images.SetKeyName(12, "save.png");
+            imageList1.Images.SetKeyName(13, "exit (1).png");
+            imageList1.Images.SetKeyName(14, "sign-out-alt.png");
+            imageList1.Images.SetKeyName(15, "cross-circle.png");
+            imageList1.Images.SetKeyName(16, "search.png");
+            imageList1.Images.SetKeyName(17, "address-card.png");
+            imageList1.Images.SetKeyName(18, "check.png");
+            imageList1.Images.SetKeyName(19, "download.png");
+            imageList1.Images.SetKeyName(20, "address-card (1).png");
             // 
             // btnXuat
             // 
-            btnXuat.Location = new Point(1179, 322);
+            btnXuat.BackColor = Color.Pink;
+            btnXuat.ImageIndex = 13;
+            btnXuat.ImageList = imageList1;
+            btnXuat.Location = new Point(1182, 269);
             btnXuat.Name = "btnXuat";
-            btnXuat.Size = new Size(123, 38);
+            btnXuat.Size = new Size(111, 38);
             btnXuat.TabIndex = 2;
-            btnXuat.Text = "Xuất...";
-            btnXuat.UseVisualStyleBackColor = true;
+            btnXuat.Text = "Xuất";
+            btnXuat.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnXuat.UseVisualStyleBackColor = false;
             btnXuat.Click += btnXuat_Click;
             // 
             // btnNhap
             // 
-            btnNhap.Location = new Point(1038, 322);
+            btnNhap.BackColor = Color.PowderBlue;
+            btnNhap.ImageIndex = 17;
+            btnNhap.ImageList = imageList1;
+            btnNhap.Location = new Point(1041, 269);
             btnNhap.Name = "btnNhap";
-            btnNhap.Size = new Size(123, 38);
+            btnNhap.Size = new Size(116, 38);
             btnNhap.TabIndex = 2;
-            btnNhap.Text = "Nhập...";
-            btnNhap.UseVisualStyleBackColor = true;
+            btnNhap.Text = "Nhập";
+            btnNhap.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnNhap.UseVisualStyleBackColor = false;
             btnNhap.Click += btnNhap_Click;
             // 
             // btnThoat
             // 
-            btnThoat.Location = new Point(898, 322);
+            btnThoat.BackColor = Color.White;
+            btnThoat.ForeColor = Color.Red;
+            btnThoat.ImageIndex = 15;
+            btnThoat.ImageList = imageList1;
+            btnThoat.Location = new Point(901, 269);
             btnThoat.Name = "btnThoat";
             btnThoat.Size = new Size(123, 38);
             btnThoat.TabIndex = 2;
             btnThoat.Text = "Thoát";
-            btnThoat.UseVisualStyleBackColor = true;
+            btnThoat.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnThoat.UseVisualStyleBackColor = false;
             btnThoat.Click += btnThoat_Click;
             // 
             // btnHuyBo
             // 
-            btnHuyBo.Location = new Point(758, 322);
+            btnHuyBo.BackColor = Color.White;
+            btnHuyBo.ImageIndex = 11;
+            btnHuyBo.ImageList = imageList1;
+            btnHuyBo.Location = new Point(761, 269);
             btnHuyBo.Name = "btnHuyBo";
             btnHuyBo.Size = new Size(123, 38);
             btnHuyBo.TabIndex = 2;
             btnHuyBo.Text = "Hủy bỏ";
-            btnHuyBo.UseVisualStyleBackColor = true;
+            btnHuyBo.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnHuyBo.UseVisualStyleBackColor = false;
             btnHuyBo.Click += btnHuyBo_Click;
             // 
             // btnLuu
             // 
-            btnLuu.Location = new Point(613, 322);
+            btnLuu.BackColor = Color.White;
+            btnLuu.ImageIndex = 19;
+            btnLuu.ImageList = imageList1;
+            btnLuu.Location = new Point(616, 269);
             btnLuu.Name = "btnLuu";
             btnLuu.Size = new Size(123, 38);
             btnLuu.TabIndex = 2;
             btnLuu.Text = "Lưu";
-            btnLuu.UseVisualStyleBackColor = true;
+            btnLuu.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnLuu.UseVisualStyleBackColor = false;
             btnLuu.Click += btnLuu_Click;
             // 
             // btnXoa
             // 
-            btnXoa.Location = new Point(470, 322);
+            btnXoa.BackColor = Color.White;
+            btnXoa.ForeColor = Color.FromArgb(192, 0, 0);
+            btnXoa.ImageIndex = 8;
+            btnXoa.ImageList = imageList1;
+            btnXoa.Location = new Point(473, 269);
             btnXoa.Name = "btnXoa";
             btnXoa.Size = new Size(123, 38);
             btnXoa.TabIndex = 2;
             btnXoa.Text = "Xóa";
-            btnXoa.UseVisualStyleBackColor = true;
+            btnXoa.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnXoa.UseVisualStyleBackColor = false;
             btnXoa.Click += btnXoa_Click;
             // 
             // btnSua
             // 
-            btnSua.Location = new Point(329, 322);
+            btnSua.BackColor = Color.White;
+            btnSua.ImageIndex = 9;
+            btnSua.ImageList = imageList1;
+            btnSua.Location = new Point(332, 269);
             btnSua.Name = "btnSua";
             btnSua.Size = new Size(123, 38);
             btnSua.TabIndex = 2;
             btnSua.Text = "Sửa";
-            btnSua.UseVisualStyleBackColor = true;
+            btnSua.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnSua.UseVisualStyleBackColor = false;
             btnSua.Click += btnSua_Click;
             // 
             // btnThem
             // 
-            btnThem.Location = new Point(188, 322);
+            btnThem.BackColor = Color.White;
+            btnThem.ImageIndex = 7;
+            btnThem.ImageList = imageList1;
+            btnThem.Location = new Point(191, 269);
             btnThem.Name = "btnThem";
             btnThem.Size = new Size(123, 38);
             btnThem.TabIndex = 2;
             btnThem.Text = "Thêm";
-            btnThem.UseVisualStyleBackColor = true;
+            btnThem.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnThem.UseVisualStyleBackColor = false;
             btnThem.Click += btnThem_Click;
             // 
             // txtTenHoa
@@ -270,7 +340,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(518, 89);
+            label6.Location = new Point(527, 91);
             label6.Name = "label6";
             label6.Size = new Size(102, 22);
             label6.TabIndex = 0;
@@ -305,23 +375,28 @@
             // 
             // groupBox3
             // 
+            groupBox3.BackColor = Color.FloralWhite;
             groupBox3.Controls.Add(btnTimKiem);
             groupBox3.Controls.Add(txtTimKiem);
-            groupBox3.Location = new Point(11, 400);
+            groupBox3.Location = new Point(15, 313);
             groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(581, 75);
+            groupBox3.Size = new Size(604, 76);
             groupBox3.TabIndex = 6;
             groupBox3.TabStop = false;
             groupBox3.Text = "Tìm kiếm";
             // 
             // btnTimKiem
             // 
+            btnTimKiem.BackColor = Color.FromArgb(192, 255, 255);
+            btnTimKiem.ImageIndex = 16;
+            btnTimKiem.ImageList = imageList1;
             btnTimKiem.Location = new Point(446, 21);
             btnTimKiem.Name = "btnTimKiem";
-            btnTimKiem.Size = new Size(103, 40);
+            btnTimKiem.Size = new Size(134, 40);
             btnTimKiem.TabIndex = 1;
             btnTimKiem.Text = "Tìm kiếm";
-            btnTimKiem.UseVisualStyleBackColor = true;
+            btnTimKiem.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnTimKiem.UseVisualStyleBackColor = false;
             btnTimKiem.Click += btnTimKiem_Click;
             // 
             // txtTimKiem
@@ -333,10 +408,11 @@
             // 
             // groupBox2
             // 
+            groupBox2.BackColor = Color.LavenderBlush;
             groupBox2.Controls.Add(dataGridView);
-            groupBox2.Location = new Point(18, 482);
+            groupBox2.Location = new Point(11, 418);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(1320, 385);
+            groupBox2.Size = new Size(1320, 347);
             groupBox2.TabIndex = 7;
             groupBox2.TabStop = false;
             groupBox2.Text = "Danh sách hoa";
@@ -353,7 +429,7 @@
             dataGridView.MultiSelect = false;
             dataGridView.Name = "dataGridView";
             dataGridView.RowHeadersWidth = 51;
-            dataGridView.Size = new Size(1314, 356);
+            dataGridView.Size = new Size(1314, 318);
             dataGridView.TabIndex = 0;
             dataGridView.CellDoubleClick += dataGridView_CellDoubleClick;
             dataGridView.CellFormatting += dataGridView_CellFormatting;
@@ -418,9 +494,9 @@
             // 
             AutoScaleDimensions = new SizeF(11F, 22F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1362, 880);
+            BackColor = Color.MistyRose;
+            ClientSize = new Size(1355, 777);
             Controls.Add(groupBox2);
-            Controls.Add(groupBox3);
             Controls.Add(groupBox1);
             Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             Margin = new Padding(4, 3, 4, 3);
@@ -476,5 +552,6 @@
         private DataGridViewTextBoxColumn SoLuong;
         private DataGridViewTextBoxColumn DonGia;
         private DataGridViewImageColumn HinhAnh;
+        private ImageList imageList1;
     }
 }

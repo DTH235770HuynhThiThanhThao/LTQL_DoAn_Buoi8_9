@@ -28,8 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmHoaDon_ChiTiet));
             groupBox2 = new GroupBox();
             dataGridView = new DataGridView();
             HoaID = new DataGridViewTextBoxColumn();
@@ -38,6 +40,7 @@
             SoLuongBan = new DataGridViewTextBoxColumn();
             ThanhTien = new DataGridViewTextBoxColumn();
             btnXoa = new Button();
+            imageList1 = new ImageList(components);
             btnXacNhanBan = new Button();
             numSoLuongBan = new NumericUpDown();
             label6 = new Label();
@@ -83,6 +86,7 @@
             // 
             // groupBox2
             // 
+            groupBox2.BackColor = Color.LavenderBlush;
             groupBox2.Controls.Add(dataGridView);
             groupBox2.Controls.Add(btnXoa);
             groupBox2.Controls.Add(btnXacNhanBan);
@@ -94,7 +98,7 @@
             groupBox2.Controls.Add(cboHoa);
             groupBox2.Location = new Point(13, 342);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(1240, 470);
+            groupBox2.Size = new Size(1240, 371);
             groupBox2.TabIndex = 3;
             groupBox2.TabStop = false;
             groupBox2.Text = "Thông tin chi tiết hóa đơn";
@@ -110,7 +114,7 @@
             dataGridView.MultiSelect = false;
             dataGridView.Name = "dataGridView";
             dataGridView.RowHeadersWidth = 51;
-            dataGridView.Size = new Size(1225, 341);
+            dataGridView.Size = new Size(1225, 253);
             dataGridView.TabIndex = 5;
             dataGridView.CellClick += dataGridView_CellClick;
             // 
@@ -160,22 +164,58 @@
             // 
             // btnXoa
             // 
+            btnXoa.BackColor = Color.FromArgb(255, 224, 192);
+            btnXoa.ForeColor = Color.Red;
+            btnXoa.ImageIndex = 8;
+            btnXoa.ImageList = imageList1;
             btnXoa.Location = new Point(1089, 54);
             btnXoa.Name = "btnXoa";
             btnXoa.Size = new Size(103, 38);
             btnXoa.TabIndex = 4;
             btnXoa.Text = "Xóa";
-            btnXoa.UseVisualStyleBackColor = true;
+            btnXoa.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnXoa.UseVisualStyleBackColor = false;
             btnXoa.Click += btnXoa_Click;
+            // 
+            // imageList1
+            // 
+            imageList1.ColorDepth = ColorDepth.Depth32Bit;
+            imageList1.ImageStream = (ImageListStreamer)resources.GetObject("imageList1.ImageStream");
+            imageList1.TransparentColor = Color.Transparent;
+            imageList1.Images.SetKeyName(0, "info.png");
+            imageList1.Images.SetKeyName(1, "edit (1).png");
+            imageList1.Images.SetKeyName(2, "chart-histogram.png");
+            imageList1.Images.SetKeyName(3, "stats.png");
+            imageList1.Images.SetKeyName(4, "home (1).png");
+            imageList1.Images.SetKeyName(5, "home.png");
+            imageList1.Images.SetKeyName(6, "home_1946436.png");
+            imageList1.Images.SetKeyName(7, "add.png");
+            imageList1.Images.SetKeyName(8, "delete.png");
+            imageList1.Images.SetKeyName(9, "edit.png");
+            imageList1.Images.SetKeyName(10, "exit.png");
+            imageList1.Images.SetKeyName(11, "refresh.png");
+            imageList1.Images.SetKeyName(12, "save.png");
+            imageList1.Images.SetKeyName(13, "exit (1).png");
+            imageList1.Images.SetKeyName(14, "sign-out-alt.png");
+            imageList1.Images.SetKeyName(15, "cross-circle.png");
+            imageList1.Images.SetKeyName(16, "search.png");
+            imageList1.Images.SetKeyName(17, "address-card.png");
+            imageList1.Images.SetKeyName(18, "check.png");
+            imageList1.Images.SetKeyName(19, "download.png");
+            imageList1.Images.SetKeyName(20, "address-card (1).png");
             // 
             // btnXacNhanBan
             // 
+            btnXacNhanBan.BackColor = Color.FromArgb(255, 255, 192);
+            btnXacNhanBan.ImageIndex = 18;
+            btnXacNhanBan.ImageList = imageList1;
             btnXacNhanBan.Location = new Point(913, 54);
             btnXacNhanBan.Name = "btnXacNhanBan";
             btnXacNhanBan.Size = new Size(157, 38);
             btnXacNhanBan.TabIndex = 3;
             btnXacNhanBan.Text = "Xác nhận bán";
-            btnXacNhanBan.UseVisualStyleBackColor = true;
+            btnXacNhanBan.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnXacNhanBan.UseVisualStyleBackColor = false;
             btnXacNhanBan.Click += btnXacNhanBan_Click;
             // 
             // numSoLuongBan
@@ -234,6 +274,7 @@
             // 
             // groupBox1
             // 
+            groupBox1.BackColor = Color.LavenderBlush;
             groupBox1.Controls.Add(dtpNgayLap);
             groupBox1.Controls.Add(cboTrangThaiGiao);
             groupBox1.Controls.Add(label8);
@@ -358,52 +399,73 @@
             // 
             // btnNhap
             // 
-            btnNhap.Location = new Point(732, 830);
+            btnNhap.BackColor = Color.PowderBlue;
+            btnNhap.ImageIndex = 20;
+            btnNhap.ImageList = imageList1;
+            btnNhap.Location = new Point(726, 728);
             btnNhap.Name = "btnNhap";
-            btnNhap.Size = new Size(110, 36);
+            btnNhap.Size = new Size(141, 36);
             btnNhap.TabIndex = 10;
-            btnNhap.Text = "Nhập Excel...";
-            btnNhap.UseVisualStyleBackColor = true;
+            btnNhap.Text = "Nhập Excel";
+            btnNhap.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnNhap.UseVisualStyleBackColor = false;
             btnNhap.Click += btnNhap_Click;
             // 
             // btnXuat
             // 
-            btnXuat.Location = new Point(866, 830);
+            btnXuat.BackColor = Color.Pink;
+            btnXuat.ImageIndex = 13;
+            btnXuat.ImageList = imageList1;
+            btnXuat.Location = new Point(896, 728);
             btnXuat.Name = "btnXuat";
-            btnXuat.Size = new Size(103, 36);
+            btnXuat.Size = new Size(134, 36);
             btnXuat.TabIndex = 11;
-            btnXuat.Text = "Xuất Excel...";
-            btnXuat.UseVisualStyleBackColor = true;
+            btnXuat.Text = "Xuất Excel";
+            btnXuat.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnXuat.UseVisualStyleBackColor = false;
             btnXuat.Click += btnXuat_Click;
             // 
             // btnThoat
             // 
-            btnThoat.Location = new Point(606, 830);
+            btnThoat.BackColor = Color.White;
+            btnThoat.ForeColor = Color.Red;
+            btnThoat.ImageIndex = 15;
+            btnThoat.ImageList = imageList1;
+            btnThoat.Location = new Point(600, 728);
             btnThoat.Name = "btnThoat";
             btnThoat.Size = new Size(103, 36);
             btnThoat.TabIndex = 9;
             btnThoat.Text = "Thoát";
-            btnThoat.UseVisualStyleBackColor = true;
+            btnThoat.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnThoat.UseVisualStyleBackColor = false;
             btnThoat.Click += btnThoat_Click;
             // 
             // btnInHoaDon
             // 
-            btnInHoaDon.Location = new Point(427, 830);
+            btnInHoaDon.BackColor = Color.White;
+            btnInHoaDon.ImageIndex = 12;
+            btnInHoaDon.ImageList = imageList1;
+            btnInHoaDon.Location = new Point(421, 728);
             btnInHoaDon.Name = "btnInHoaDon";
             btnInHoaDon.Size = new Size(157, 36);
             btnInHoaDon.TabIndex = 7;
-            btnInHoaDon.Text = "In hóa đơn...";
-            btnInHoaDon.UseVisualStyleBackColor = true;
+            btnInHoaDon.Text = "In hóa đơn";
+            btnInHoaDon.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnInHoaDon.UseVisualStyleBackColor = false;
             btnInHoaDon.Click += btnInHoaDon_Click;
             // 
             // btnLuuHoaDon
             // 
-            btnLuuHoaDon.Location = new Point(240, 830);
+            btnLuuHoaDon.BackColor = Color.White;
+            btnLuuHoaDon.ImageIndex = 19;
+            btnLuuHoaDon.ImageList = imageList1;
+            btnLuuHoaDon.Location = new Point(234, 728);
             btnLuuHoaDon.Name = "btnLuuHoaDon";
             btnLuuHoaDon.Size = new Size(157, 36);
             btnLuuHoaDon.TabIndex = 8;
             btnLuuHoaDon.Text = "Lưu hóa đơn";
-            btnLuuHoaDon.UseVisualStyleBackColor = true;
+            btnLuuHoaDon.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnLuuHoaDon.UseVisualStyleBackColor = false;
             btnLuuHoaDon.Click += btnLuuHoaDon_Click;
             // 
             // label11
@@ -424,6 +486,7 @@
             // 
             // groupBox3
             // 
+            groupBox3.BackColor = Color.LavenderBlush;
             groupBox3.Controls.Add(dtpNgayGiao);
             groupBox3.Controls.Add(label9);
             groupBox3.Controls.Add(txtTenNguoiNhan);
@@ -493,7 +556,8 @@
             // 
             AutoScaleDimensions = new SizeF(11F, 22F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1266, 899);
+            BackColor = Color.MistyRose;
+            ClientSize = new Size(1266, 778);
             Controls.Add(groupBox3);
             Controls.Add(btnNhap);
             Controls.Add(btnXuat);
@@ -565,5 +629,6 @@
         private DataGridViewTextBoxColumn DonGiaBan;
         private DataGridViewTextBoxColumn SoLuongBan;
         private DataGridViewTextBoxColumn ThanhTien;
+        private ImageList imageList1;
     }
 }

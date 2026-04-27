@@ -28,9 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmChiTiet_PhieuNhap));
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             btnNhap = new Button();
+            imageList1 = new ImageList(components);
             btnXuat = new Button();
             btnThoat = new Button();
             btnInPhieuNhap = new Button();
@@ -68,56 +71,111 @@
             // 
             // btnNhap
             // 
-            btnNhap.Location = new Point(737, 690);
+            btnNhap.BackColor = Color.PowderBlue;
+            btnNhap.ImageIndex = 17;
+            btnNhap.ImageList = imageList1;
+            btnNhap.Location = new Point(729, 552);
             btnNhap.Name = "btnNhap";
-            btnNhap.Size = new Size(110, 36);
+            btnNhap.Size = new Size(157, 36);
             btnNhap.TabIndex = 18;
-            btnNhap.Text = "Nhập Excel...";
-            btnNhap.UseVisualStyleBackColor = true;
+            btnNhap.Text = "Nhập Excel";
+            btnNhap.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnNhap.UseVisualStyleBackColor = false;
             btnNhap.Click += btnNhap_Click;
+            // 
+            // imageList1
+            // 
+            imageList1.ColorDepth = ColorDepth.Depth32Bit;
+            imageList1.ImageStream = (ImageListStreamer)resources.GetObject("imageList1.ImageStream");
+            imageList1.TransparentColor = Color.Transparent;
+            imageList1.Images.SetKeyName(0, "info.png");
+            imageList1.Images.SetKeyName(1, "edit (1).png");
+            imageList1.Images.SetKeyName(2, "chart-histogram.png");
+            imageList1.Images.SetKeyName(3, "stats.png");
+            imageList1.Images.SetKeyName(4, "home (1).png");
+            imageList1.Images.SetKeyName(5, "home.png");
+            imageList1.Images.SetKeyName(6, "home_1946436.png");
+            imageList1.Images.SetKeyName(7, "add.png");
+            imageList1.Images.SetKeyName(8, "delete.png");
+            imageList1.Images.SetKeyName(9, "edit.png");
+            imageList1.Images.SetKeyName(10, "exit.png");
+            imageList1.Images.SetKeyName(11, "refresh.png");
+            imageList1.Images.SetKeyName(12, "save.png");
+            imageList1.Images.SetKeyName(13, "exit (1).png");
+            imageList1.Images.SetKeyName(14, "sign-out-alt.png");
+            imageList1.Images.SetKeyName(15, "cross-circle.png");
+            imageList1.Images.SetKeyName(16, "search.png");
+            imageList1.Images.SetKeyName(17, "address-card.png");
+            imageList1.Images.SetKeyName(18, "check.png");
+            imageList1.Images.SetKeyName(19, "download.png");
+            imageList1.Images.SetKeyName(20, "address-card (1).png");
             // 
             // btnXuat
             // 
-            btnXuat.Location = new Point(871, 690);
+            btnXuat.BackColor = Color.Pink;
+            btnXuat.ImageIndex = 13;
+            btnXuat.ImageList = imageList1;
+            btnXuat.Location = new Point(940, 552);
             btnXuat.Name = "btnXuat";
-            btnXuat.Size = new Size(103, 36);
+            btnXuat.Size = new Size(142, 36);
             btnXuat.TabIndex = 19;
-            btnXuat.Text = "Xuất Excel...";
-            btnXuat.UseVisualStyleBackColor = true;
+            btnXuat.Text = "Xuất Excel";
+            btnXuat.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnXuat.UseVisualStyleBackColor = false;
             btnXuat.Click += btnXuat_Click;
             // 
             // btnThoat
             // 
-            btnThoat.Location = new Point(612, 690);
+            btnThoat.BackColor = Color.White;
+            btnThoat.FlatAppearance.BorderColor = Color.Snow;
+            btnThoat.FlatAppearance.BorderSize = 5;
+            btnThoat.ForeColor = Color.Red;
+            btnThoat.ImageAlign = ContentAlignment.MiddleLeft;
+            btnThoat.ImageIndex = 8;
+            btnThoat.ImageList = imageList1;
+            btnThoat.Location = new Point(584, 552);
             btnThoat.Name = "btnThoat";
-            btnThoat.Size = new Size(103, 36);
+            btnThoat.Padding = new Padding(10, 0, 0, 0);
+            btnThoat.Size = new Size(106, 36);
             btnThoat.TabIndex = 17;
             btnThoat.Text = "Thoát";
-            btnThoat.UseVisualStyleBackColor = true;
+            btnThoat.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnThoat.UseVisualStyleBackColor = false;
             btnThoat.Click += btnThoat_Click;
             // 
             // btnInPhieuNhap
             // 
-            btnInPhieuNhap.Location = new Point(432, 690);
+            btnInPhieuNhap.BackColor = Color.White;
+            btnInPhieuNhap.ImageIndex = 12;
+            btnInPhieuNhap.ImageList = imageList1;
+            btnInPhieuNhap.Location = new Point(389, 552);
             btnInPhieuNhap.Name = "btnInPhieuNhap";
-            btnInPhieuNhap.Size = new Size(157, 36);
+            btnInPhieuNhap.Size = new Size(165, 36);
             btnInPhieuNhap.TabIndex = 15;
             btnInPhieuNhap.Text = "In phiếu nhập";
-            btnInPhieuNhap.UseVisualStyleBackColor = true;
+            btnInPhieuNhap.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnInPhieuNhap.UseVisualStyleBackColor = false;
             btnInPhieuNhap.Click += btnInPhieuNhap_Click;
             // 
             // btnLuuPhieuNhap
             // 
-            btnLuuPhieuNhap.Location = new Point(245, 690);
+            btnLuuPhieuNhap.BackColor = Color.White;
+            btnLuuPhieuNhap.FlatAppearance.BorderColor = Color.FromArgb(255, 192, 192);
+            btnLuuPhieuNhap.FlatAppearance.BorderSize = 5;
+            btnLuuPhieuNhap.ImageIndex = 19;
+            btnLuuPhieuNhap.ImageList = imageList1;
+            btnLuuPhieuNhap.Location = new Point(181, 552);
             btnLuuPhieuNhap.Name = "btnLuuPhieuNhap";
-            btnLuuPhieuNhap.Size = new Size(157, 36);
+            btnLuuPhieuNhap.Size = new Size(186, 36);
             btnLuuPhieuNhap.TabIndex = 16;
             btnLuuPhieuNhap.Text = "Lưu phiếu nhập";
-            btnLuuPhieuNhap.UseVisualStyleBackColor = true;
+            btnLuuPhieuNhap.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnLuuPhieuNhap.UseVisualStyleBackColor = false;
             btnLuuPhieuNhap.Click += btnLuuPhieuNhap_Click;
             // 
             // groupBox2
             // 
+            groupBox2.BackColor = Color.LavenderBlush;
             groupBox2.Controls.Add(dataGridView);
             groupBox2.Controls.Add(btnXoa);
             groupBox2.Controls.Add(btnXacNhanNhap);
@@ -127,9 +185,9 @@
             groupBox2.Controls.Add(label5);
             groupBox2.Controls.Add(label4);
             groupBox2.Controls.Add(cboHoa);
-            groupBox2.Location = new Point(13, 198);
+            groupBox2.Location = new Point(12, 198);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(1240, 470);
+            groupBox2.Size = new Size(1240, 348);
             groupBox2.TabIndex = 14;
             groupBox2.TabStop = false;
             groupBox2.Text = "Thông tin chi tiết phiếu nhập";
@@ -145,7 +203,7 @@
             dataGridView.MultiSelect = false;
             dataGridView.Name = "dataGridView";
             dataGridView.RowHeadersWidth = 51;
-            dataGridView.Size = new Size(1225, 354);
+            dataGridView.Size = new Size(1225, 225);
             dataGridView.TabIndex = 5;
             dataGridView.CellClick += dataGridView_CellClick;
             // 
@@ -195,22 +253,31 @@
             // 
             // btnXoa
             // 
+            btnXoa.BackColor = Color.FromArgb(255, 224, 192);
+            btnXoa.ForeColor = Color.Red;
+            btnXoa.ImageIndex = 8;
+            btnXoa.ImageList = imageList1;
             btnXoa.Location = new Point(1089, 54);
             btnXoa.Name = "btnXoa";
-            btnXoa.Size = new Size(103, 38);
+            btnXoa.Size = new Size(116, 38);
             btnXoa.TabIndex = 4;
             btnXoa.Text = "Xóa";
-            btnXoa.UseVisualStyleBackColor = true;
+            btnXoa.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnXoa.UseVisualStyleBackColor = false;
             btnXoa.Click += btnXoa_Click;
             // 
             // btnXacNhanNhap
             // 
-            btnXacNhanNhap.Location = new Point(913, 54);
+            btnXacNhanNhap.BackColor = Color.FromArgb(255, 255, 192);
+            btnXacNhanNhap.ImageIndex = 18;
+            btnXacNhanNhap.ImageList = imageList1;
+            btnXacNhanNhap.Location = new Point(896, 54);
             btnXacNhanNhap.Name = "btnXacNhanNhap";
-            btnXacNhanNhap.Size = new Size(157, 38);
+            btnXacNhanNhap.Size = new Size(174, 38);
             btnXacNhanNhap.TabIndex = 3;
             btnXacNhanNhap.Text = "Xác nhận nhập";
-            btnXacNhanNhap.UseVisualStyleBackColor = true;
+            btnXacNhanNhap.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnXacNhanNhap.UseVisualStyleBackColor = false;
             btnXacNhanNhap.Click += btnXacNhanNhap_Click;
             // 
             // numSoLuongNhap
@@ -303,7 +370,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(6, 143);
+            label3.Location = new Point(7, 135);
             label3.Name = "label3";
             label3.Size = new Size(146, 22);
             label3.TabIndex = 0;
@@ -320,6 +387,7 @@
             // 
             // groupBox1
             // 
+            groupBox1.BackColor = Color.LavenderBlush;
             groupBox1.Controls.Add(dtpNgayNhap);
             groupBox1.Controls.Add(txtGhiChuPhieuNhap);
             groupBox1.Controls.Add(label12);
@@ -345,7 +413,7 @@
             // 
             // txtGhiChuPhieuNhap
             // 
-            txtGhiChuPhieuNhap.Location = new Point(160, 134);
+            txtGhiChuPhieuNhap.Location = new Point(161, 126);
             txtGhiChuPhieuNhap.Name = "txtGhiChuPhieuNhap";
             txtGhiChuPhieuNhap.Size = new Size(426, 30);
             txtGhiChuPhieuNhap.TabIndex = 2;
@@ -354,7 +422,8 @@
             // 
             AutoScaleDimensions = new SizeF(11F, 22F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1275, 760);
+            BackColor = Color.MistyRose;
+            ClientSize = new Size(1275, 598);
             Controls.Add(btnNhap);
             Controls.Add(btnXuat);
             Controls.Add(btnThoat);
@@ -410,5 +479,6 @@
         private DataGridViewTextBoxColumn DonGiaNhap;
         private DataGridViewTextBoxColumn SoLuongNhap;
         private DataGridViewTextBoxColumn ThanhTien;
+        private ImageList imageList1;
     }
 }

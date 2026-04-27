@@ -270,18 +270,29 @@ namespace QuanLyTiemGiaoHoa.Forms
 
         private void btnLamMoi_Click(object sender, EventArgs e)
         {
-            // Xóa trắng các ô nhập liệu
+            // 1. Xóa trắng toàn bộ các ô TextBox
             txtTimKiem.Clear();
-            txtGhiChuGiaoHang.Clear();
+            txtKhachHang.Clear();      // Thêm dòng này để xóa tên khách hàng
             txtTenNguoiNhan.Clear();
             txtSDTNhan.Clear();
             txtDiaChiGiao.Clear();
+            txtGhiChuGiaoHang.Clear();
 
-            // Reset ngày về hiện tại
+            // 2. Reset ô số tiền về 0
+            numTongTien.Value = 0;
+
+            // 3. Reset ngày về thời gian hiện tại
             dtpNgayGiao.Value = DateTime.Now;
 
-            // Load lại dữ liệu từ CSDL
+            // 4. Reset các ComboBox về mặc định (chưa chọn gì)
+            if (cboNhanVien.Items.Count > 0) cboNhanVien.SelectedIndex = -1;
+            if (cboTrangThaiGiao.Items.Count > 0) cboTrangThaiGiao.SelectedIndex = -1;
+
+            // 5. Load lại dữ liệu từ CSDL và reset trạng thái tìm kiếm
+            dangTimKiem = false;
             LoadData();
+
+            
 
             MessageBox.Show("Đã làm mới danh sách!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }

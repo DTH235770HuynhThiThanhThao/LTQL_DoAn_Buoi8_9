@@ -89,24 +89,26 @@
             // 
             // btnLocKetQua
             // 
+            btnLocKetQua.BackColor = Color.FromArgb(255, 192, 192);
             btnLocKetQua.Location = new Point(990, 23);
             btnLocKetQua.Margin = new Padding(4, 3, 4, 3);
             btnLocKetQua.Name = "btnLocKetQua";
             btnLocKetQua.Size = new Size(150, 32);
             btnLocKetQua.TabIndex = 3;
             btnLocKetQua.Text = "Lọc kết quả";
-            btnLocKetQua.UseVisualStyleBackColor = true;
+            btnLocKetQua.UseVisualStyleBackColor = false;
             btnLocKetQua.Click += btnLocKetQua_Click;
             // 
             // btnHienTatCa
             // 
+            btnHienTatCa.BackColor = Color.FromArgb(255, 224, 192);
             btnHienTatCa.Location = new Point(1165, 22);
             btnHienTatCa.Margin = new Padding(4, 3, 4, 3);
             btnHienTatCa.Name = "btnHienTatCa";
             btnHienTatCa.Size = new Size(150, 32);
             btnHienTatCa.TabIndex = 4;
             btnHienTatCa.Text = "Hiện tất cả";
-            btnHienTatCa.UseVisualStyleBackColor = true;
+            btnHienTatCa.UseVisualStyleBackColor = false;
             btnHienTatCa.Click += btnHienTatCa_Click;
             // 
             // dtpDenNgay
@@ -125,6 +127,7 @@
             // 
             AutoScaleDimensions = new SizeF(11F, 22F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.LavenderBlush;
             ClientSize = new Size(1418, 535);
             Controls.Add(btnHienTatCa);
             Controls.Add(btnLocKetQua);

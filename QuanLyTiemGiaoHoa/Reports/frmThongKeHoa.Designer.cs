@@ -42,7 +42,7 @@
             reportViewer.Margin = new Padding(4, 3, 4, 3);
             reportViewer.Name = "reportViewer";
             reportViewer.ServerReport.BearerToken = null;
-            reportViewer.Size = new Size(1576, 543);
+            reportViewer.Size = new Size(1256, 543);
             reportViewer.TabIndex = 0;
             // 
             // label1
@@ -58,25 +58,25 @@
             // cboNhaCungCap
             // 
             cboNhaCungCap.FormattingEnabled = true;
-            cboNhaCungCap.Location = new Point(194, 23);
+            cboNhaCungCap.Location = new Point(174, 22);
             cboNhaCungCap.Margin = new Padding(4, 3, 4, 3);
             cboNhaCungCap.Name = "cboNhaCungCap";
-            cboNhaCungCap.Size = new Size(468, 30);
+            cboNhaCungCap.Size = new Size(376, 30);
             cboNhaCungCap.TabIndex = 2;
             // 
             // cboLoaiHoa
             // 
             cboLoaiHoa.FormattingEnabled = true;
-            cboLoaiHoa.Location = new Point(807, 23);
+            cboLoaiHoa.Location = new Point(706, 22);
             cboLoaiHoa.Margin = new Padding(4, 3, 4, 3);
             cboLoaiHoa.Name = "cboLoaiHoa";
-            cboLoaiHoa.Size = new Size(346, 30);
+            cboLoaiHoa.Size = new Size(314, 30);
             cboLoaiHoa.TabIndex = 4;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(704, 26);
+            label2.Location = new Point(613, 28);
             label2.Margin = new Padding(4, 0, 4, 0);
             label2.Name = "label2";
             label2.Size = new Size(85, 22);
@@ -85,20 +85,22 @@
             // 
             // btnKetQua
             // 
-            btnKetQua.Location = new Point(1181, 23);
+            btnKetQua.BackColor = Color.FromArgb(255, 192, 192);
+            btnKetQua.Location = new Point(1056, 22);
             btnKetQua.Margin = new Padding(4, 3, 4, 3);
             btnKetQua.Name = "btnKetQua";
-            btnKetQua.Size = new Size(194, 35);
+            btnKetQua.Size = new Size(140, 35);
             btnKetQua.TabIndex = 5;
             btnKetQua.Text = "Lộc kết quả";
-            btnKetQua.UseVisualStyleBackColor = true;
+            btnKetQua.UseVisualStyleBackColor = false;
             btnKetQua.Click += btnKetQua_Click;
             // 
             // frmThongKeHoa
             // 
             AutoScaleDimensions = new SizeF(11F, 22F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1574, 616);
+            BackColor = Color.LavenderBlush;
+            ClientSize = new Size(1253, 619);
             Controls.Add(btnKetQua);
             Controls.Add(cboLoaiHoa);
             Controls.Add(label2);

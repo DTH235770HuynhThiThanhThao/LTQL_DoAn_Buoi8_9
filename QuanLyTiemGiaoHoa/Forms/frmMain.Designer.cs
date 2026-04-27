@@ -65,6 +65,7 @@
             btnThongKeDoanhThu = new Button();
             btnThongKeHoa = new Button();
             btnBaoCaoThongKe = new Button();
+            imageList = new ImageList(components);
             pnlSubQuanLy = new Panel();
             btnHoaDon = new Button();
             btnNhanVien = new Button();
@@ -80,7 +81,6 @@
             btnDangXuat = new Button();
             btnDangNhap = new Button();
             btnHeThong = new Button();
-            imageList = new ImageList(components);
             statusStrip.SuspendLayout();
             menuStrip.SuspendLayout();
             panelSidebar.SuspendLayout();
@@ -105,13 +105,14 @@
             // 
             // statusStrip
             // 
+            statusStrip.BackColor = Color.LavenderBlush;
             statusStrip.Font = new Font("Times New Roman", 12F);
             statusStrip.ImageScalingSize = new Size(20, 20);
             statusStrip.Items.AddRange(new ToolStripItem[] { lblTrangThai, toolStripStatusLabel2, lblLienKet });
-            statusStrip.Location = new Point(0, 660);
+            statusStrip.Location = new Point(0, 845);
             statusStrip.Name = "statusStrip";
             statusStrip.Padding = new Padding(1, 0, 20, 0);
-            statusStrip.Size = new Size(1321, 28);
+            statusStrip.Size = new Size(1822, 28);
             statusStrip.TabIndex = 4;
             statusStrip.Text = "statusStrip1";
             // 
@@ -119,17 +120,19 @@
             // 
             toolStripStatusLabel2.IsLink = true;
             toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            toolStripStatusLabel2.Size = new Size(1055, 22);
+            toolStripStatusLabel2.Size = new Size(1556, 22);
             toolStripStatusLabel2.Spring = true;
             // 
             // mnuThongTinPhanMem
             // 
+            mnuThongTinPhanMem.BackColor = Color.OldLace;
             mnuThongTinPhanMem.Name = "mnuThongTinPhanMem";
             mnuThongTinPhanMem.Size = new Size(320, 26);
             mnuThongTinPhanMem.Text = "Thông tin phần mềm...";
             // 
             // mnuHuongDanSuDung
             // 
+            mnuHuongDanSuDung.BackColor = Color.PapayaWhip;
             mnuHuongDanSuDung.Name = "mnuHuongDanSuDung";
             mnuHuongDanSuDung.ShortcutKeys = Keys.Control | Keys.F1;
             mnuHuongDanSuDung.Size = new Size(320, 26);
@@ -147,6 +150,7 @@
             // 
             // mnuThongKeDoanhThu
             // 
+            mnuThongKeDoanhThu.BackColor = Color.OldLace;
             mnuThongKeDoanhThu.Name = "mnuThongKeDoanhThu";
             mnuThongKeDoanhThu.Size = new Size(287, 26);
             mnuThongKeDoanhThu.Text = "Thống kê doanh thu...";
@@ -154,6 +158,7 @@
             // 
             // mnuThongKeHoa
             // 
+            mnuThongKeHoa.BackColor = Color.PapayaWhip;
             mnuThongKeHoa.Name = "mnuThongKeHoa";
             mnuThongKeHoa.Size = new Size(287, 26);
             mnuThongKeHoa.Text = "Thống kê hoa...";
@@ -170,6 +175,7 @@
             // 
             // mnuThongKeHoaBanChay
             // 
+            mnuThongKeHoaBanChay.BackColor = Color.PapayaWhip;
             mnuThongKeHoaBanChay.Name = "mnuThongKeHoaBanChay";
             mnuThongKeHoaBanChay.Size = new Size(287, 26);
             mnuThongKeHoaBanChay.Text = "Thống kê hoa bán chạy...";
@@ -263,27 +269,27 @@
             mnuThoat.BackColor = Color.OldLace;
             mnuThoat.Name = "mnuThoat";
             mnuThoat.ShortcutKeys = Keys.Alt | Keys.F4;
-            mnuThoat.Size = new Size(224, 26);
+            mnuThoat.Size = new Size(213, 26);
             mnuThoat.Text = "Thoát";
             mnuThoat.Click += mnuThoat_Click;
             // 
             // toolStripSeparator2
             // 
             toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new Size(221, 6);
+            toolStripSeparator2.Size = new Size(210, 6);
             // 
             // mnuDoiMatKhau
             // 
             mnuDoiMatKhau.BackColor = Color.PapayaWhip;
             mnuDoiMatKhau.Name = "mnuDoiMatKhau";
-            mnuDoiMatKhau.Size = new Size(224, 26);
+            mnuDoiMatKhau.Size = new Size(213, 26);
             mnuDoiMatKhau.Text = "Đổi mật khẩu...";
             // 
             // mnuDangXuat
             // 
             mnuDangXuat.BackColor = Color.OldLace;
             mnuDangXuat.Name = "mnuDangXuat";
-            mnuDangXuat.Size = new Size(224, 26);
+            mnuDangXuat.Size = new Size(213, 26);
             mnuDangXuat.Text = "Đăng xuất";
             mnuDangXuat.Click += mnuDangXuat_Click;
             // 
@@ -291,7 +297,7 @@
             // 
             mnuDangNhap.BackColor = Color.PapayaWhip;
             mnuDangNhap.Name = "mnuDangNhap";
-            mnuDangNhap.Size = new Size(224, 26);
+            mnuDangNhap.Size = new Size(213, 26);
             mnuDangNhap.Text = "Đăng nhập...";
             mnuDangNhap.Click += mnuDangNhap_Click;
             // 
@@ -316,7 +322,7 @@
             menuStrip.Location = new Point(0, 0);
             menuStrip.Name = "menuStrip";
             menuStrip.Padding = new Padding(9, 2, 0, 2);
-            menuStrip.Size = new Size(1321, 30);
+            menuStrip.Size = new Size(1822, 30);
             menuStrip.TabIndex = 3;
             menuStrip.Text = "menuStrip1";
             // 
@@ -332,7 +338,7 @@
             panelSidebar.Dock = DockStyle.Left;
             panelSidebar.Location = new Point(0, 30);
             panelSidebar.Name = "panelSidebar";
-            panelSidebar.Size = new Size(250, 630);
+            panelSidebar.Size = new Size(250, 815);
             panelSidebar.TabIndex = 6;
             // 
             // pnlSubBaoCaoThongKe
@@ -420,6 +426,23 @@
             btnBaoCaoThongKe.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnBaoCaoThongKe.UseVisualStyleBackColor = false;
             btnBaoCaoThongKe.Click += btnBaoCaoThongKe_Click;
+            // 
+            // imageList
+            // 
+            imageList.ColorDepth = ColorDepth.Depth32Bit;
+            imageList.ImageStream = (ImageListStreamer)resources.GetObject("imageList.ImageStream");
+            imageList.TransparentColor = Color.Transparent;
+            imageList.Images.SetKeyName(0, "home.png");
+            imageList.Images.SetKeyName(1, "support_807303.png");
+            imageList.Images.SetKeyName(2, "home_1946436.png");
+            imageList.Images.SetKeyName(3, "add.png");
+            imageList.Images.SetKeyName(4, "delete.png");
+            imageList.Images.SetKeyName(5, "edit.png");
+            imageList.Images.SetKeyName(6, "exit.png");
+            imageList.Images.SetKeyName(7, "refresh.png");
+            imageList.Images.SetKeyName(8, "save.png");
+            imageList.Images.SetKeyName(9, "edit (1).png");
+            imageList.Images.SetKeyName(10, "chart-histogram.png");
             // 
             // pnlSubQuanLy
             // 
@@ -682,30 +705,13 @@
             btnHeThong.UseVisualStyleBackColor = false;
             btnHeThong.Click += btnHeThong_Click;
             // 
-            // imageList
-            // 
-            imageList.ColorDepth = ColorDepth.Depth32Bit;
-            imageList.ImageStream = (ImageListStreamer)resources.GetObject("imageList.ImageStream");
-            imageList.TransparentColor = Color.Transparent;
-            imageList.Images.SetKeyName(0, "home.png");
-            imageList.Images.SetKeyName(1, "support_807303.png");
-            imageList.Images.SetKeyName(2, "home_1946436.png");
-            imageList.Images.SetKeyName(3, "add.png");
-            imageList.Images.SetKeyName(4, "delete.png");
-            imageList.Images.SetKeyName(5, "edit.png");
-            imageList.Images.SetKeyName(6, "exit.png");
-            imageList.Images.SetKeyName(7, "refresh.png");
-            imageList.Images.SetKeyName(8, "save.png");
-            imageList.Images.SetKeyName(9, "edit (1).png");
-            imageList.Images.SetKeyName(10, "chart-histogram.png");
-            // 
             // frmMain
             // 
             AutoScaleDimensions = new SizeF(11F, 22F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackgroundImage = Properties.Resources.camhung;
+            BackgroundImage = Properties.Resources.trangchu;
             BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(1321, 688);
+            ClientSize = new Size(1822, 873);
             Controls.Add(panelSidebar);
             Controls.Add(statusStrip);
             Controls.Add(menuStrip);
@@ -714,7 +720,7 @@
             Margin = new Padding(4, 3, 4, 3);
             Name = "frmMain";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Quản lý tiệm giao hoa tươi";
+            Text = "Quản lý shop giao hoa tươi";
             WindowState = FormWindowState.Maximized;
             Load += frmMain_Load;
             statusStrip.ResumeLayout(false);

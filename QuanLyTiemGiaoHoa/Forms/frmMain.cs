@@ -249,6 +249,17 @@ namespace QuanLyTiemGiaoHoa.Forms
 
             mnuThongKeHoa.Enabled = false;
             mnuThongKeDoanhThu.Enabled = false;
+            mnuThongKeHoaBanChay.Enabled = false;
+
+            // THÊM VÀO: Làm mờ 3 nút chính ở Sidebar
+            btnHeThong.Enabled = false;
+            btnQuanLy.Enabled = false;
+            btnBaoCaoThongKe.Enabled = false;
+
+            // Ẩn luôn các panel con nếu chúng lỡ đang mở
+            pnlSubHeThong.Visible = false;
+            pnlSubQuanLy.Visible = false;
+            pnlSubBaoCaoThongKe.Visible = false;
 
             // Hiển thị thông tin trên thanh trạng thái 
             lblTrangThai.Text = "Chưa đăng nhập.";
@@ -279,6 +290,13 @@ namespace QuanLyTiemGiaoHoa.Forms
 
             mnuThongKeHoa.Enabled = true;
             mnuThongKeDoanhThu.Enabled = true;
+            mnuThongKeHoaBanChay.Enabled = true;
+
+            // Mở khóa 3 nút chính
+            btnHeThong.Enabled = true;
+            btnQuanLy.Enabled = true;
+            btnBaoCaoThongKe.Enabled = true;
+
             // Hiển thị thông tin trên thanh trạng thái 
             lblTrangThai.Text = "Quản lý: " + hoVaTenNhanVien;
         }
@@ -306,8 +324,17 @@ namespace QuanLyTiemGiaoHoa.Forms
             mnuKhachHang.Enabled = true;
             mnuHoaDon.Enabled = true;
 
-            mnuThongKeHoa.Enabled = true;
-            mnuThongKeDoanhThu.Enabled = true;
+            mnuThongKeHoa.Enabled = false;
+            mnuThongKeDoanhThu.Enabled = false;
+            mnuThongKeHoaBanChay.Enabled = false;
+
+            btnHeThong.Enabled = true;
+            btnQuanLy.Enabled = true;
+            btnNhanVien.Enabled = false;
+            btnNhapHang.Enabled= false;
+            
+            btnBaoCaoThongKe.Enabled = false;
+
 
             // Hiển thị thông tin trên thanh trạng thái 
             lblTrangThai.Text = "Nhân viên: " + hoVaTenNhanVien;
@@ -325,48 +352,7 @@ namespace QuanLyTiemGiaoHoa.Forms
             DangNhap();
             */
 
-            /*
-            // Tìm vùng MdiClient (vùng màu xám) bên trong Form
-            foreach (Control ctl in this.Controls)
-            {
-                if (ctl is MdiClient)
-                {
-                    // Ép kiểu vùng đó để chỉnh thuộc tính hiển thị
-                    ctl.BackgroundImage = Properties.Resources.camhung; // Thay bằng tên hình bạn đã chọn
-                    ctl.BackgroundImageLayout = ImageLayout.Stretch; // Phủ kín toàn bộ màn hình
-                    break;
-                }
-            }
-            */
-
-
-            /*
-            // Bật chế độ đệm kép để giảm lag hình ảnh
-            this.DoubleBuffered = true;
-
-            ChuaDangNhap();
-
-            // Dùng BeginInvoke để hiện đăng nhập sau khi Form Main đã hiện lên hoàn toàn
-            // giúp người dùng không cảm thấy ứng dụng bị "treo" lúc khởi động
-            this.BeginInvoke(new Action(() =>
-            {
-                DangNhap();
-            }));
-
-            // Tối ưu load hình nền
-            MdiClient ctlMDI;
-            foreach (Control ctl in this.Controls)
-            {
-                if (ctl is MdiClient)
-                {
-                    ctlMDI = (MdiClient)ctl;
-                    ctlMDI.BackgroundImage = Properties.Resources.camhung;
-                    ctlMDI.BackgroundImageLayout = ImageLayout.Stretch;
-                    break;
-                }
-            }
-            */
-
+            
             // 1. Ẩn tất cả các panel con ngay khi load
             pnlSubHeThong.Visible = false;
             pnlSubQuanLy.Visible = false;
@@ -385,11 +371,14 @@ namespace QuanLyTiemGiaoHoa.Forms
             {
                 if (ctl is MdiClient)
                 {
-                    ctl.BackgroundImage = Properties.Resources.camhung;
+                    ctl.BackgroundImage = Properties.Resources.trangchu;
                     ctl.BackgroundImageLayout = ImageLayout.Stretch;
                     break;
                 }
             }
+            
+
+
 
 
         }
@@ -403,43 +392,12 @@ namespace QuanLyTiemGiaoHoa.Forms
             ChuaDangNhap();
         }
 
-        /*
-        private void MoFormCon(Form formMoi)
-        {
-            // 1. Đóng tất cả các Form con đang mở (trừ cái đang chuẩn bị mở)
-            foreach (Form child in this.MdiChildren)
-            {
-                child.Close();
-            }
-
-            // 2. Thiết lập và hiển thị Form mới
-            formMoi.MdiParent = this;
-            formMoi.WindowState = FormWindowState.Maximized; // Cho hiển thị tràn màn hình cho đẹp
-            formMoi.Show();
-        }
-        */
+        
 
         private void MoFormCon<T>() where T : Form, new()
         {
-            /*
-            // Kiểm tra xem Form loại này đã được mở chưa
-            Form frm = this.MdiChildren.FirstOrDefault(f => f is T);
 
-            if (frm == null)
-            {
-                // Nếu chưa có thì mới tạo mới
-                frm = new T();
-                frm.MdiParent = this;
-                frm.WindowState = FormWindowState.Maximized;
-                frm.Show();
-            }
-            else
-            {
-                // Nếu có rồi thì kích hoạt nó lên thôi, không tạo thêm tốn RAM
-                frm.Activate();
-            }
-            */
-
+            
             // 1. Tìm xem Form này đã mở chưa
             T frm = this.MdiChildren.OfType<T>().FirstOrDefault();
 
@@ -459,6 +417,61 @@ namespace QuanLyTiemGiaoHoa.Forms
                 // 4. Nếu mở rồi thì mang nó lên trước mặt
                 frm.Activate();
             }
+            
+
+
+            /*
+            // 1. Tìm xem Form này đã mở chưa
+            T frm = this.MdiChildren.OfType<T>().FirstOrDefault();
+
+            if (frm == null)
+            {
+                // 2. Đóng các form con khác nếu muốn (không bắt buộc)
+                foreach (Form child in this.MdiChildren) child.Close();
+
+                // 3. Tạo mới
+                frm = new T();
+                frm.MdiParent = this;
+
+                // QUAN TRỌNG: Thiết lập để nó nằm giữa
+                frm.StartPosition = FormStartPosition.CenterScreen;
+
+                // KHÔNG dùng Maximized ở đây nữa nhé
+                frm.Show();
+            }
+            else
+            {
+                frm.Activate();
+            }
+            */
+
+            /*
+            T frm = this.MdiChildren.OfType<T>().FirstOrDefault();
+
+            if (frm == null)
+            {
+                foreach (Form child in this.MdiChildren) child.Close();
+
+                frm = new T();
+                frm.MdiParent = this;
+
+                // 1. Ẩn thanh tiêu đề để nhập vào nền
+                frm.FormBorderStyle = FormBorderStyle.None;
+
+                // 2. TẠO KHOẢNG CÁCH LỀ (Padding): 
+                // Trái: 20, Trên: 20, Phải: 20, Dưới: 20 (Bạn có thể tăng giảm số này)
+                frm.Padding = new Padding(20, 20, 20, 20);
+
+                // 3. Ép tràn màn hình
+                frm.WindowState = FormWindowState.Maximized;
+
+                frm.Show();
+            }
+            else
+            {
+                frm.Activate();
+            }
+            */
         }
 
         private void mnuThongKeHoa_Click(object sender, EventArgs e)

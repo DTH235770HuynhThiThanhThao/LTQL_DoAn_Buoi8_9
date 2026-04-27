@@ -34,5 +34,19 @@ namespace QuanLyTiemGiaoHoa.Forms
                 btnDangNhap_Click(sender, e);
             }
         }
+
+        private void chkHienMatKhau_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkHienMatKhau.Checked)
+            {
+                // Khi tích chọn: Bỏ ký tự đại diện để hiện chữ bình thường
+                txtMatKhau.PasswordChar = '\0'; // '\0' là ký tự rỗng (null)
+            }
+            else
+            {
+                // Khi bỏ tích: Đặt lại ký tự * để ẩn mật khẩu
+                txtMatKhau.PasswordChar = '*';
+            }
+        }
     }
 }
