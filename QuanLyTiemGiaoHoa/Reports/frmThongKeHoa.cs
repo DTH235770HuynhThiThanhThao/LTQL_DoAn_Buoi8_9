@@ -28,51 +28,103 @@ namespace QuanLyTiemGiaoHoa.Reports
 
         private void frmThongKeHoa_Load(object sender, EventArgs e)
         {
-            var danhSachHoa = context.Hoa.Select(r => new DanhSachHoa
-            {
-                ID = r.ID,
-                NhaCungCapID = r.NhaCungCapID,
-                TenNhaCungCap = r.NhaCungCap.TenNhaCungCap,
-                LoaiHoaID = r.LoaiHoaID,
-                TenLoai = r.LoaiHoa.TenLoai,
-                TenHoa = r.TenHoa,
-                DonGia = r.DonGia,
-                SoLuong = r.SoLuong,
-                HinhAnh = r.HinhAnh,
-                MoTa = r.MoTa
+            // 1. Đổ dữ liệu vào ComboBox Nhà cung cấp
+            var ncc = context.NhaCungCap.ToList();
+            ncc.Insert(0, new NhaCungCap { ID = 0, TenNhaCungCap = "-- Tất cả --" });
+            cboNhaCungCap.DataSource = ncc;
+            cboNhaCungCap.DisplayMember = "TenNhaCungCap";
+            cboNhaCungCap.ValueMember = "ID";
+
+            // 2. Đổ dữ liệu vào ComboBox Loại hoa
+            var loai = context.LoaiHoa.ToList();
+            loai.Insert(0, new LoaiHoa { ID = 0, TenLoai = "-- Tất cả --" });
+            cboLoaiHoa.DataSource = loai;
+            cboLoaiHoa.DisplayMember = "TenLoai";
+            cboLoaiHoa.ValueMember = "ID";
+
+            // 3. Hiển thị báo cáo mặc định (tất cả)
+            LoadReport();
+        }
+
+        private void btnKetQua_Click(object sender, EventArgs e)
+        {
+            int nccID = Convert.ToInt32(cboNhaCungCap.SelectedValue);
+            int loaiID = Convert.ToInt32(cboLoaiHoa.SelectedValue);
+           
+
+            LoadReport(nccID, loaiID);
+        }
+
+
+        private void LoadReport(int? nccID = 0, int? loaiID = 0)
+        {
+            // Truy vấn dữ liệu có lọc
+            var query = context.Hoa.AsQueryable();
+
+            if (nccID > 0) query = query.Where(h => h.NhaCungCapID == nccID);
+            if (loaiID > 0) query = query.Where(h => h.LoaiHoaID == loaiID);
+
+            var danhSachHoa = query.Select(r => new {
+                r.ID,
+                r.NhaCungCapID,
+                r.NhaCungCap.TenNhaCungCap,
+                r.LoaiHoaID,
+                r.LoaiHoa.TenLoai,
+                r.TenHoa,
+                r.DonGia,
+                r.SoLuong,
+                r.HinhAnh,
+                r.MoTa
             }).ToList();
 
             danhSachHoaDataTable.Clear();
             foreach (var row in danhSachHoa)
             {
-                danhSachHoaDataTable.AddDanhSachHoaRow(row.ID,
-                 row.NhaCungCapID,
-                 row.TenNhaCungCap,
-                 row.LoaiHoaID,
-                 row.TenLoai,
-                 row.TenHoa,
-                 row.DonGia,
-                 row.SoLuong,
-                 row.HinhAnh,
-                 row.MoTa);
+                // Chú ý ép kiểu decimal sang int để tránh lỗi CS1503
+                danhSachHoaDataTable.AddDanhSachHoaRow(
+                    row.ID, row.NhaCungCapID, row.TenNhaCungCap,
+                    row.LoaiHoaID, row.TenLoai, row.TenHoa,
+                    Convert.ToInt32(row.DonGia),
+                    Convert.ToInt32(row.SoLuong),
+                    row.HinhAnh, row.MoTa
+                );
             }
 
-            ReportDataSource reportDataSource = new ReportDataSource();
-            reportDataSource.Name = "DanhSachHoa";
-            reportDataSource.Value = danhSachHoaDataTable;
-
+            ReportDataSource rds = new ReportDataSource("DanhSachHoa", (DataTable)danhSachHoaDataTable);
             reportViewer.LocalReport.DataSources.Clear();
-            reportViewer.LocalReport.DataSources.Add(reportDataSource);
+            reportViewer.LocalReport.DataSources.Add(rds);
             reportViewer.LocalReport.ReportPath = Path.Combine(reportsFolder, "rptThongKeHoa.rdlc");
 
-            //reportViewer.SetDisplayMode(DisplayMode.PrintLayout);
+            /*
+            ReportParameter reportParameter = new ReportParameter("MoTaKetQuaHienThi", "(Tất cả hoa)");
+            reportViewer.LocalReport.SetParameters(reportParameter);
+            ReportParameter reportParameter = new ReportParameter("MoTaKetQuaHienThi", "(" + nhaCungCap + " - " + loaiHoa + ")");
+            reportViewer.LocalReport.SetParameters(reportParameter);
+            */
+
+            // 1. Lấy tên hiển thị từ ComboBox
+            string tenNCC = cboNhaCungCap.Text;
+            string tenLoai = cboLoaiHoa.Text;
+            string chuoiMoTa = "";
+
+            // 2. Logic tạo chuỗi mô tả linh hoạt
+            if (nccID == 0 && loaiID == 0)
+            {
+                chuoiMoTa = "(Tất cả hoa)";
+            }
+            else
+            {
+                chuoiMoTa = $"(Nhà cung cấp: {tenNCC} - Loại hoa: {tenLoai})";
+            }
+
+            // 3. Gán giá trị vào Parameter (Đảm bảo tên "MoTaKetQuaHienThi" khớp với file .rdlc)
+            ReportParameter pa = new ReportParameter("MoTaKetQuaHienThi", chuoiMoTa);
+            reportViewer.LocalReport.SetParameters(new ReportParameter[] { pa });
+
+
+            // Dùng họ tên đầy đủ để tránh lỗi Ambiguous
             reportViewer.SetDisplayMode(Microsoft.Reporting.WinForms.DisplayMode.PrintLayout);
-            // THÊM VÀO ĐÂY: Giúp báo cáo tự co giãn vừa khít chiều ngang màn hình
             reportViewer.ZoomMode = ZoomMode.PageWidth;
-
-            reportViewer.ZoomMode = ZoomMode.Percent;
-            //reportViewer.ZoomPercent = 100;
-
             reportViewer.RefreshReport();
         }
     }

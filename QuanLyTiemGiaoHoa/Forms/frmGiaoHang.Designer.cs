@@ -99,9 +99,9 @@
             groupBox1.Controls.Add(cboNhanVien);
             groupBox1.Controls.Add(label3);
             groupBox1.Controls.Add(label1);
-            groupBox1.Location = new Point(12, 12);
+            groupBox1.Location = new Point(13, 13);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(1584, 223);
+            groupBox1.Size = new Size(1742, 245);
             groupBox1.TabIndex = 3;
             groupBox1.TabStop = false;
             groupBox1.Text = "Thông tin giao hàng";
@@ -110,18 +110,18 @@
             // 
             groupBox3.Controls.Add(btnTimKiem);
             groupBox3.Controls.Add(txtTimKiem);
-            groupBox3.Location = new Point(1158, 107);
+            groupBox3.Location = new Point(1274, 118);
             groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(420, 68);
+            groupBox3.Size = new Size(462, 75);
             groupBox3.TabIndex = 17;
             groupBox3.TabStop = false;
             groupBox3.Text = "Tìm kiếm";
             // 
             // btnTimKiem
             // 
-            btnTimKiem.Location = new Point(314, 19);
+            btnTimKiem.Location = new Point(345, 21);
             btnTimKiem.Name = "btnTimKiem";
-            btnTimKiem.Size = new Size(94, 36);
+            btnTimKiem.Size = new Size(103, 40);
             btnTimKiem.TabIndex = 1;
             btnTimKiem.Text = "Tìm kiếm";
             btnTimKiem.UseVisualStyleBackColor = true;
@@ -129,172 +129,172 @@
             // 
             // txtTimKiem
             // 
-            txtTimKiem.Location = new Point(18, 24);
+            txtTimKiem.Location = new Point(20, 26);
             txtTimKiem.Name = "txtTimKiem";
-            txtTimKiem.Size = new Size(276, 28);
+            txtTimKiem.Size = new Size(303, 30);
             txtTimKiem.TabIndex = 0;
             // 
             // txtDiaChiGiao
             // 
-            txtDiaChiGiao.Location = new Point(745, 116);
+            txtDiaChiGiao.Location = new Point(820, 128);
             txtDiaChiGiao.Name = "txtDiaChiGiao";
             txtDiaChiGiao.ReadOnly = true;
-            txtDiaChiGiao.Size = new Size(274, 28);
+            txtDiaChiGiao.Size = new Size(301, 30);
             txtDiaChiGiao.TabIndex = 13;
             // 
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(620, 124);
+            label9.Location = new Point(682, 136);
             label9.Name = "label9";
-            label9.Size = new Size(119, 20);
+            label9.Size = new Size(136, 22);
             label9.TabIndex = 12;
             label9.Text = "Địa chỉ giao(*):";
             // 
             // txtSDTNhan
             // 
-            txtSDTNhan.Location = new Point(146, 121);
+            txtSDTNhan.Location = new Point(161, 133);
             txtSDTNhan.MaxLength = 10;
             txtSDTNhan.Name = "txtSDTNhan";
             txtSDTNhan.ReadOnly = true;
-            txtSDTNhan.Size = new Size(369, 28);
+            txtSDTNhan.Size = new Size(406, 30);
             txtSDTNhan.TabIndex = 13;
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(21, 126);
+            label6.Location = new Point(23, 139);
             label6.Name = "label6";
-            label6.Size = new Size(109, 20);
+            label6.Size = new Size(117, 22);
             label6.TabIndex = 12;
             label6.Text = "SĐT nhận(*):";
             // 
             // txtTenNguoiNhan
             // 
-            txtTenNguoiNhan.Location = new Point(745, 70);
+            txtTenNguoiNhan.Location = new Point(820, 77);
             txtTenNguoiNhan.Name = "txtTenNguoiNhan";
             txtTenNguoiNhan.ReadOnly = true;
-            txtTenNguoiNhan.Size = new Size(274, 28);
+            txtTenNguoiNhan.Size = new Size(301, 30);
             txtTenNguoiNhan.TabIndex = 13;
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(620, 75);
+            label5.Location = new Point(682, 82);
             label5.Name = "label5";
-            label5.Size = new Size(119, 20);
+            label5.Size = new Size(131, 22);
             label5.TabIndex = 12;
             label5.Text = "Người nhận(*):";
             // 
             // txtKhachHang
             // 
-            txtKhachHang.Location = new Point(147, 72);
+            txtKhachHang.Location = new Point(162, 79);
             txtKhachHang.Name = "txtKhachHang";
             txtKhachHang.ReadOnly = true;
-            txtKhachHang.Size = new Size(368, 28);
+            txtKhachHang.Size = new Size(404, 30);
             txtKhachHang.TabIndex = 11;
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(1144, 32);
+            label4.Location = new Point(1258, 35);
             label4.Name = "label4";
-            label4.Size = new Size(106, 20);
+            label4.Size = new Size(119, 22);
             label4.TabIndex = 10;
             label4.Text = "Ngày giao(*):";
             // 
             // dtpNgayGiao
             // 
             dtpNgayGiao.Format = DateTimePickerFormat.Short;
-            dtpNgayGiao.Location = new Point(1256, 24);
+            dtpNgayGiao.Location = new Point(1382, 26);
             dtpNgayGiao.Name = "dtpNgayGiao";
-            dtpNgayGiao.Size = new Size(187, 28);
+            dtpNgayGiao.Size = new Size(205, 30);
             dtpNgayGiao.TabIndex = 9;
             // 
             // cboTrangThaiGiao
             // 
             cboTrangThaiGiao.FormattingEnabled = true;
-            cboTrangThaiGiao.Location = new Point(745, 27);
+            cboTrangThaiGiao.Location = new Point(820, 30);
             cboTrangThaiGiao.Name = "cboTrangThaiGiao";
-            cboTrangThaiGiao.Size = new Size(274, 28);
+            cboTrangThaiGiao.Size = new Size(301, 30);
             cboTrangThaiGiao.TabIndex = 8;
             // 
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(559, 35);
+            label8.Location = new Point(615, 38);
             label8.Name = "label8";
-            label8.Size = new Size(180, 20);
+            label8.Size = new Size(198, 22);
             label8.TabIndex = 7;
             label8.Text = "Trạng thái giao hàng(*):";
             // 
             // numTongTien
             // 
-            numTongTien.Location = new Point(1256, 73);
+            numTongTien.Location = new Point(1382, 80);
             numTongTien.Maximum = new decimal(new int[] { 100000000, 0, 0, 0 });
             numTongTien.Name = "numTongTien";
             numTongTien.ReadOnly = true;
-            numTongTien.Size = new Size(187, 28);
+            numTongTien.Size = new Size(206, 30);
             numTongTien.TabIndex = 6;
             numTongTien.ThousandsSeparator = true;
             // 
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(1144, 75);
+            label7.Location = new Point(1258, 82);
             label7.Name = "label7";
-            label7.Size = new Size(103, 20);
+            label7.Size = new Size(113, 22);
             label7.TabIndex = 5;
             label7.Text = "Tổng tiền(*):";
             // 
             // txtGhiChuGiaoHang
             // 
-            txtGhiChuGiaoHang.Location = new Point(147, 163);
+            txtGhiChuGiaoHang.Location = new Point(162, 179);
             txtGhiChuGiaoHang.Name = "txtGhiChuGiaoHang";
-            txtGhiChuGiaoHang.Size = new Size(368, 28);
+            txtGhiChuGiaoHang.Size = new Size(404, 30);
             txtGhiChuGiaoHang.TabIndex = 2;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(20, 75);
+            label2.Location = new Point(22, 82);
             label2.Name = "label2";
-            label2.Size = new Size(120, 20);
+            label2.Size = new Size(130, 22);
             label2.TabIndex = 0;
             label2.Text = "Khách hàng(*):";
             // 
             // cboNhanVien
             // 
             cboNhanVien.FormattingEnabled = true;
-            cboNhanVien.Location = new Point(146, 27);
+            cboNhanVien.Location = new Point(161, 30);
             cboNhanVien.Name = "cboNhanVien";
-            cboNhanVien.Size = new Size(369, 28);
+            cboNhanVien.Size = new Size(406, 30);
             cboNhanVien.TabIndex = 1;
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(7, 170);
+            label3.Location = new Point(8, 187);
             label3.Name = "label3";
-            label3.Size = new Size(134, 20);
+            label3.Size = new Size(146, 22);
             label3.TabIndex = 0;
             label3.Text = "Ghi chú hóa đơn:";
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(6, 35);
+            label1.Location = new Point(7, 38);
             label1.Name = "label1";
-            label1.Size = new Size(142, 20);
+            label1.Size = new Size(158, 22);
             label1.TabIndex = 0;
             label1.Text = "Nhân viên giao(*):";
             // 
             // groupBox2
             // 
             groupBox2.Controls.Add(dataGridView);
-            groupBox2.Location = new Point(12, 241);
+            groupBox2.Location = new Point(13, 265);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(1584, 365);
+            groupBox2.Size = new Size(1742, 402);
             groupBox2.TabIndex = 10;
             groupBox2.TabStop = false;
             groupBox2.Text = "Danh sách giao hàng";
@@ -307,11 +307,11 @@
             dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView.Columns.AddRange(new DataGridViewColumn[] { ID, HoVaTenNhanVien, HoVaTenKhachHang, TenNguoiNhan, DienThoaiNhan, DiaChiGiao, NgayGiao, TongTienHoaDon, TrangThaiGiao, GhiChu });
             dataGridView.Dock = DockStyle.Fill;
-            dataGridView.Location = new Point(3, 24);
+            dataGridView.Location = new Point(3, 26);
             dataGridView.MultiSelect = false;
             dataGridView.Name = "dataGridView";
             dataGridView.RowHeadersWidth = 51;
-            dataGridView.Size = new Size(1578, 338);
+            dataGridView.Size = new Size(1736, 373);
             dataGridView.TabIndex = 0;
             dataGridView.CellClick += dataGridView_CellClick;
             dataGridView.CellFormatting += dataGridView_CellFormatting;
@@ -397,9 +397,9 @@
             // 
             // btnXuat
             // 
-            btnXuat.Location = new Point(1319, 638);
+            btnXuat.Location = new Point(1451, 702);
             btnXuat.Name = "btnXuat";
-            btnXuat.Size = new Size(94, 33);
+            btnXuat.Size = new Size(103, 36);
             btnXuat.TabIndex = 16;
             btnXuat.Text = "Xuất Excel...";
             btnXuat.UseVisualStyleBackColor = true;
@@ -407,9 +407,9 @@
             // 
             // btnThoat
             // 
-            btnThoat.Location = new Point(1195, 638);
+            btnThoat.Location = new Point(1314, 702);
             btnThoat.Name = "btnThoat";
-            btnThoat.Size = new Size(94, 33);
+            btnThoat.Size = new Size(103, 36);
             btnThoat.TabIndex = 14;
             btnThoat.Text = "Thoát";
             btnThoat.UseVisualStyleBackColor = true;
@@ -417,9 +417,9 @@
             // 
             // btnBatDauGiao
             // 
-            btnBatDauGiao.Location = new Point(848, 638);
+            btnBatDauGiao.Location = new Point(933, 702);
             btnBatDauGiao.Name = "btnBatDauGiao";
-            btnBatDauGiao.Size = new Size(143, 33);
+            btnBatDauGiao.Size = new Size(157, 36);
             btnBatDauGiao.TabIndex = 12;
             btnBatDauGiao.Text = "Bắt đầu giao";
             btnBatDauGiao.UseVisualStyleBackColor = true;
@@ -427,9 +427,9 @@
             // 
             // btnGiaoThanhCong
             // 
-            btnGiaoThanhCong.Location = new Point(678, 638);
+            btnGiaoThanhCong.Location = new Point(746, 702);
             btnGiaoThanhCong.Name = "btnGiaoThanhCong";
-            btnGiaoThanhCong.Size = new Size(143, 33);
+            btnGiaoThanhCong.Size = new Size(157, 36);
             btnGiaoThanhCong.TabIndex = 13;
             btnGiaoThanhCong.Text = "Giao thành công";
             btnGiaoThanhCong.UseVisualStyleBackColor = true;
@@ -437,9 +437,9 @@
             // 
             // btnHuyGiao
             // 
-            btnHuyGiao.Location = new Point(1021, 638);
+            btnHuyGiao.Location = new Point(1123, 702);
             btnHuyGiao.Name = "btnHuyGiao";
-            btnHuyGiao.Size = new Size(143, 33);
+            btnHuyGiao.Size = new Size(157, 36);
             btnHuyGiao.TabIndex = 12;
             btnHuyGiao.Text = "Hủy giao";
             btnHuyGiao.UseVisualStyleBackColor = true;
@@ -447,9 +447,9 @@
             // 
             // btnLamMoi
             // 
-            btnLamMoi.Location = new Point(344, 638);
+            btnLamMoi.Location = new Point(378, 702);
             btnLamMoi.Name = "btnLamMoi";
-            btnLamMoi.Size = new Size(143, 33);
+            btnLamMoi.Size = new Size(157, 36);
             btnLamMoi.TabIndex = 12;
             btnLamMoi.Text = "Làm mới";
             btnLamMoi.UseVisualStyleBackColor = true;
@@ -457,9 +457,9 @@
             // 
             // btnInPhieuGiao
             // 
-            btnInPhieuGiao.Location = new Point(511, 638);
+            btnInPhieuGiao.Location = new Point(562, 702);
             btnInPhieuGiao.Name = "btnInPhieuGiao";
-            btnInPhieuGiao.Size = new Size(143, 33);
+            btnInPhieuGiao.Size = new Size(157, 36);
             btnInPhieuGiao.TabIndex = 12;
             btnInPhieuGiao.Text = "In phiếu giao";
             btnInPhieuGiao.UseVisualStyleBackColor = true;
@@ -467,9 +467,9 @@
             // 
             // btnLuuThayDoi
             // 
-            btnLuuThayDoi.Location = new Point(188, 638);
+            btnLuuThayDoi.Location = new Point(207, 702);
             btnLuuThayDoi.Name = "btnLuuThayDoi";
-            btnLuuThayDoi.Size = new Size(128, 33);
+            btnLuuThayDoi.Size = new Size(141, 36);
             btnLuuThayDoi.TabIndex = 17;
             btnLuuThayDoi.Text = "Lưu thay đổi";
             btnLuuThayDoi.UseVisualStyleBackColor = true;
@@ -477,9 +477,9 @@
             // 
             // frmGiaoHang
             // 
-            AutoScaleDimensions = new SizeF(10F, 20F);
+            AutoScaleDimensions = new SizeF(11F, 22F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1628, 711);
+            ClientSize = new Size(1791, 782);
             Controls.Add(btnLuuThayDoi);
             Controls.Add(btnXuat);
             Controls.Add(btnThoat);
@@ -490,7 +490,7 @@
             Controls.Add(btnGiaoThanhCong);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
-            Font = new Font("Times New Roman", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             Margin = new Padding(4, 3, 4, 3);
             Name = "frmGiaoHang";
             StartPosition = FormStartPosition.CenterScreen;

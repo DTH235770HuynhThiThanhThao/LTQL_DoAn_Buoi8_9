@@ -14,7 +14,7 @@ namespace QuanLyTiemGiaoHoa
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new frmThongKeHoa());
+            Application.Run(new frmMain());
         }
     }
 }

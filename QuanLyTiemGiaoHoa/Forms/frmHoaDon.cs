@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using ClosedXML.Excel;
 using Microsoft.EntityFrameworkCore;
 using QuanLyTiemGiaoHoa.Data;
+using QuanLyTiemGiaoHoa.Reports;
 
 
 namespace QuanLyTiemGiaoHoa.Forms
@@ -251,7 +252,8 @@ namespace QuanLyTiemGiaoHoa.Forms
 
         private void btnInHoaDon_Click(object sender, EventArgs e)
         {
-            if (dataGridView.CurrentRow == null)
+            /*
+              if (dataGridView.CurrentRow == null)
             {
                 MessageBox.Show("Vui lòng chọn hóa đơn cần in!",
                     "Thông báo",
@@ -266,6 +268,26 @@ namespace QuanLyTiemGiaoHoa.Forms
             {
                 f.ShowDialog();
             }
+            */
+
+
+
+            if (dataGridView.CurrentRow == null)
+            {
+                MessageBox.Show("Vui lòng chọn hóa đơn cần in!",
+                    "Thông báo",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+                return;
+            }
+
+            int id = Convert.ToInt32(dataGridView.CurrentRow.Cells["ID"].Value);
+
+            using (frmInHoaDon f = new frmInHoaDon(id))
+            {
+                f.ShowDialog();
+            }
+
         }
 
         private void btnTimKiem_Click(object sender, EventArgs e)

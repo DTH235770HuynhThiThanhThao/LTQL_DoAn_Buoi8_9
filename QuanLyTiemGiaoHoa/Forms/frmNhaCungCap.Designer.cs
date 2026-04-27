@@ -55,9 +55,9 @@
             // groupBox2
             // 
             groupBox2.Controls.Add(dataGridView);
-            groupBox2.Location = new Point(12, 215);
+            groupBox2.Location = new Point(13, 236);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(1081, 397);
+            groupBox2.Size = new Size(1189, 437);
             groupBox2.TabIndex = 4;
             groupBox2.TabStop = false;
             groupBox2.Text = "Danh sách nhà cung cấp";
@@ -70,11 +70,11 @@
             dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView.Columns.AddRange(new DataGridViewColumn[] { ID, TenNhaCungCap });
             dataGridView.Dock = DockStyle.Fill;
-            dataGridView.Location = new Point(3, 24);
+            dataGridView.Location = new Point(3, 26);
             dataGridView.MultiSelect = false;
             dataGridView.Name = "dataGridView";
             dataGridView.RowHeadersWidth = 51;
-            dataGridView.Size = new Size(1075, 370);
+            dataGridView.Size = new Size(1183, 408);
             dataGridView.TabIndex = 0;
             // 
             // ID
@@ -105,18 +105,18 @@
             groupBox1.Controls.Add(btnThem);
             groupBox1.Controls.Add(txtTenNhaCungCap);
             groupBox1.Controls.Add(label1);
-            groupBox1.Location = new Point(12, 12);
+            groupBox1.Location = new Point(13, 13);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(1082, 123);
+            groupBox1.Size = new Size(1190, 135);
             groupBox1.TabIndex = 3;
             groupBox1.TabStop = false;
             groupBox1.Text = "Thông tin nhà cung cấp";
             // 
             // btnXuat
             // 
-            btnXuat.Location = new Point(971, 70);
+            btnXuat.Location = new Point(1068, 77);
             btnXuat.Name = "btnXuat";
-            btnXuat.Size = new Size(94, 29);
+            btnXuat.Size = new Size(103, 32);
             btnXuat.TabIndex = 3;
             btnXuat.Text = "Xuất";
             btnXuat.UseVisualStyleBackColor = true;
@@ -124,9 +124,9 @@
             // 
             // btnNhap
             // 
-            btnNhap.Location = new Point(858, 70);
+            btnNhap.Location = new Point(944, 77);
             btnNhap.Name = "btnNhap";
-            btnNhap.Size = new Size(94, 29);
+            btnNhap.Size = new Size(103, 32);
             btnNhap.TabIndex = 4;
             btnNhap.Text = "Nhập";
             btnNhap.UseVisualStyleBackColor = true;
@@ -134,9 +134,9 @@
             // 
             // btnThoat
             // 
-            btnThoat.Location = new Point(749, 70);
+            btnThoat.Location = new Point(824, 77);
             btnThoat.Name = "btnThoat";
-            btnThoat.Size = new Size(94, 29);
+            btnThoat.Size = new Size(103, 32);
             btnThoat.TabIndex = 2;
             btnThoat.Text = "Thoát";
             btnThoat.UseVisualStyleBackColor = true;
@@ -144,9 +144,9 @@
             // 
             // btnHuyBo
             // 
-            btnHuyBo.Location = new Point(637, 70);
+            btnHuyBo.Location = new Point(701, 77);
             btnHuyBo.Name = "btnHuyBo";
-            btnHuyBo.Size = new Size(94, 29);
+            btnHuyBo.Size = new Size(103, 32);
             btnHuyBo.TabIndex = 2;
             btnHuyBo.Text = "Hủy bỏ";
             btnHuyBo.UseVisualStyleBackColor = true;
@@ -154,9 +154,9 @@
             // 
             // btnLuu
             // 
-            btnLuu.Location = new Point(525, 70);
+            btnLuu.Location = new Point(578, 77);
             btnLuu.Name = "btnLuu";
-            btnLuu.Size = new Size(94, 29);
+            btnLuu.Size = new Size(103, 32);
             btnLuu.TabIndex = 2;
             btnLuu.Text = "Lưu";
             btnLuu.UseVisualStyleBackColor = true;
@@ -164,9 +164,9 @@
             // 
             // btnXoa
             // 
-            btnXoa.Location = new Point(414, 70);
+            btnXoa.Location = new Point(455, 77);
             btnXoa.Name = "btnXoa";
-            btnXoa.Size = new Size(94, 29);
+            btnXoa.Size = new Size(103, 32);
             btnXoa.TabIndex = 2;
             btnXoa.Text = "Xóa";
             btnXoa.UseVisualStyleBackColor = true;
@@ -174,9 +174,9 @@
             // 
             // btnSua
             // 
-            btnSua.Location = new Point(299, 70);
+            btnSua.Location = new Point(329, 77);
             btnSua.Name = "btnSua";
-            btnSua.Size = new Size(94, 29);
+            btnSua.Size = new Size(103, 32);
             btnSua.TabIndex = 2;
             btnSua.Text = "Sửa";
             btnSua.UseVisualStyleBackColor = true;
@@ -184,9 +184,9 @@
             // 
             // btnThem
             // 
-            btnThem.Location = new Point(187, 70);
+            btnThem.Location = new Point(206, 77);
             btnThem.Name = "btnThem";
-            btnThem.Size = new Size(94, 29);
+            btnThem.Size = new Size(103, 32);
             btnThem.TabIndex = 2;
             btnThem.Text = "Thêm";
             btnThem.UseVisualStyleBackColor = true;
@@ -194,17 +194,17 @@
             // 
             // txtTenNhaCungCap
             // 
-            txtTenNhaCungCap.Location = new Point(187, 28);
+            txtTenNhaCungCap.Location = new Point(206, 31);
             txtTenNhaCungCap.Name = "txtTenNhaCungCap";
-            txtTenNhaCungCap.Size = new Size(878, 28);
+            txtTenNhaCungCap.Size = new Size(965, 30);
             txtTenNhaCungCap.TabIndex = 1;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(18, 30);
+            label1.Location = new Point(20, 33);
             label1.Name = "label1";
-            label1.Size = new Size(163, 20);
+            label1.Size = new Size(175, 22);
             label1.TabIndex = 0;
             label1.Text = "Tên nhà cung cấp(*):";
             // 
@@ -212,18 +212,18 @@
             // 
             groupBox3.Controls.Add(btnTimKiem);
             groupBox3.Controls.Add(txtTimKiem);
-            groupBox3.Location = new Point(12, 141);
+            groupBox3.Location = new Point(13, 155);
             groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(576, 68);
+            groupBox3.Size = new Size(634, 75);
             groupBox3.TabIndex = 5;
             groupBox3.TabStop = false;
             groupBox3.Text = "Tìm kiếm";
             // 
             // btnTimKiem
             // 
-            btnTimKiem.Location = new Point(464, 27);
+            btnTimKiem.Location = new Point(510, 30);
             btnTimKiem.Name = "btnTimKiem";
-            btnTimKiem.Size = new Size(94, 29);
+            btnTimKiem.Size = new Size(103, 32);
             btnTimKiem.TabIndex = 1;
             btnTimKiem.Text = "Tìm kiếm ";
             btnTimKiem.UseVisualStyleBackColor = true;
@@ -231,20 +231,20 @@
             // 
             // txtTimKiem
             // 
-            txtTimKiem.Location = new Point(6, 27);
+            txtTimKiem.Location = new Point(7, 30);
             txtTimKiem.Name = "txtTimKiem";
-            txtTimKiem.Size = new Size(441, 28);
+            txtTimKiem.Size = new Size(485, 30);
             txtTimKiem.TabIndex = 0;
             // 
             // frmNhaCungCap
             // 
-            AutoScaleDimensions = new SizeF(10F, 20F);
+            AutoScaleDimensions = new SizeF(11F, 22F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1105, 624);
+            ClientSize = new Size(1216, 686);
             Controls.Add(groupBox3);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
-            Font = new Font("Times New Roman", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             Margin = new Padding(4, 3, 4, 3);
             Name = "frmNhaCungCap";
             StartPosition = FormStartPosition.CenterScreen;

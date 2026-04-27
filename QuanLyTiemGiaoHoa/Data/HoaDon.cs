@@ -58,5 +58,9 @@ namespace QuanLyTiemGiaoHoa.Data
         [NotMapped] // Khai báo cái này để EF không tìm cột này trong DB
         public string? TrangThaiGiao { get; set; }
 
+
+        public int TrangThaiID { get; set; } // BỔ SUNG
+        public string TenTrangThaiGiao { get; set; } // BỔ SUNG
+
     }
 }

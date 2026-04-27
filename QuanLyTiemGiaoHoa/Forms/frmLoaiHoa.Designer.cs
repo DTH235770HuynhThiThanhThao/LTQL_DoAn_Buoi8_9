@@ -65,18 +65,18 @@
             groupBox1.Controls.Add(txtTenLoai);
             groupBox1.Controls.Add(label1);
             groupBox1.Font = new Font("Times New Roman", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            groupBox1.Location = new Point(12, 11);
+            groupBox1.Location = new Point(13, 12);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(1052, 106);
+            groupBox1.Size = new Size(1157, 117);
             groupBox1.TabIndex = 1;
             groupBox1.TabStop = false;
             groupBox1.Text = "Thông tin loại hoa";
             // 
             // btnXuat
             // 
-            btnXuat.Location = new Point(934, 67);
+            btnXuat.Location = new Point(1027, 74);
             btnXuat.Name = "btnXuat";
-            btnXuat.Size = new Size(85, 26);
+            btnXuat.Size = new Size(94, 29);
             btnXuat.TabIndex = 2;
             btnXuat.Text = "Xuất";
             btnXuat.UseVisualStyleBackColor = true;
@@ -84,9 +84,9 @@
             // 
             // btnNhap
             // 
-            btnNhap.Location = new Point(831, 67);
+            btnNhap.Location = new Point(914, 74);
             btnNhap.Name = "btnNhap";
-            btnNhap.Size = new Size(85, 26);
+            btnNhap.Size = new Size(94, 29);
             btnNhap.TabIndex = 2;
             btnNhap.Text = "Nhập";
             btnNhap.UseVisualStyleBackColor = true;
@@ -94,9 +94,9 @@
             // 
             // btnThoat
             // 
-            btnThoat.Location = new Point(724, 67);
+            btnThoat.Location = new Point(796, 74);
             btnThoat.Name = "btnThoat";
-            btnThoat.Size = new Size(85, 26);
+            btnThoat.Size = new Size(94, 29);
             btnThoat.TabIndex = 2;
             btnThoat.Text = "Thoát";
             btnThoat.UseVisualStyleBackColor = true;
@@ -104,9 +104,9 @@
             // 
             // btnHuyBo
             // 
-            btnHuyBo.Location = new Point(622, 67);
+            btnHuyBo.Location = new Point(684, 74);
             btnHuyBo.Name = "btnHuyBo";
-            btnHuyBo.Size = new Size(85, 26);
+            btnHuyBo.Size = new Size(94, 29);
             btnHuyBo.TabIndex = 2;
             btnHuyBo.Text = "Hủy bỏ";
             btnHuyBo.UseVisualStyleBackColor = true;
@@ -114,9 +114,9 @@
             // 
             // btnLuu
             // 
-            btnLuu.Location = new Point(515, 67);
+            btnLuu.Location = new Point(566, 74);
             btnLuu.Name = "btnLuu";
-            btnLuu.Size = new Size(85, 26);
+            btnLuu.Size = new Size(94, 29);
             btnLuu.TabIndex = 2;
             btnLuu.Text = "Lưu";
             btnLuu.UseVisualStyleBackColor = true;
@@ -124,9 +124,9 @@
             // 
             // btnXoa
             // 
-            btnXoa.Location = new Point(405, 67);
+            btnXoa.Location = new Point(446, 74);
             btnXoa.Name = "btnXoa";
-            btnXoa.Size = new Size(85, 26);
+            btnXoa.Size = new Size(94, 29);
             btnXoa.TabIndex = 2;
             btnXoa.Text = "Xóa";
             btnXoa.UseVisualStyleBackColor = true;
@@ -134,9 +134,9 @@
             // 
             // btnSua
             // 
-            btnSua.Location = new Point(298, 67);
+            btnSua.Location = new Point(328, 74);
             btnSua.Name = "btnSua";
-            btnSua.Size = new Size(85, 26);
+            btnSua.Size = new Size(94, 29);
             btnSua.TabIndex = 2;
             btnSua.Text = "Sửa";
             btnSua.UseVisualStyleBackColor = true;
@@ -144,9 +144,9 @@
             // 
             // btnThem
             // 
-            btnThem.Location = new Point(189, 67);
+            btnThem.Location = new Point(208, 74);
             btnThem.Name = "btnThem";
-            btnThem.Size = new Size(85, 26);
+            btnThem.Size = new Size(94, 29);
             btnThem.TabIndex = 2;
             btnThem.Text = "Thêm";
             btnThem.UseVisualStyleBackColor = true;
@@ -154,15 +154,15 @@
             // 
             // txtTenLoai
             // 
-            txtTenLoai.Location = new Point(189, 24);
+            txtTenLoai.Location = new Point(208, 26);
             txtTenLoai.Name = "txtTenLoai";
-            txtTenLoai.Size = new Size(830, 28);
+            txtTenLoai.Size = new Size(913, 28);
             txtTenLoai.TabIndex = 1;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(48, 32);
+            label1.Location = new Point(53, 35);
             label1.Name = "label1";
             label1.Size = new Size(124, 20);
             label1.TabIndex = 0;
@@ -172,18 +172,18 @@
             // 
             groupBox2.Controls.Add(btnTimKiem);
             groupBox2.Controls.Add(txtTimKiem);
-            groupBox2.Location = new Point(12, 123);
+            groupBox2.Location = new Point(13, 135);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(576, 68);
+            groupBox2.Size = new Size(634, 75);
             groupBox2.TabIndex = 2;
             groupBox2.TabStop = false;
             groupBox2.Text = "Tìm kiếm";
             // 
             // btnTimKiem
             // 
-            btnTimKiem.Location = new Point(464, 27);
+            btnTimKiem.Location = new Point(510, 30);
             btnTimKiem.Name = "btnTimKiem";
-            btnTimKiem.Size = new Size(94, 29);
+            btnTimKiem.Size = new Size(103, 32);
             btnTimKiem.TabIndex = 1;
             btnTimKiem.Text = "Tìm kiếm ";
             btnTimKiem.UseVisualStyleBackColor = true;
@@ -191,17 +191,17 @@
             // 
             // txtTimKiem
             // 
-            txtTimKiem.Location = new Point(6, 27);
+            txtTimKiem.Location = new Point(7, 30);
             txtTimKiem.Name = "txtTimKiem";
-            txtTimKiem.Size = new Size(441, 28);
+            txtTimKiem.Size = new Size(485, 30);
             txtTimKiem.TabIndex = 0;
             // 
             // groupBox3
             // 
             groupBox3.Controls.Add(dataGridView);
-            groupBox3.Location = new Point(12, 197);
+            groupBox3.Location = new Point(13, 217);
             groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(1052, 401);
+            groupBox3.Size = new Size(1157, 441);
             groupBox3.TabIndex = 3;
             groupBox3.TabStop = false;
             groupBox3.Text = "Danh sách loại hoa";
@@ -214,12 +214,12 @@
             dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView.Columns.AddRange(new DataGridViewColumn[] { ID, TenLoai });
             dataGridView.Dock = DockStyle.Fill;
-            dataGridView.Location = new Point(3, 24);
+            dataGridView.Location = new Point(3, 26);
             dataGridView.MultiSelect = false;
             dataGridView.Name = "dataGridView";
             dataGridView.RowHeadersWidth = 51;
             dataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridView.Size = new Size(1046, 374);
+            dataGridView.Size = new Size(1151, 412);
             dataGridView.TabIndex = 0;
             // 
             // ID
@@ -240,13 +240,13 @@
             // 
             // frmLoaiHoa
             // 
-            AutoScaleDimensions = new SizeF(10F, 20F);
+            AutoScaleDimensions = new SizeF(11F, 22F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1097, 610);
+            ClientSize = new Size(1207, 671);
             Controls.Add(groupBox3);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
-            Font = new Font("Times New Roman", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             Margin = new Padding(4, 3, 4, 3);
             Name = "frmLoaiHoa";
             StartPosition = FormStartPosition.CenterScreen;

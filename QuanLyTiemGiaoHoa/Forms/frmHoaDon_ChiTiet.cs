@@ -11,6 +11,7 @@ using ClosedXML.Excel;
 using Microsoft.EntityFrameworkCore;
 using QuanLyTiemGiaoHoa.Data;
 using System.Text.RegularExpressions;
+using QuanLyTiemGiaoHoa.Reports;
 
 
 namespace QuanLyTiemGiaoHoa.Forms
@@ -315,11 +316,11 @@ namespace QuanLyTiemGiaoHoa.Forms
                                 throw new Exception($"Hoa '{hoaTrongKho.TenHoa}' không đủ hàng (Kho còn: {hoaTrongKho.SoLuong})");
                             }
 
-                            // 2. Trừ số lượng tồn kho (Thảo đã có - giữ nguyên)
+                            // 2. Trừ số lượng tồn kho 
                             hoaTrongKho.SoLuong = (short)(hoaTrongKho.SoLuong - item.SoLuongBan);
                         }
 
-                        // 3. Lưu vào bảng Chi tiết hóa đơn (Thảo đã có - giữ nguyên)
+                        // 3. Lưu vào bảng Chi tiết hóa đơn
                         context.HoaDon_ChiTiet.Add(new HoaDon_ChiTiet
                         {
                             HoaDonID = id,
@@ -367,65 +368,25 @@ namespace QuanLyTiemGiaoHoa.Forms
 
         private void btnInHoaDon_Click(object sender, EventArgs e)
         {
-            // 1. Kiểm tra xem hóa đơn đã được lưu vào CSDL chưa
+            
+
+            // 1. Kiểm tra đã lưu chưa
             if (id == 0)
             {
-                MessageBox.Show("Bạn chưa lưu hóa đơn!", "Thông báo",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Bạn phải lưu hóa đơn trước khi in!",
+                    "Thông báo",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
                 return;
             }
 
-            // 2. Lấy thông tin hóa đơn và chi tiết từ CSDL
-            var hoaDon = context.HoaDon.Find(id);
-            var chiTiet = context.HoaDon_ChiTiet
-                .Where(r => r.HoaDonID == id)
-                .ToList();
-
-            if (chiTiet == null || chiTiet.Count == 0)
+            // 2. Mở form in
+            using (frmInHoaDon f = new frmInHoaDon(id))
             {
-                MessageBox.Show("Hóa đơn chưa có sản phẩm hoa!", "Thông báo");
-                return;
+                f.ShowDialog();
             }
 
-            // 3. Khởi tạo chuỗi nội dung hóa đơn
-            string s = "===== HÓA ĐƠN BÁN HÀNG =====\n\n";
-            s += $"Mã hóa đơn: {id}\n";
-            s += $"Ngày lập: {hoaDon.NgayLap:dd/MM/yyyy HH:mm}\n";
-            s += $"Nhân viên: {cboNhanVien.Text}\n";
-            s += $"Khách hàng: {cboKhachHang.Text}\n";
-            s += "----------------------------------------------\n";
 
-            decimal tongTienHoa = 0;
-
-            // 4. Duyệt qua danh sách sản phẩm để tính tiền
-            foreach (var ct in chiTiet)
-            {
-                var sp = context.Hoa.Find(ct.HoaID);
-                decimal thanhTien = ct.SoLuongBan * ct.DonGiaBan;
-
-                // Hiển thị: Tên hoa | SL x Đơn giá = Thành tiền
-                s += $"{sp.TenHoa}\n";
-                s += $"   {ct.SoLuongBan} x {ct.DonGiaBan:N0} = {thanhTien:N0} VNĐ\n";
-
-                tongTienHoa += thanhTien;
-            }
-
-            // 5. Tính toán phí giao hàng và tổng thanh toán
-            decimal phiGiao = numPhiGiaoHang.Value;
-            decimal tongThanhToan = tongTienHoa + phiGiao;
-
-            // 6. Phần tổng kết cuối hóa đơn
-            s += "----------------------------------------------\n";
-            s += $"Tiền hoa:     {tongTienHoa:N0} VNĐ\n";
-            s += $"Phí giao hàng: {phiGiao:N0} VNĐ\n";
-            s += $"Ghi chú:      {txtGhiChuHoaDon.Text}\n";
-            s += "==============================================\n";
-            s += $"TỔNG CỘNG:    {tongThanhToan:N0} VNĐ\n";
-            s += "==============================================\n\n";
-            s += "Cảm ơn quý khách, hẹn gặp lại!";
-
-            // 7. Hiển thị hóa đơn ra màn hình
-            MessageBox.Show(s, "Thông tin hóa đơn chi tiết");
         }
 
         private void btnThoat_Click(object sender, EventArgs e)

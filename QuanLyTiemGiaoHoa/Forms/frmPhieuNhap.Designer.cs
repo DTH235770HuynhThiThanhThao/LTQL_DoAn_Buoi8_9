@@ -53,27 +53,27 @@
             // 
             // txtTimKiem
             // 
-            txtTimKiem.Location = new Point(6, 27);
+            txtTimKiem.Location = new Point(7, 30);
             txtTimKiem.Name = "txtTimKiem";
-            txtTimKiem.Size = new Size(381, 28);
+            txtTimKiem.Size = new Size(419, 30);
             txtTimKiem.TabIndex = 0;
             // 
             // groupBox3
             // 
             groupBox3.Controls.Add(btnTimKiem);
             groupBox3.Controls.Add(txtTimKiem);
-            groupBox3.Location = new Point(750, 12);
+            groupBox3.Location = new Point(825, 13);
             groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(513, 68);
+            groupBox3.Size = new Size(564, 75);
             groupBox3.TabIndex = 23;
             groupBox3.TabStop = false;
             groupBox3.Text = "Tìm kiếm";
             // 
             // btnTimKiem
             // 
-            btnTimKiem.Location = new Point(405, 19);
+            btnTimKiem.Location = new Point(446, 21);
             btnTimKiem.Name = "btnTimKiem";
-            btnTimKiem.Size = new Size(94, 36);
+            btnTimKiem.Size = new Size(103, 40);
             btnTimKiem.TabIndex = 1;
             btnTimKiem.Text = "Tìm kiếm";
             btnTimKiem.UseVisualStyleBackColor = true;
@@ -87,11 +87,11 @@
             dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView.Columns.AddRange(new DataGridViewColumn[] { ID, HoVaTenNhanVien, TenNhaCungCap, NgayNhap, TongTienPhieuNhap, XemChiTiet });
             dataGridView.Dock = DockStyle.Fill;
-            dataGridView.Location = new Point(3, 24);
+            dataGridView.Location = new Point(3, 26);
             dataGridView.MultiSelect = false;
             dataGridView.Name = "dataGridView";
             dataGridView.RowHeadersWidth = 51;
-            dataGridView.Size = new Size(1248, 342);
+            dataGridView.Size = new Size(1373, 377);
             dataGridView.TabIndex = 0;
             dataGridView.CellClick += dataGridView_CellClick;
             // 
@@ -145,9 +145,9 @@
             // 
             // btnXuat
             // 
-            btnXuat.Location = new Point(1027, 489);
+            btnXuat.Location = new Point(1130, 538);
             btnXuat.Name = "btnXuat";
-            btnXuat.Size = new Size(94, 36);
+            btnXuat.Size = new Size(103, 40);
             btnXuat.TabIndex = 19;
             btnXuat.Text = "Xuất Excel...";
             btnXuat.UseVisualStyleBackColor = true;
@@ -155,9 +155,9 @@
             // 
             // btnThoat
             // 
-            btnThoat.Location = new Point(759, 489);
+            btnThoat.Location = new Point(835, 538);
             btnThoat.Name = "btnThoat";
-            btnThoat.Size = new Size(94, 37);
+            btnThoat.Size = new Size(103, 41);
             btnThoat.TabIndex = 20;
             btnThoat.Text = "Thoát";
             btnThoat.UseVisualStyleBackColor = true;
@@ -166,9 +166,9 @@
             // btnXoa
             // 
             btnXoa.ForeColor = Color.Red;
-            btnXoa.Location = new Point(624, 489);
+            btnXoa.Location = new Point(686, 538);
             btnXoa.Name = "btnXoa";
-            btnXoa.Size = new Size(94, 37);
+            btnXoa.Size = new Size(103, 41);
             btnXoa.TabIndex = 21;
             btnXoa.Text = "Xóa ";
             btnXoa.UseVisualStyleBackColor = true;
@@ -177,9 +177,9 @@
             // btnSua
             // 
             btnSua.ForeColor = Color.Black;
-            btnSua.Location = new Point(491, 489);
+            btnSua.Location = new Point(540, 538);
             btnSua.Name = "btnSua";
-            btnSua.Size = new Size(94, 37);
+            btnSua.Size = new Size(103, 41);
             btnSua.TabIndex = 22;
             btnSua.Text = "Sửa";
             btnSua.UseVisualStyleBackColor = true;
@@ -187,9 +187,9 @@
             // 
             // btnInPhieuNhap
             // 
-            btnInPhieuNhap.Location = new Point(334, 489);
+            btnInPhieuNhap.Location = new Point(367, 538);
             btnInPhieuNhap.Name = "btnInPhieuNhap";
-            btnInPhieuNhap.Size = new Size(123, 37);
+            btnInPhieuNhap.Size = new Size(135, 41);
             btnInPhieuNhap.TabIndex = 17;
             btnInPhieuNhap.Text = "In phiếu nhập";
             btnInPhieuNhap.UseVisualStyleBackColor = true;
@@ -197,9 +197,9 @@
             // 
             // btnLapPhieuNhap
             // 
-            btnLapPhieuNhap.Location = new Point(124, 488);
+            btnLapPhieuNhap.Location = new Point(136, 537);
             btnLapPhieuNhap.Name = "btnLapPhieuNhap";
-            btnLapPhieuNhap.Size = new Size(176, 37);
+            btnLapPhieuNhap.Size = new Size(194, 41);
             btnLapPhieuNhap.TabIndex = 16;
             btnLapPhieuNhap.Text = "Lập phiếu nhập mới";
             btnLapPhieuNhap.UseVisualStyleBackColor = true;
@@ -208,18 +208,18 @@
             // groupBox1
             // 
             groupBox1.Controls.Add(dataGridView);
-            groupBox1.Location = new Point(12, 86);
+            groupBox1.Location = new Point(13, 95);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(1254, 369);
+            groupBox1.Size = new Size(1379, 406);
             groupBox1.TabIndex = 15;
             groupBox1.TabStop = false;
             groupBox1.Text = "Danh sách phiếu nhập";
             // 
             // btnNhap
             // 
-            btnNhap.Location = new Point(891, 489);
+            btnNhap.Location = new Point(980, 538);
             btnNhap.Name = "btnNhap";
-            btnNhap.Size = new Size(100, 37);
+            btnNhap.Size = new Size(110, 41);
             btnNhap.TabIndex = 18;
             btnNhap.Text = "Nhập Excel...";
             btnNhap.UseVisualStyleBackColor = true;
@@ -227,9 +227,9 @@
             // 
             // frmPhieuNhap
             // 
-            AutoScaleDimensions = new SizeF(10F, 20F);
+            AutoScaleDimensions = new SizeF(11F, 22F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1278, 595);
+            ClientSize = new Size(1406, 654);
             Controls.Add(groupBox3);
             Controls.Add(btnXuat);
             Controls.Add(btnThoat);
@@ -239,7 +239,7 @@
             Controls.Add(btnLapPhieuNhap);
             Controls.Add(groupBox1);
             Controls.Add(btnNhap);
-            Font = new Font("Times New Roman", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             Margin = new Padding(4, 3, 4, 3);
             Name = "frmPhieuNhap";
             StartPosition = FormStartPosition.CenterScreen;

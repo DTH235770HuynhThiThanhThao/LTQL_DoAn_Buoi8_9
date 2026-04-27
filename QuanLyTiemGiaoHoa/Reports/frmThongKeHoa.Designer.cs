@@ -30,74 +30,83 @@
         {
             reportViewer = new Microsoft.Reporting.WinForms.ReportViewer();
             label1 = new Label();
-            cbNhaCungCap = new ComboBox();
-            cbLoaiHoa = new ComboBox();
+            cboNhaCungCap = new ComboBox();
+            cboLoaiHoa = new ComboBox();
             label2 = new Label();
             btnKetQua = new Button();
             SuspendLayout();
             // 
             // reportViewer
             // 
-            reportViewer.Location = new Point(-2, 68);
+            reportViewer.Location = new Point(-2, 75);
+            reportViewer.Margin = new Padding(4, 3, 4, 3);
             reportViewer.Name = "reportViewer";
             reportViewer.ServerReport.BearerToken = null;
-            reportViewer.Size = new Size(1147, 494);
+            reportViewer.Size = new Size(1576, 543);
             reportViewer.TabIndex = 0;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(32, 27);
+            label1.Location = new Point(44, 30);
+            label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
-            label1.Size = new Size(103, 20);
+            label1.Size = new Size(122, 22);
             label1.TabIndex = 1;
             label1.Text = "Nhà cung cấp:";
             // 
-            // cbNhaCungCap
+            // cboNhaCungCap
             // 
-            cbNhaCungCap.FormattingEnabled = true;
-            cbNhaCungCap.Location = new Point(141, 21);
-            cbNhaCungCap.Name = "cbNhaCungCap";
-            cbNhaCungCap.Size = new Size(342, 28);
-            cbNhaCungCap.TabIndex = 2;
+            cboNhaCungCap.FormattingEnabled = true;
+            cboNhaCungCap.Location = new Point(194, 23);
+            cboNhaCungCap.Margin = new Padding(4, 3, 4, 3);
+            cboNhaCungCap.Name = "cboNhaCungCap";
+            cboNhaCungCap.Size = new Size(468, 30);
+            cboNhaCungCap.TabIndex = 2;
             // 
-            // cbLoaiHoa
+            // cboLoaiHoa
             // 
-            cbLoaiHoa.FormattingEnabled = true;
-            cbLoaiHoa.Location = new Point(587, 21);
-            cbLoaiHoa.Name = "cbLoaiHoa";
-            cbLoaiHoa.Size = new Size(253, 28);
-            cbLoaiHoa.TabIndex = 4;
+            cboLoaiHoa.FormattingEnabled = true;
+            cboLoaiHoa.Location = new Point(807, 23);
+            cboLoaiHoa.Margin = new Padding(4, 3, 4, 3);
+            cboLoaiHoa.Name = "cboLoaiHoa";
+            cboLoaiHoa.Size = new Size(346, 30);
+            cboLoaiHoa.TabIndex = 4;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(512, 24);
+            label2.Location = new Point(704, 26);
+            label2.Margin = new Padding(4, 0, 4, 0);
             label2.Name = "label2";
-            label2.Size = new Size(69, 20);
+            label2.Size = new Size(85, 22);
             label2.TabIndex = 3;
             label2.Text = "Loại hoa:";
             // 
             // btnKetQua
             // 
-            btnKetQua.Location = new Point(859, 21);
+            btnKetQua.Location = new Point(1181, 23);
+            btnKetQua.Margin = new Padding(4, 3, 4, 3);
             btnKetQua.Name = "btnKetQua";
-            btnKetQua.Size = new Size(141, 32);
+            btnKetQua.Size = new Size(194, 35);
             btnKetQua.TabIndex = 5;
             btnKetQua.Text = "Lộc kết quả";
             btnKetQua.UseVisualStyleBackColor = true;
+            btnKetQua.Click += btnKetQua_Click;
             // 
             // frmThongKeHoa
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(11F, 22F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1145, 560);
+            ClientSize = new Size(1574, 616);
             Controls.Add(btnKetQua);
-            Controls.Add(cbLoaiHoa);
+            Controls.Add(cboLoaiHoa);
             Controls.Add(label2);
-            Controls.Add(cbNhaCungCap);
+            Controls.Add(cboNhaCungCap);
             Controls.Add(label1);
             Controls.Add(reportViewer);
+            Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            Margin = new Padding(4, 3, 4, 3);
             Name = "frmThongKeHoa";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Thống kê hoa";
@@ -110,8 +119,8 @@
 
         private Microsoft.Reporting.WinForms.ReportViewer reportViewer;
         private Label label1;
-        private ComboBox cbNhaCungCap;
-        private ComboBox cbLoaiHoa;
+        private ComboBox cboNhaCungCap;
+        private ComboBox cboLoaiHoa;
         private Label label2;
         private Button btnKetQua;
     }

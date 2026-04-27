@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using BC = BCrypt.Net.BCrypt;
+using QuanLyTiemGiaoHoa.Reports;
 
 namespace QuanLyTiemGiaoHoa.Forms
 {
@@ -27,6 +28,8 @@ namespace QuanLyTiemGiaoHoa.Forms
         frmNhanVien nhanVien = null;
         frmHoaDon hoaDon = null;
         frmDangNhap dangNhap = null;
+        frmThongKeHoa thongKeHoa = null;
+        frmThongKeDoanhThu thongKeDoanhThu = null;
         string hoVaTenNhanVien = ""; // Lấy tên người dùng hiển thị vào thanh Status.
         public frmMain()
         {
@@ -35,6 +38,7 @@ namespace QuanLyTiemGiaoHoa.Forms
 
         private void mnuLoaiHoa_Click(object sender, EventArgs e)
         {
+            /*
             if (loaiHoa == null || loaiHoa.IsDisposed)
             {
                 loaiHoa = new frmLoaiHoa();
@@ -43,12 +47,14 @@ namespace QuanLyTiemGiaoHoa.Forms
             }
             else
                 loaiHoa.Activate();
+            */
 
-            MoFormCon(new frmLoaiHoa());
+            MoFormCon<frmLoaiHoa>();
         }
 
         private void mnuNhaCungCap_Click(object sender, EventArgs e)
         {
+            /*
             if (nhaCungCap == null || nhaCungCap.IsDisposed)
             {
                 nhaCungCap = new frmNhaCungCap();
@@ -57,11 +63,13 @@ namespace QuanLyTiemGiaoHoa.Forms
             }
             else
                 nhaCungCap.Activate();
-            MoFormCon(new frmNhaCungCap());
+            */
+            MoFormCon<frmNhaCungCap>();
         }
 
         private void mnuHoa_Click(object sender, EventArgs e)
         {
+            /*
             if (Hoa == null || Hoa.IsDisposed)
             {
                 Hoa = new frmHoa();
@@ -70,11 +78,13 @@ namespace QuanLyTiemGiaoHoa.Forms
             }
             else
                 Hoa.Activate();
-            MoFormCon(new frmHoa());
+            */
+            MoFormCon<frmHoa>();
         }
 
         private void mnuNhapHang_Click(object sender, EventArgs e)
         {
+            /*
             if (phieuNhap == null || phieuNhap.IsDisposed)
             {
                 phieuNhap = new frmPhieuNhap();
@@ -83,11 +93,13 @@ namespace QuanLyTiemGiaoHoa.Forms
             }
             else
                 nhaCungCap.Activate();
-            MoFormCon(new frmPhieuNhap());
+            */
+            MoFormCon<frmPhieuNhap>();
         }
 
         private void mnuGiaoHang_Click(object sender, EventArgs e)
         {
+            /*
             if (giaoHang == null || giaoHang.IsDisposed)
             {
                 giaoHang = new frmGiaoHang();
@@ -96,11 +108,13 @@ namespace QuanLyTiemGiaoHoa.Forms
             }
             else
                 nhaCungCap.Activate();
-            MoFormCon(new frmGiaoHang());
+            */
+            MoFormCon<frmGiaoHang>();
         }
 
         private void mnuKhachHang_Click(object sender, EventArgs e)
         {
+            /*
             if (khachHang == null || khachHang.IsDisposed)
             {
                 khachHang = new frmKHang();
@@ -109,11 +123,13 @@ namespace QuanLyTiemGiaoHoa.Forms
             }
             else
                 khachHang.Activate();
-            MoFormCon(new frmKHang());
+            */
+            MoFormCon<frmKHang>();
         }
 
         private void mnuNhanVien_Click(object sender, EventArgs e)
         {
+            /*
             if (nhanVien == null || nhanVien.IsDisposed)
             {
                 nhanVien = new frmNhanVien();
@@ -122,11 +138,13 @@ namespace QuanLyTiemGiaoHoa.Forms
             }
             else
                 nhanVien.Activate();
-            MoFormCon(new frmNhanVien());
+            */
+            MoFormCon<frmNhanVien>();
         }
 
         private void mnuHoaDon_Click(object sender, EventArgs e)
         {
+            /*
             if (hoaDon == null || hoaDon.IsDisposed)
             {
                 hoaDon = new frmHoaDon();
@@ -135,7 +153,8 @@ namespace QuanLyTiemGiaoHoa.Forms
             }
             else
                 hoaDon.Activate();
-            MoFormCon(new frmHoaDon());
+            */
+            MoFormCon<frmHoaDon>();
         }
 
         private void lblLienKet_Click(object sender, EventArgs e)
@@ -187,6 +206,9 @@ namespace QuanLyTiemGiaoHoa.Forms
                         {
                             hoVaTenNhanVien = nhanVien.HoVaTen;
 
+                            // THÊM DÒNG NÀY: Thông báo chào mừng
+                            MessageBox.Show($"Đăng nhập thành công! Chào mừng {hoVaTenNhanVien}.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                             if (nhanVien.QuyenHan == true)
                                 QuyenQuanLy();
                             else if (nhanVien.QuyenHan == false)
@@ -225,7 +247,7 @@ namespace QuanLyTiemGiaoHoa.Forms
             mnuNhanVien.Enabled = false;
             mnuHoaDon.Enabled = false;
 
-            mnuThongKeSanPham.Enabled = false;
+            mnuThongKeHoa.Enabled = false;
             mnuThongKeDoanhThu.Enabled = false;
 
             // Hiển thị thông tin trên thanh trạng thái 
@@ -255,7 +277,7 @@ namespace QuanLyTiemGiaoHoa.Forms
             mnuNhanVien.Enabled = true;
             mnuHoaDon.Enabled = true;
 
-            mnuThongKeSanPham.Enabled = true;
+            mnuThongKeHoa.Enabled = true;
             mnuThongKeDoanhThu.Enabled = true;
             // Hiển thị thông tin trên thanh trạng thái 
             lblTrangThai.Text = "Quản lý: " + hoVaTenNhanVien;
@@ -284,7 +306,7 @@ namespace QuanLyTiemGiaoHoa.Forms
             mnuKhachHang.Enabled = true;
             mnuHoaDon.Enabled = true;
 
-            mnuThongKeSanPham.Enabled = true;
+            mnuThongKeHoa.Enabled = true;
             mnuThongKeDoanhThu.Enabled = true;
 
             // Hiển thị thông tin trên thanh trạng thái 
@@ -298,8 +320,78 @@ namespace QuanLyTiemGiaoHoa.Forms
 
         private void frmMain_Load(object sender, EventArgs e)
         {
+            /*
             ChuaDangNhap();
             DangNhap();
+            */
+
+            /*
+            // Tìm vùng MdiClient (vùng màu xám) bên trong Form
+            foreach (Control ctl in this.Controls)
+            {
+                if (ctl is MdiClient)
+                {
+                    // Ép kiểu vùng đó để chỉnh thuộc tính hiển thị
+                    ctl.BackgroundImage = Properties.Resources.camhung; // Thay bằng tên hình bạn đã chọn
+                    ctl.BackgroundImageLayout = ImageLayout.Stretch; // Phủ kín toàn bộ màn hình
+                    break;
+                }
+            }
+            */
+
+
+            /*
+            // Bật chế độ đệm kép để giảm lag hình ảnh
+            this.DoubleBuffered = true;
+
+            ChuaDangNhap();
+
+            // Dùng BeginInvoke để hiện đăng nhập sau khi Form Main đã hiện lên hoàn toàn
+            // giúp người dùng không cảm thấy ứng dụng bị "treo" lúc khởi động
+            this.BeginInvoke(new Action(() =>
+            {
+                DangNhap();
+            }));
+
+            // Tối ưu load hình nền
+            MdiClient ctlMDI;
+            foreach (Control ctl in this.Controls)
+            {
+                if (ctl is MdiClient)
+                {
+                    ctlMDI = (MdiClient)ctl;
+                    ctlMDI.BackgroundImage = Properties.Resources.camhung;
+                    ctlMDI.BackgroundImageLayout = ImageLayout.Stretch;
+                    break;
+                }
+            }
+            */
+
+            // 1. Ẩn tất cả các panel con ngay khi load
+            pnlSubHeThong.Visible = false;
+            pnlSubQuanLy.Visible = false;
+            pnlSubBaoCaoThongKe.Visible = false;
+
+            this.DoubleBuffered = true;
+            ChuaDangNhap();
+
+            // Hiển thị đăng nhập
+            this.BeginInvoke(new Action(() => {
+                DangNhap();
+            }));
+
+            // Load hình nền cho vùng MDI
+            foreach (Control ctl in this.Controls)
+            {
+                if (ctl is MdiClient)
+                {
+                    ctl.BackgroundImage = Properties.Resources.camhung;
+                    ctl.BackgroundImageLayout = ImageLayout.Stretch;
+                    break;
+                }
+            }
+
+
         }
 
         private void mnuDangXuat_Click(object sender, EventArgs e)
@@ -311,6 +403,7 @@ namespace QuanLyTiemGiaoHoa.Forms
             ChuaDangNhap();
         }
 
+        /*
         private void MoFormCon(Form formMoi)
         {
             // 1. Đóng tất cả các Form con đang mở (trừ cái đang chuẩn bị mở)
@@ -323,6 +416,180 @@ namespace QuanLyTiemGiaoHoa.Forms
             formMoi.MdiParent = this;
             formMoi.WindowState = FormWindowState.Maximized; // Cho hiển thị tràn màn hình cho đẹp
             formMoi.Show();
+        }
+        */
+
+        private void MoFormCon<T>() where T : Form, new()
+        {
+            /*
+            // Kiểm tra xem Form loại này đã được mở chưa
+            Form frm = this.MdiChildren.FirstOrDefault(f => f is T);
+
+            if (frm == null)
+            {
+                // Nếu chưa có thì mới tạo mới
+                frm = new T();
+                frm.MdiParent = this;
+                frm.WindowState = FormWindowState.Maximized;
+                frm.Show();
+            }
+            else
+            {
+                // Nếu có rồi thì kích hoạt nó lên thôi, không tạo thêm tốn RAM
+                frm.Activate();
+            }
+            */
+
+            // 1. Tìm xem Form này đã mở chưa
+            T frm = this.MdiChildren.OfType<T>().FirstOrDefault();
+
+            if (frm == null)
+            {
+                // 2. Nếu chưa có thì đóng tất cả Form con khác (để tránh lag)
+                foreach (Form child in this.MdiChildren) child.Close();
+
+                // 3. Tạo mới
+                frm = new T();
+                frm.MdiParent = this;
+                frm.WindowState = FormWindowState.Maximized; // Tràn màn hình cho đẹp
+                frm.Show();
+            }
+            else
+            {
+                // 4. Nếu mở rồi thì mang nó lên trước mặt
+                frm.Activate();
+            }
+        }
+
+        private void mnuThongKeHoa_Click(object sender, EventArgs e)
+        {
+            MoFormCon<frmThongKeHoa>();
+        }
+
+        private void mnuThongKeDoanhThu_Click(object sender, EventArgs e)
+        {
+            MoFormCon<frmThongKeDoanhThu>();
+        }
+
+        private void mnuThongKeHoaBanChay_Click(object sender, EventArgs e)
+        {
+            MoFormCon<frmThongKeHoaBanChay>();
+        }
+
+        private void mnuThoat_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Bạn có chắc muốn thoát không?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                Application.Exit();
+            }
+        }
+
+        private void btnHeThong_Click(object sender, EventArgs e)
+        {
+            ShowSubMenu(pnlSubHeThong);
+        }
+
+        private void btnQuanLy_Click(object sender, EventArgs e)
+        {
+            ShowSubMenu(pnlSubQuanLy);
+        }
+
+        private void btnBaoCaoThongKe_Click(object sender, EventArgs e)
+        {
+            ShowSubMenu(pnlSubBaoCaoThongKe);
+        }
+
+
+        private void ShowSubMenu(Panel subMenu)
+        {
+            // 1. Nếu menu này đang ẩn thì mới xử lý
+            if (subMenu.Visible == false)
+            {
+                // 2. Ẩn hết tất cả các panel con khác trước
+                pnlSubHeThong.Visible = false;
+                pnlSubQuanLy.Visible = false;
+                pnlSubBaoCaoThongKe.Visible = false;
+
+                // 3. Hiện cái mình vừa bấm
+                subMenu.Visible = true;
+            }
+            else
+            {
+                // 4. Nếu đang mở rồi thì bấm cái nữa sẽ đóng lại
+                subMenu.Visible = false;
+            }
+        }
+
+        private void btnDangNhap_Click(object sender, EventArgs e)
+        {
+            DangNhap();
+        }
+
+        private void btnDangXuat_Click(object sender, EventArgs e)
+        {
+            mnuDangXuat_Click(sender, e);
+        }
+
+        private void btnDoiMatKhau_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnLoaiHoa_Click(object sender, EventArgs e)
+        {
+            MoFormCon<frmLoaiHoa>();
+        }
+
+        private void btnNhaCungCap_Click(object sender, EventArgs e)
+        {
+            MoFormCon<frmNhaCungCap>();
+        }
+
+        private void btnHoa_Click(object sender, EventArgs e)
+        {
+            MoFormCon<frmHoa>();
+        }
+
+        private void btnNhapHang_Click(object sender, EventArgs e)
+        {
+            MoFormCon<frmPhieuNhap>();
+        }
+
+        private void btnGiaoHang_Click(object sender, EventArgs e)
+        {
+            MoFormCon<frmGiaoHang>();
+        }
+
+        private void btnKhachHang_Click(object sender, EventArgs e)
+        {
+            MoFormCon<frmKHang>();
+        }
+
+        private void btnNhanVien_Click(object sender, EventArgs e)
+        {
+            MoFormCon<frmNhanVien>();
+        }
+
+        private void btnHoaDon_Click(object sender, EventArgs e)
+        {
+            MoFormCon<frmHoaDon>();
+        }
+
+        private void btnThongKeHoa_Click(object sender, EventArgs e)
+        {
+            MoFormCon<frmThongKeHoa>();
+        }
+
+        private void btnThongKeDoanhThu_Click(object sender, EventArgs e)
+        {
+            MoFormCon<frmThongKeDoanhThu>();
+        }
+
+        private void btnThongKeHoaBanChay_Click(object sender, EventArgs e)
+        {
+            MoFormCon<frmThongKeHoaBanChay>();
         }
     }
 }

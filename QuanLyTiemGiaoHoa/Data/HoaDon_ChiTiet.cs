@@ -30,5 +30,7 @@ namespace QuanLyTiemGiaoHoa.Data
         public short SoLuongBan { get; set; }
         public decimal DonGiaBan { get; set; }
         public decimal ThanhTien { get; set; } // Thêm 
+
+        //public decimal PhiGiaoHang { get; set; }// BỔ SUNG DÒNG NÀY (Kiểu string để nhận định dạng #,##0)
     }
 }
