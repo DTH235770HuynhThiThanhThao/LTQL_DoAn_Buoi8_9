@@ -81,6 +81,8 @@
             btnDangXuat = new Button();
             btnDangNhap = new Button();
             btnHeThong = new Button();
+            helpProvider1 = new HelpProvider();
+            helpProvider2 = new HelpProvider();
             statusStrip.SuspendLayout();
             menuStrip.SuspendLayout();
             panelSidebar.SuspendLayout();
@@ -129,6 +131,7 @@
             mnuThongTinPhanMem.Name = "mnuThongTinPhanMem";
             mnuThongTinPhanMem.Size = new Size(320, 26);
             mnuThongTinPhanMem.Text = "Thông tin phần mềm...";
+            mnuThongTinPhanMem.Click += mnuThongTinPhanMem_Click;
             // 
             // mnuHuongDanSuDung
             // 
@@ -137,6 +140,7 @@
             mnuHuongDanSuDung.ShortcutKeys = Keys.Control | Keys.F1;
             mnuHuongDanSuDung.Size = new Size(320, 26);
             mnuHuongDanSuDung.Text = "Hướng dẫn sử dụng";
+            mnuHuongDanSuDung.Click += mnuHuongDanSuDung_Click;
             // 
             // mnuTroGiup
             // 
@@ -269,20 +273,20 @@
             mnuThoat.BackColor = Color.OldLace;
             mnuThoat.Name = "mnuThoat";
             mnuThoat.ShortcutKeys = Keys.Alt | Keys.F4;
-            mnuThoat.Size = new Size(224, 26);
+            mnuThoat.Size = new Size(213, 26);
             mnuThoat.Text = "Thoát";
             mnuThoat.Click += mnuThoat_Click;
             // 
             // toolStripSeparator2
             // 
             toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new Size(221, 6);
+            toolStripSeparator2.Size = new Size(210, 6);
             // 
             // mnuDoiMatKhau
             // 
             mnuDoiMatKhau.BackColor = Color.PapayaWhip;
             mnuDoiMatKhau.Name = "mnuDoiMatKhau";
-            mnuDoiMatKhau.Size = new Size(224, 26);
+            mnuDoiMatKhau.Size = new Size(213, 26);
             mnuDoiMatKhau.Text = "Đổi mật khẩu...";
             mnuDoiMatKhau.Click += mnuDoiMatKhau_Click;
             // 
@@ -290,7 +294,7 @@
             // 
             mnuDangXuat.BackColor = Color.OldLace;
             mnuDangXuat.Name = "mnuDangXuat";
-            mnuDangXuat.Size = new Size(224, 26);
+            mnuDangXuat.Size = new Size(213, 26);
             mnuDangXuat.Text = "Đăng xuất";
             mnuDangXuat.Click += mnuDangXuat_Click;
             // 
@@ -298,7 +302,7 @@
             // 
             mnuDangNhap.BackColor = Color.PapayaWhip;
             mnuDangNhap.Name = "mnuDangNhap";
-            mnuDangNhap.Size = new Size(224, 26);
+            mnuDangNhap.Size = new Size(213, 26);
             mnuDangNhap.Text = "Đăng nhập...";
             mnuDangNhap.Click += mnuDangNhap_Click;
             // 
@@ -706,6 +710,14 @@
             btnHeThong.UseVisualStyleBackColor = false;
             btnHeThong.Click += btnHeThong_Click;
             // 
+            // helpProvider1
+            // 
+            helpProvider1.HelpNamespace = "https://dth235770huynhthithanhthao.github.io/LTQL_DoAn_Buoi8_9/";
+            // 
+            // helpProvider2
+            // 
+            helpProvider2.HelpNamespace = "https://dth235770huynhthithanhthao.github.io/LTQL_DoAn_Buoi8_9/";
+            // 
             // frmMain
             // 
             AutoScaleDimensions = new SizeF(11F, 22F);
@@ -792,5 +804,7 @@
         private Button btnBaoCaoThongKe;
         private Button btnTroGiup;
         private ImageList imageList;
+        private HelpProvider helpProvider1;
+        private HelpProvider helpProvider2;
     }
 }

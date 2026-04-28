@@ -40,6 +40,7 @@
             label1 = new Label();
             label4 = new Label();
             txtNhapMatKhauMoi = new TextBox();
+            helpProvider1 = new HelpProvider();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -158,6 +159,10 @@
             txtNhapMatKhauMoi.Size = new Size(374, 27);
             txtNhapMatKhauMoi.TabIndex = 16;
             // 
+            // helpProvider1
+            // 
+            helpProvider1.HelpNamespace = "https://dth235770huynhthithanhthao.github.io/LTQL_DoAn_Buoi8_9/";
+            // 
             // frmDoiMatKhau
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -196,5 +201,6 @@
         private Label label1;
         private Label label4;
         public TextBox txtNhapMatKhauMoi;
+        private HelpProvider helpProvider1;
     }
 }

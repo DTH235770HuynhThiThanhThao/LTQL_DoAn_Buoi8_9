@@ -38,6 +38,7 @@
             label3 = new Label();
             label1 = new Label();
             chkHienMatKhau = new CheckBox();
+            helpProvider1 = new HelpProvider();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -137,6 +138,10 @@
             chkHienMatKhau.UseVisualStyleBackColor = true;
             chkHienMatKhau.CheckedChanged += chkHienMatKhau_CheckedChanged;
             // 
+            // helpProvider1
+            // 
+            helpProvider1.HelpNamespace = "https://dth235770huynhthithanhthao.github.io/LTQL_DoAn_Buoi8_9/";
+            // 
             // frmDangNhap
             // 
             AutoScaleDimensions = new SizeF(11F, 22F);
@@ -176,5 +181,6 @@
         private Label label3;
         private Label label1;
         private CheckBox chkHienMatKhau;
+        private HelpProvider helpProvider1;
     }
 }

@@ -74,6 +74,7 @@
             btnLamMoi = new Button();
             btnInPhieuGiao = new Button();
             btnLuuThayDoi = new Button();
+            helpProvider1 = new HelpProvider();
             groupBox1.SuspendLayout();
             groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numTongTien).BeginInit();
@@ -546,6 +547,10 @@
             btnLuuThayDoi.UseVisualStyleBackColor = false;
             btnLuuThayDoi.Click += btnLuuThayDoi_Click;
             // 
+            // helpProvider1
+            // 
+            helpProvider1.HelpNamespace = "https://dth235770huynhthithanhthao.github.io/LTQL_DoAn_Buoi8_9/";
+            // 
             // frmGiaoHang
             // 
             AutoScaleDimensions = new SizeF(10F, 20F);
@@ -623,5 +628,6 @@
         private DataGridViewTextBoxColumn GhiChu;
         private Button btnLuuThayDoi;
         private ImageList imageList1;
+        private HelpProvider helpProvider1;
     }
 }

@@ -294,12 +294,17 @@ namespace QuanLyTiemGiaoHoa.Forms
             mnuThongKeHoaBanChay.Enabled = false;
 
             // THÊM VÀO: Làm mờ 3 nút chính ở Sidebar
-            btnHeThong.Enabled = false;
+            btnHeThong.Enabled = true;
+            btnDangNhap.Enabled = true;    // chỉ đăng nhập được
+            btnDangXuat.Enabled = false;   // khóa
+            btnDoiMatKhau.Enabled = false; // khóa
+
             btnQuanLy.Enabled = false;
             btnBaoCaoThongKe.Enabled = false;
 
             // Ẩn luôn các panel con nếu chúng lỡ đang mở
             pnlSubHeThong.Visible = false;
+
             pnlSubQuanLy.Visible = false;
             pnlSubBaoCaoThongKe.Visible = false;
 
@@ -336,6 +341,8 @@ namespace QuanLyTiemGiaoHoa.Forms
 
             // Mở khóa 3 nút chính
             btnHeThong.Enabled = true;
+            btnDangXuat.Enabled = true;
+            btnDoiMatKhau.Enabled = true;
             btnQuanLy.Enabled = true;
             btnBaoCaoThongKe.Enabled = true;
 
@@ -355,7 +362,7 @@ namespace QuanLyTiemGiaoHoa.Forms
             mnuNhanVien.Enabled = false;
 
             mnuNhapHang.Enabled = false;
-            mnuGiaoHang.Enabled = false;
+            mnuGiaoHang.Enabled = true;
 
 
 
@@ -371,9 +378,15 @@ namespace QuanLyTiemGiaoHoa.Forms
             mnuThongKeHoaBanChay.Enabled = false;
 
             btnHeThong.Enabled = true;
+            btnDangXuat.Enabled = true;
+            btnDoiMatKhau.Enabled = true;
             btnQuanLy.Enabled = true;
             btnNhanVien.Enabled = false;
             btnNhapHang.Enabled = false;
+            btnGiaoHang.Enabled = true;
+            btnLoaiHoa.Enabled=false;
+            btnNhaCungCap.Enabled=false;
+            btnHoa.Enabled=false ;
 
             btnBaoCaoThongKe.Enabled = false;
 
@@ -661,6 +674,26 @@ namespace QuanLyTiemGiaoHoa.Forms
             // Hiển thị dạng hộp thoại (ShowDialog) để bắt buộc xử lý xong mới quay lại Main
             frm.StartPosition = FormStartPosition.CenterParent;
             frm.ShowDialog();
+        }
+
+        private void mnuHuongDanSuDung_Click(object sender, EventArgs e)
+        {
+            string url = "https://dth235770huynhthithanhthao.github.io/LTQL_DoAn_Buoi8_9/";
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+            {
+                FileName = url,
+                UseShellExecute = true
+            });
+        }
+
+        private void mnuThongTinPhanMem_Click(object sender, EventArgs e)
+        {
+            string url = "https://dth235770huynhthithanhthao.github.io/LTQL_DoAn_Buoi8_9/about.html";
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+            {
+                FileName = url,
+                UseShellExecute = true
+            });
         }
     }
 }

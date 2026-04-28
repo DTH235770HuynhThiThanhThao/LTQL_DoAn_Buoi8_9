@@ -49,6 +49,7 @@
             btnLapPhieuNhap = new Button();
             groupBox1 = new GroupBox();
             btnNhap = new Button();
+            helpProvider1 = new HelpProvider();
             groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
             groupBox1.SuspendLayout();
@@ -289,6 +290,10 @@
             btnNhap.UseVisualStyleBackColor = false;
             btnNhap.Click += btnNhap_Click;
             // 
+            // helpProvider1
+            // 
+            helpProvider1.HelpNamespace = "https://dth235770huynhthithanhthao.github.io/LTQL_DoAn_Buoi8_9/";
+            // 
             // frmPhieuNhap
             // 
             AutoScaleDimensions = new SizeF(11F, 22F);
@@ -338,5 +343,6 @@
         private DataGridViewTextBoxColumn TongTienPhieuNhap;
         private DataGridViewLinkColumn XemChiTiet;
         private ImageList imageList1;
+        private HelpProvider helpProvider1;
     }
 }

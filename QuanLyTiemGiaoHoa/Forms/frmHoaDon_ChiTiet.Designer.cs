@@ -75,6 +75,7 @@
             txtSDTNhan = new TextBox();
             label15 = new Label();
             label13 = new Label();
+            helpProvider1 = new HelpProvider();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numSoLuongBan).BeginInit();
@@ -552,6 +553,10 @@
             label13.TabIndex = 0;
             label13.Text = "Người nhận(*):";
             // 
+            // helpProvider1
+            // 
+            helpProvider1.HelpNamespace = "https://dth235770huynhthithanhthao.github.io/LTQL_DoAn_Buoi8_9/";
+            // 
             // frmHoaDon_ChiTiet
             // 
             AutoScaleDimensions = new SizeF(11F, 22F);
@@ -630,5 +635,6 @@
         private DataGridViewTextBoxColumn SoLuongBan;
         private DataGridViewTextBoxColumn ThanhTien;
         private ImageList imageList1;
+        private HelpProvider helpProvider1;
     }
 }

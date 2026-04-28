@@ -32,12 +32,15 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmHoa));
             groupBox1 = new GroupBox();
             picHinhAnh = new PictureBox();
+            groupBox3 = new GroupBox();
+            btnTimKiem = new Button();
+            imageList1 = new ImageList(components);
+            txtTimKiem = new TextBox();
             numDonGia = new NumericUpDown();
             numSoLuong = new NumericUpDown();
             cboNhaCungCap = new ComboBox();
             cboLoaiHoa = new ComboBox();
             btnDoiAnh = new Button();
-            imageList1 = new ImageList(components);
             btnXuat = new Button();
             btnNhap = new Button();
             btnThoat = new Button();
@@ -54,9 +57,6 @@
             label5 = new Label();
             label2 = new Label();
             label1 = new Label();
-            groupBox3 = new GroupBox();
-            btnTimKiem = new Button();
-            txtTimKiem = new TextBox();
             groupBox2 = new GroupBox();
             dataGridView = new DataGridView();
             ID = new DataGridViewTextBoxColumn();
@@ -66,11 +66,12 @@
             SoLuong = new DataGridViewTextBoxColumn();
             DonGia = new DataGridViewTextBoxColumn();
             HinhAnh = new DataGridViewImageColumn();
+            helpProvider1 = new HelpProvider();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picHinhAnh).BeginInit();
+            groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numDonGia).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numSoLuong).BeginInit();
-            groupBox3.SuspendLayout();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
             SuspendLayout();
@@ -116,6 +117,66 @@
             picHinhAnh.SizeMode = PictureBoxSizeMode.StretchImage;
             picHinhAnh.TabIndex = 5;
             picHinhAnh.TabStop = false;
+            // 
+            // groupBox3
+            // 
+            groupBox3.BackColor = Color.FloralWhite;
+            groupBox3.Controls.Add(btnTimKiem);
+            groupBox3.Controls.Add(txtTimKiem);
+            groupBox3.Location = new Point(15, 313);
+            groupBox3.Name = "groupBox3";
+            groupBox3.Size = new Size(604, 76);
+            groupBox3.TabIndex = 6;
+            groupBox3.TabStop = false;
+            groupBox3.Text = "Tìm kiếm";
+            // 
+            // btnTimKiem
+            // 
+            btnTimKiem.BackColor = Color.FromArgb(192, 255, 255);
+            btnTimKiem.ImageIndex = 16;
+            btnTimKiem.ImageList = imageList1;
+            btnTimKiem.Location = new Point(446, 21);
+            btnTimKiem.Name = "btnTimKiem";
+            btnTimKiem.Size = new Size(134, 40);
+            btnTimKiem.TabIndex = 1;
+            btnTimKiem.Text = "Tìm kiếm";
+            btnTimKiem.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnTimKiem.UseVisualStyleBackColor = false;
+            btnTimKiem.Click += btnTimKiem_Click;
+            // 
+            // imageList1
+            // 
+            imageList1.ColorDepth = ColorDepth.Depth32Bit;
+            imageList1.ImageStream = (ImageListStreamer)resources.GetObject("imageList1.ImageStream");
+            imageList1.TransparentColor = Color.Transparent;
+            imageList1.Images.SetKeyName(0, "info.png");
+            imageList1.Images.SetKeyName(1, "edit (1).png");
+            imageList1.Images.SetKeyName(2, "chart-histogram.png");
+            imageList1.Images.SetKeyName(3, "stats.png");
+            imageList1.Images.SetKeyName(4, "home (1).png");
+            imageList1.Images.SetKeyName(5, "home.png");
+            imageList1.Images.SetKeyName(6, "home_1946436.png");
+            imageList1.Images.SetKeyName(7, "add.png");
+            imageList1.Images.SetKeyName(8, "delete.png");
+            imageList1.Images.SetKeyName(9, "edit.png");
+            imageList1.Images.SetKeyName(10, "exit.png");
+            imageList1.Images.SetKeyName(11, "refresh.png");
+            imageList1.Images.SetKeyName(12, "save.png");
+            imageList1.Images.SetKeyName(13, "exit (1).png");
+            imageList1.Images.SetKeyName(14, "sign-out-alt.png");
+            imageList1.Images.SetKeyName(15, "cross-circle.png");
+            imageList1.Images.SetKeyName(16, "search.png");
+            imageList1.Images.SetKeyName(17, "address-card.png");
+            imageList1.Images.SetKeyName(18, "check.png");
+            imageList1.Images.SetKeyName(19, "download.png");
+            imageList1.Images.SetKeyName(20, "address-card (1).png");
+            // 
+            // txtTimKiem
+            // 
+            txtTimKiem.Location = new Point(7, 30);
+            txtTimKiem.Name = "txtTimKiem";
+            txtTimKiem.Size = new Size(419, 30);
+            txtTimKiem.TabIndex = 0;
             // 
             // numDonGia
             // 
@@ -163,33 +224,6 @@
             btnDoiAnh.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnDoiAnh.UseVisualStyleBackColor = false;
             btnDoiAnh.Click += btnDoiAnh_Click;
-            // 
-            // imageList1
-            // 
-            imageList1.ColorDepth = ColorDepth.Depth32Bit;
-            imageList1.ImageStream = (ImageListStreamer)resources.GetObject("imageList1.ImageStream");
-            imageList1.TransparentColor = Color.Transparent;
-            imageList1.Images.SetKeyName(0, "info.png");
-            imageList1.Images.SetKeyName(1, "edit (1).png");
-            imageList1.Images.SetKeyName(2, "chart-histogram.png");
-            imageList1.Images.SetKeyName(3, "stats.png");
-            imageList1.Images.SetKeyName(4, "home (1).png");
-            imageList1.Images.SetKeyName(5, "home.png");
-            imageList1.Images.SetKeyName(6, "home_1946436.png");
-            imageList1.Images.SetKeyName(7, "add.png");
-            imageList1.Images.SetKeyName(8, "delete.png");
-            imageList1.Images.SetKeyName(9, "edit.png");
-            imageList1.Images.SetKeyName(10, "exit.png");
-            imageList1.Images.SetKeyName(11, "refresh.png");
-            imageList1.Images.SetKeyName(12, "save.png");
-            imageList1.Images.SetKeyName(13, "exit (1).png");
-            imageList1.Images.SetKeyName(14, "sign-out-alt.png");
-            imageList1.Images.SetKeyName(15, "cross-circle.png");
-            imageList1.Images.SetKeyName(16, "search.png");
-            imageList1.Images.SetKeyName(17, "address-card.png");
-            imageList1.Images.SetKeyName(18, "check.png");
-            imageList1.Images.SetKeyName(19, "download.png");
-            imageList1.Images.SetKeyName(20, "address-card (1).png");
             // 
             // btnXuat
             // 
@@ -373,39 +407,6 @@
             label1.TabIndex = 0;
             label1.Text = "Mô tả hoa:";
             // 
-            // groupBox3
-            // 
-            groupBox3.BackColor = Color.FloralWhite;
-            groupBox3.Controls.Add(btnTimKiem);
-            groupBox3.Controls.Add(txtTimKiem);
-            groupBox3.Location = new Point(15, 313);
-            groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(604, 76);
-            groupBox3.TabIndex = 6;
-            groupBox3.TabStop = false;
-            groupBox3.Text = "Tìm kiếm";
-            // 
-            // btnTimKiem
-            // 
-            btnTimKiem.BackColor = Color.FromArgb(192, 255, 255);
-            btnTimKiem.ImageIndex = 16;
-            btnTimKiem.ImageList = imageList1;
-            btnTimKiem.Location = new Point(446, 21);
-            btnTimKiem.Name = "btnTimKiem";
-            btnTimKiem.Size = new Size(134, 40);
-            btnTimKiem.TabIndex = 1;
-            btnTimKiem.Text = "Tìm kiếm";
-            btnTimKiem.TextImageRelation = TextImageRelation.ImageBeforeText;
-            btnTimKiem.UseVisualStyleBackColor = false;
-            btnTimKiem.Click += btnTimKiem_Click;
-            // 
-            // txtTimKiem
-            // 
-            txtTimKiem.Location = new Point(7, 30);
-            txtTimKiem.Name = "txtTimKiem";
-            txtTimKiem.Size = new Size(419, 30);
-            txtTimKiem.TabIndex = 0;
-            // 
             // groupBox2
             // 
             groupBox2.BackColor = Color.LavenderBlush;
@@ -490,6 +491,10 @@
             HinhAnh.MinimumWidth = 6;
             HinhAnh.Name = "HinhAnh";
             // 
+            // helpProvider1
+            // 
+            helpProvider1.HelpNamespace = "https://dth235770huynhthithanhthao.github.io/LTQL_DoAn_Buoi8_9/";
+            // 
             // frmHoa
             // 
             AutoScaleDimensions = new SizeF(11F, 22F);
@@ -507,10 +512,10 @@
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)picHinhAnh).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numDonGia).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numSoLuong).EndInit();
             groupBox3.ResumeLayout(false);
             groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)numDonGia).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numSoLuong).EndInit();
             groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridView).EndInit();
             ResumeLayout(false);
@@ -553,5 +558,6 @@
         private DataGridViewTextBoxColumn DonGia;
         private DataGridViewImageColumn HinhAnh;
         private ImageList imageList1;
+        private HelpProvider helpProvider1;
     }
 }

@@ -62,6 +62,7 @@
             groupBox1 = new GroupBox();
             dtpNgayNhap = new DateTimePicker();
             txtGhiChuPhieuNhap = new TextBox();
+            helpProvider1 = new HelpProvider();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numSoLuongNhap).BeginInit();
@@ -418,6 +419,10 @@
             txtGhiChuPhieuNhap.Size = new Size(426, 30);
             txtGhiChuPhieuNhap.TabIndex = 2;
             // 
+            // helpProvider1
+            // 
+            helpProvider1.HelpNamespace = "https://dth235770huynhthithanhthao.github.io/LTQL_DoAn_Buoi8_9/";
+            // 
             // frmChiTiet_PhieuNhap
             // 
             AutoScaleDimensions = new SizeF(11F, 22F);
@@ -480,5 +485,6 @@
         private DataGridViewTextBoxColumn SoLuongNhap;
         private DataGridViewTextBoxColumn ThanhTien;
         private ImageList imageList1;
+        private HelpProvider helpProvider1;
     }
 }

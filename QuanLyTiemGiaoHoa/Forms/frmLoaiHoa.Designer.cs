@@ -50,6 +50,7 @@
             ID = new DataGridViewTextBoxColumn();
             TenLoai = new DataGridViewTextBoxColumn();
             groupBox4 = new GroupBox();
+            helpProvider1 = new HelpProvider();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox3.SuspendLayout();
@@ -337,6 +338,10 @@
             groupBox4.TabIndex = 1;
             groupBox4.TabStop = false;
             // 
+            // helpProvider1
+            // 
+            helpProvider1.HelpNamespace = "https://dth235770huynhthithanhthao.github.io/LTQL_DoAn_Buoi8_9/";
+            // 
             // frmLoaiHoa
             // 
             AutoScaleDimensions = new SizeF(11F, 22F);
@@ -382,5 +387,6 @@
         private DataGridViewTextBoxColumn TenLoai;
         private ImageList imageList1;
         private GroupBox groupBox4;
+        private HelpProvider helpProvider1;
     }
 }

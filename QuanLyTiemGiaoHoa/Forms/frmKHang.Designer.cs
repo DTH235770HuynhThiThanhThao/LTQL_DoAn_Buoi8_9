@@ -38,6 +38,7 @@
             DiaChi = new DataGridViewTextBoxColumn();
             groupBox1 = new GroupBox();
             btnXuat = new Button();
+            imageList1 = new ImageList(components);
             btnThoat = new Button();
             btnXoa = new Button();
             btnNhap = new Button();
@@ -54,7 +55,7 @@
             groupBox3 = new GroupBox();
             btnTimKiem = new Button();
             txtTimKiem = new TextBox();
-            imageList1 = new ImageList(components);
+            helpProvider1 = new HelpProvider();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
             groupBox1.SuspendLayout();
@@ -162,6 +163,33 @@
             btnXuat.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnXuat.UseVisualStyleBackColor = false;
             btnXuat.Click += btnXuat_Click;
+            // 
+            // imageList1
+            // 
+            imageList1.ColorDepth = ColorDepth.Depth32Bit;
+            imageList1.ImageStream = (ImageListStreamer)resources.GetObject("imageList1.ImageStream");
+            imageList1.TransparentColor = Color.Transparent;
+            imageList1.Images.SetKeyName(0, "info.png");
+            imageList1.Images.SetKeyName(1, "edit (1).png");
+            imageList1.Images.SetKeyName(2, "chart-histogram.png");
+            imageList1.Images.SetKeyName(3, "stats.png");
+            imageList1.Images.SetKeyName(4, "home (1).png");
+            imageList1.Images.SetKeyName(5, "home.png");
+            imageList1.Images.SetKeyName(6, "home_1946436.png");
+            imageList1.Images.SetKeyName(7, "add.png");
+            imageList1.Images.SetKeyName(8, "delete.png");
+            imageList1.Images.SetKeyName(9, "edit.png");
+            imageList1.Images.SetKeyName(10, "exit.png");
+            imageList1.Images.SetKeyName(11, "refresh.png");
+            imageList1.Images.SetKeyName(12, "save.png");
+            imageList1.Images.SetKeyName(13, "exit (1).png");
+            imageList1.Images.SetKeyName(14, "sign-out-alt.png");
+            imageList1.Images.SetKeyName(15, "cross-circle.png");
+            imageList1.Images.SetKeyName(16, "search.png");
+            imageList1.Images.SetKeyName(17, "address-card.png");
+            imageList1.Images.SetKeyName(18, "check.png");
+            imageList1.Images.SetKeyName(19, "download.png");
+            imageList1.Images.SetKeyName(20, "address-card (1).png");
             // 
             // btnThoat
             // 
@@ -355,32 +383,9 @@
             txtTimKiem.Size = new Size(392, 30);
             txtTimKiem.TabIndex = 0;
             // 
-            // imageList1
+            // helpProvider1
             // 
-            imageList1.ColorDepth = ColorDepth.Depth32Bit;
-            imageList1.ImageStream = (ImageListStreamer)resources.GetObject("imageList1.ImageStream");
-            imageList1.TransparentColor = Color.Transparent;
-            imageList1.Images.SetKeyName(0, "info.png");
-            imageList1.Images.SetKeyName(1, "edit (1).png");
-            imageList1.Images.SetKeyName(2, "chart-histogram.png");
-            imageList1.Images.SetKeyName(3, "stats.png");
-            imageList1.Images.SetKeyName(4, "home (1).png");
-            imageList1.Images.SetKeyName(5, "home.png");
-            imageList1.Images.SetKeyName(6, "home_1946436.png");
-            imageList1.Images.SetKeyName(7, "add.png");
-            imageList1.Images.SetKeyName(8, "delete.png");
-            imageList1.Images.SetKeyName(9, "edit.png");
-            imageList1.Images.SetKeyName(10, "exit.png");
-            imageList1.Images.SetKeyName(11, "refresh.png");
-            imageList1.Images.SetKeyName(12, "save.png");
-            imageList1.Images.SetKeyName(13, "exit (1).png");
-            imageList1.Images.SetKeyName(14, "sign-out-alt.png");
-            imageList1.Images.SetKeyName(15, "cross-circle.png");
-            imageList1.Images.SetKeyName(16, "search.png");
-            imageList1.Images.SetKeyName(17, "address-card.png");
-            imageList1.Images.SetKeyName(18, "check.png");
-            imageList1.Images.SetKeyName(19, "download.png");
-            imageList1.Images.SetKeyName(20, "address-card (1).png");
+            helpProvider1.HelpNamespace = "https://dth235770huynhthithanhthao.github.io/LTQL_DoAn_Buoi8_9/";
             // 
             // frmKHang
             // 
@@ -433,5 +438,6 @@
         private DataGridViewTextBoxColumn DiaChi;
         private Button btnTimKiem;
         private ImageList imageList1;
+        private HelpProvider helpProvider1;
     }
 }

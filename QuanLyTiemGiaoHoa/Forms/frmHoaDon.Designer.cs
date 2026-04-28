@@ -51,6 +51,7 @@
             groupBox3 = new GroupBox();
             btnTimKiem = new Button();
             txtTimKiem = new TextBox();
+            helpProvider1 = new HelpProvider();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
             groupBox3.SuspendLayout();
@@ -309,6 +310,10 @@
             txtTimKiem.Size = new Size(419, 30);
             txtTimKiem.TabIndex = 0;
             // 
+            // helpProvider1
+            // 
+            helpProvider1.HelpNamespace = "https://dth235770huynhthithanhthao.github.io/LTQL_DoAn_Buoi8_9/";
+            // 
             // frmHoaDon
             // 
             AutoScaleDimensions = new SizeF(11F, 22F);
@@ -359,5 +364,6 @@
         private DataGridViewTextBoxColumn TrangThaiGiao;
         private DataGridViewLinkColumn XemChiTiet;
         private ImageList imageList1;
+        private HelpProvider helpProvider1;
     }
 }
