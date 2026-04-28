@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Hướng Dẫn Sử Dụng - Quản Lý Tiệm Hoa</title>
+    <style>
+        /* Thiết lập tông màu Trắng - Hồng chủ đạo */
+        body {
+            background-color: #fff5f7; /* Nền hồng cực nhạt */
+            color: #4a4a4a; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 10px 30px rgba(255, 182, 193, 0.3);
+            border-radius: 15px;
+        }
+        .header {
+            background: linear-gradient(135deg, #ff8da1, #ffb6c1); /* Gradient Hồng */
+            color: white;
+            padding: 40px;
+            text-align: center;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+        .header h1 { margin: 0; font-size: 2.5em; text-shadow: 1px 1px 3px rgba(0,0,0,0.1); }
+        
+        h2 { 
+            color: #d81b60; 
+            border-bottom: 2px solid #ffb6c1; 
+            padding-bottom: 10px;
+            margin-top: 30px;
+            display: flex;
+            align-items: center;
+        }
+        h2::before {
+            content: "🌸";
+            margin-right: 10px;
+            font-size: 0.8em;
+        }
+
+        h3 { color: #ec407a; margin-left: 20px; }
+
+        .content { padding: 0 20px; }
+
+        .badge {
+            background-color: #ff4081;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+        }
+
+        ul { list-style-type: none; }
+        li { margin-bottom: 12px; position: relative; padding-left: 25px; }
+        li::before {
+            content: "✔";
+            position: absolute;
+            left: 0;
+            color: #ff8da1;
+            font-weight: bold;
+        }
+
+        b { color: #ad1457; }
+
+        /* Khung ghi chú nhanh */
+        .note {
+            background-color: #fff0f3;
+            border-left: 5px solid #ff8da1;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+            font-style: italic;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            color: #b1b1b1;
+            font-size: 0.9em;
+            padding-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>HƯỚNG DẪN VẬN HÀNH HỆ THỐNG</h1>
+        <p>PHẦN MỀM QUẢN LÝ TIỆM GIAO HOA TƯƠI</p>
+    </div>
+
+    <div class="content">
+        <h2>1. QUẢN TRỊ & BẢO MẬT</h2>
+        <p>Hệ thống sử dụng cơ chế bảo mật <span class="badge">MÃ HÓA BCRYPT</span> để bảo vệ dữ liệu người dùng.</p>
+        <ul>
+            <li><b>Phân quyền Quản lý:</b> Toàn quyền thao tác dữ liệu, xem báo cáo thống kê doanh thu và quản trị nhân sự.</li>
+            <li><b>Phân quyền Nhân viên:</b> Thực hiện nghiệp vụ bán hàng, nhập hàng và quản lý khách hàng (Hạn chế xem báo cáo tài chính).</li>
+            <li><b>Bảo mật mật khẩu:</b> Mật khẩu được băm một chiều, đảm bảo an toàn tuyệt đối ngay cả khi dữ liệu bị truy cập trái phép.</li>
+        </ul>
+
+        <h2>2. HƯỚNG DẪN ĐỔI MẬT KHẨU</h2>
+        <div class="note">Lưu ý: Bạn nên thay đổi mật khẩu định kỳ để tăng tính bảo mật cho tài khoản cá nhân.</div>
+        <ul>
+            <li>Vào menu <b>Hệ thống</b> &rarr; Chọn <b>Đổi mật khẩu</b>.</li>
+            <li><b>Mật khẩu cũ:</b> Nhập mật khẩu hiện đang sử dụng.</li>
+            <li><b>Mật khẩu mới:</b> Nhập mật khẩu mới (Nên bao gồm cả chữ và số).</li>
+            <li>Nhấn <b>Cập nhật</b> để lưu thay đổi. Hệ thống sẽ thông báo thành công.</li>
+        </ul>
+
+        <h2>3. QUẢN LÝ DANH MỤC CHI TIẾT</h2>
+        <p>Đây là khu vực quản lý các dữ liệu nền tảng cho tiệm hoa:</p>
+        
+        <h3>3.1. Quản lý Loại hoa & Hoa</h3>
+        <ul>
+            <li>Phân loại hoa theo chủ đề: <b>Hoa sinh nhật, Hoa cưới, Hoa khai trương...</b></li>
+            <li>Quản lý thông tin hoa: Tên hoa, đơn giá, số lượng tồn kho và hình ảnh minh họa.</li>
+        </ul>
+
+        <h3>3.2. Quản lý Đối tác (Nhà cung cấp & Khách hàng)</h3>
+        <ul>
+            <li><b>Nhà cung cấp:</b> Lưu trữ thông tin liên lạc của các đơn vị cung cấp hoa sỉ để nhập hàng.</li>
+            <li><b>Khách hàng:</b> Lưu trữ thông tin khách hàng thân thiết, số điện thoại để tích điểm hoặc thực hiện giao hàng.</li>
+        </ul>
+
+        <h3>3.3. Quản lý Nhân viên</h3>
+        <ul>
+            <li>Thêm mới nhân viên, cấp tài khoản đăng nhập và gán quyền hạn (Admin hoặc Nhân viên).</li>
+            <li>Chỉnh sửa thông tin liên lạc và địa chỉ của nhân sự trong tiệm.</li>
+        </ul>
+
+        <h2>4. NGHIỆP VỤ BÁN HÀNG & GIAO NHẬN</h2>
+        <ul>
+            <li><b>Lập hóa đơn:</b> Chọn hoa khách mua, tính tổng tiền và in hóa đơn cho khách.</li>
+            <li><b>Quản lý giao hàng:</b> Cập nhật trạng thái đơn hàng (Đang giao, Đã giao, Hủy) và thông tin người nhận thực tế.</li>
+            <li><b>Nhập hàng:</b> Thực hiện nhập thêm hoa vào kho khi số lượng tồn xuống thấp.</li>
+        </ul>
+    </div>
+
+    <footer>
+        &copy; 2026 Phần Mềm Quản Lý Tiệm Hoa - Hệ Thống Trợ Giúp Trực Tuyến
+    </footer>
+</div>
+
+</body>
+</html>
