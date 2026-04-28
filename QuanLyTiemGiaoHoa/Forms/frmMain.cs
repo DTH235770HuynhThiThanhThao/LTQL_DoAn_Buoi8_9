@@ -476,58 +476,7 @@ namespace QuanLyTiemGiaoHoa.Forms
 
 
 
-            /*
-            // 1. Tìm xem Form này đã mở chưa
-            T frm = this.MdiChildren.OfType<T>().FirstOrDefault();
-
-            if (frm == null)
-            {
-                // 2. Đóng các form con khác nếu muốn (không bắt buộc)
-                foreach (Form child in this.MdiChildren) child.Close();
-
-                // 3. Tạo mới
-                frm = new T();
-                frm.MdiParent = this;
-
-                // QUAN TRỌNG: Thiết lập để nó nằm giữa
-                frm.StartPosition = FormStartPosition.CenterScreen;
-
-                // KHÔNG dùng Maximized ở đây nữa nhé
-                frm.Show();
-            }
-            else
-            {
-                frm.Activate();
-            }
-            */
-
-            /*
-            T frm = this.MdiChildren.OfType<T>().FirstOrDefault();
-
-            if (frm == null)
-            {
-                foreach (Form child in this.MdiChildren) child.Close();
-
-                frm = new T();
-                frm.MdiParent = this;
-
-                // 1. Ẩn thanh tiêu đề để nhập vào nền
-                frm.FormBorderStyle = FormBorderStyle.None;
-
-                // 2. TẠO KHOẢNG CÁCH LỀ (Padding): 
-                // Trái: 20, Trên: 20, Phải: 20, Dưới: 20 (Bạn có thể tăng giảm số này)
-                frm.Padding = new Padding(20, 20, 20, 20);
-
-                // 3. Ép tràn màn hình
-                frm.WindowState = FormWindowState.Maximized;
-
-                frm.Show();
-            }
-            else
-            {
-                frm.Activate();
-            }
-            */
+            
         }
 
         private void mnuThongKeHoa_Click(object sender, EventArgs e)
